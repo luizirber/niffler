@@ -4,8 +4,12 @@
 
 **Get a readable/writable object out of filenames (including compressed files**
 
+[![build-status]][github-actions]
 [![Crates.io](https://img.shields.io/crates/v/niffler.svg)](https://crates.io/crates/niffler)
 [![Documentation](https://docs.rs/niffler/badge.svg)](https://docs.rs/niffler/)
+
+[build-status]: https://github.com/luizirber/niffler/workflows/CI/badge.svg
+[github-actions]: https://github.com/luizirber/niffler/actions?query=workflow%3ACI
 
 ## License
 
