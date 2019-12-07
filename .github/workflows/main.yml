@@ -131,53 +131,6 @@ jobs:
           command: clippy
           args: -- -D warnings
 
-  wasm-pack:
-    name: Check if wasm-pack builds a valid package
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: wasm32-unknown-unknown
-      - uses: actions-rs/cargo@v1
-        with:
-          command: install
-          args: --force wasm-pack
-      - name: run wasm-pack
-        run: wasm-pack build
-
-  wasm32-wasi:
-    name: Run tests under wasm32-wasi
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Install wasm32-wasi target
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: wasm32-wasi
-      - name: Install wasmtime
-        run: "curl https://wasmtime.dev/install.sh -sSf | bash"
-      - name: Add wasmtime to PATH
-        run: echo "::add-path::$HOME/.wasmtime/bin"
-      - name: Install cargo-wasi command
-        uses: actions-rs/cargo@v1
-        with:
-          command: install
-          args: --force cargo-wasi
-      - name: Build code with cargo-wasi
-        uses: actions-rs/cargo@v1
-        with:
-          command: wasi
-          args: build
-      - name: Run tests under wasm32-wasi
-        uses: actions-rs/cargo@v1
-        continue-on-error: true  ## TODO: remove this when tests work...
-        with:
-          command: wasi
-          args: test
-
   publish:
     name: Publish (dry-run)
     runs-on: ubuntu-latest
