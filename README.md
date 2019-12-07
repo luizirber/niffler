@@ -2,7 +2,7 @@
 
 # niffler
 
-**Get a readable/writable object out of filenames (including compressed files**
+**Get a readable/writable object out of filenames (including compressed files)**
 
 [![build-status]][github-actions]
 [![Crates.io](https://img.shields.io/crates/v/niffler.svg)](https://crates.io/crates/niffler)

@@ -2,7 +2,7 @@
 name = "niffler"
 version = "1.0.0"
 authors = ["Pierre Marijon <pierre.marijon@inria.fr>", "Luiz Irber <luiz.irber@gmail.com>"]
-description = "Get a readable/writable object out of filenames (including compressed files"
+description = "Get a readable/writable object out of filenames (including compressed files)"
 license = "MIT/Apache-2.0"
 repository = "https://github.com/luizirber/niffler"
 homepage = "https://github.com/luizirber/niffler"
