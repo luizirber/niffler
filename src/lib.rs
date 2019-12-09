@@ -51,13 +51,54 @@ enum_from_primitive! {
 pub enum OCFError {
     #[fail(display = "Feature disabled, enabled it during compilation")]
     FeatureDisabled,
+
+    #[fail(display = "File is too short, less than five bytes")]
+    FileTooShort,
+}
+
+fn get_first_five(mut in_stream: Box<dyn io::Read>) -> Result<([u8; 5], Box<dyn io::Read>), Error>{
+    let mut buf = [0u8; 5];
+
+    match in_stream.read_exact(&mut buf) {
+	Ok(()) => Ok((buf, in_stream)),
+	Err(_) => Err(OCFError::FileTooShort.into()),
+    }
+}
+
+fn read_compression(
+    in_stream: Box<dyn io::Read>,
+) -> Result<(CompressionFormat, Box<dyn io::Read>), Error> {
+    let (first_bytes, in_stream) = get_first_five(in_stream)?;
+    
+    let mut five_bit_val: u64 = 0;
+    for (i, item) in first_bytes.iter().enumerate().take(5) {
+        five_bit_val |= (u64::from(*item)) << (8 * (4 - i));
+    }
+
+    if CompressionFormat::from_u64(five_bit_val) == Some(CompressionFormat::Lzma) {
+        let cursor = io::Cursor::new(first_bytes);
+        return Ok((CompressionFormat::Lzma, Box::new(cursor.chain(in_stream))));
+    }
+
+    let mut two_bit_val: u64 = 0;
+    for (i, item) in first_bytes.iter().enumerate().take(2) {
+        two_bit_val |= (u64::from(*item)) << (8 * (1 - i));
+    }
+
+    let cursor = io::Cursor::new(first_bytes);
+    match CompressionFormat::from_u64(two_bit_val) {
+        e @ Some(CompressionFormat::Gzip) | e @ Some(CompressionFormat::Bzip) => {
+            Ok((e.unwrap(), Box::new(cursor.chain(in_stream))))
+        }
+        _ => Ok((CompressionFormat::No, Box::new(cursor.chain(in_stream)))),
+    }
 }
 
 pub fn get_reader(
     in_stream: Box<dyn io::Read>,
 ) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
     // check compression
-    let (compression, in_stream) = read_compression(in_stream);
+    let (compression, in_stream) = read_compression(in_stream)?;
 
     // return readable and compression status
     match compression {
@@ -68,39 +109,6 @@ pub fn get_reader(
         CompressionFormat::Bzip => new_bz2_decoder(in_stream),
         CompressionFormat::Lzma => new_lzma_decoder(in_stream),
         CompressionFormat::No => Ok((in_stream, CompressionFormat::No)),
-    }
-}
-
-fn read_compression<'a>(
-    mut in_stream: Box<dyn io::Read>,
-) -> (CompressionFormat, Box<dyn io::Read>) {
-    let mut buf = [0u8; 5];
-
-    in_stream
-        .read_exact(&mut buf)
-        .expect("Error durring reading first bit of file");
-
-    let mut five_bit_val: u64 = 0;
-    for (i, item) in buf.iter().enumerate().take(5) {
-        five_bit_val |= (u64::from(*item)) << (8 * (4 - i));
-    }
-
-    if CompressionFormat::from_u64(five_bit_val) == Some(CompressionFormat::Lzma) {
-        let cursor = io::Cursor::new(buf);
-        return (CompressionFormat::Lzma, Box::new(cursor.chain(in_stream)));
-    }
-
-    let mut two_bit_val: u64 = 0;
-    for (i, item) in buf.iter().enumerate().take(2) {
-        two_bit_val |= (u64::from(*item)) << (8 * (1 - i));
-    }
-
-    let cursor = io::Cursor::new(buf);
-    match CompressionFormat::from_u64(two_bit_val) {
-        e @ Some(CompressionFormat::Gzip) | e @ Some(CompressionFormat::Bzip) => {
-            (e.unwrap(), Box::new(cursor.chain(in_stream)))
-        }
-        _ => (CompressionFormat::No, Box::new(cursor.chain(in_stream))),
     }
 }
 
@@ -183,6 +191,7 @@ mod test {
 
     use super::*;
 
+    const SHORT_FILE: &'static [u8] = &[0o037, 0o213, 0o0, 0o0];
     const GZIP_FILE: &'static [u8] = &[0o037, 0o213, 0o0, 0o0, 0o0];
     const BZIP_FILE: &'static [u8] = &[0o102, 0o132, 0o0, 0o0, 0o0];
     const LZMA_FILE: &'static [u8] = &[0o375, 0o067, 0o172, 0o130, 0o132];
@@ -193,20 +202,26 @@ mod test {
 
         #[test]
         fn gzip() {
-            let (compression, _) = read_compression(Box::new(GZIP_FILE));
+            let (compression, _) = read_compression(Box::new(GZIP_FILE)).expect("Error in read file");
             assert_eq!(compression, CompressionFormat::Gzip);
         }
 
         #[test]
         fn bzip() {
-            let (compression, _) = read_compression(Box::new(BZIP_FILE));
+            let (compression, _) = read_compression(Box::new(BZIP_FILE)).expect("Error in read file");
             assert_eq!(compression, CompressionFormat::Bzip);
         }
 
         #[test]
         fn lzma() {
-            let (compression, _) = read_compression(Box::new(LZMA_FILE));
+            let (compression, _) = read_compression(Box::new(LZMA_FILE)).expect("Error in read file");
             assert_eq!(compression, CompressionFormat::Lzma);
+        }
+
+	#[test]
+        fn too_short() {
+            let result = read_compression(Box::new(SHORT_FILE));
+            assert!(result.is_err());
         }
     }
 
