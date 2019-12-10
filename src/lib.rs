@@ -62,7 +62,7 @@ fn get_first_five(
     let mut buf = [0u8; 5];
     match in_stream.read_exact(&mut buf) {
         Ok(()) => Ok((buf, in_stream)),
-        Err(_) => Err(NifflerError::FileTooShort.into()),
+        Err(_) => Err(NifflerError::FileTooShort),
     }
 }
 
@@ -135,11 +135,11 @@ cfg_if! {
         }
     } else {
         fn new_bz2_encoder(_: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, NifflerError> {
-            Err(NifflerError::FeatureDisabled.into())
+            Err(NifflerError::FeatureDisabled)
         }
 
         fn new_bz2_decoder(_: Box<dyn io::Read>) -> Result<(Box<dyn io::Read>, CompressionFormat), NifflerError> {
-            Err(NifflerError::FeatureDisabled.into())
+            Err(NifflerError::FeatureDisabled)
         }
     }
 }
@@ -163,11 +163,11 @@ cfg_if! {
       }
     } else {
       fn new_lzma_encoder(_: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, NifflerError> {
-          Err(NifflerError::FeatureDisabled.into())
+          Err(NifflerError::FeatureDisabled)
       }
 
       fn new_lzma_decoder(_: Box<dyn io::Read>) -> Result<(Box<dyn io::Read>, CompressionFormat), NifflerError> {
-          Err(NifflerError::FeatureDisabled.into())
+          Err(NifflerError::FeatureDisabled)
       }
     }
 }
