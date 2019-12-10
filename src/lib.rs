@@ -56,12 +56,12 @@ pub enum OCFError {
     FileTooShort,
 }
 
-fn get_first_five(mut in_stream: Box<dyn io::Read>) -> Result<([u8; 5], Box<dyn io::Read>), Error>{
+fn get_first_five(mut in_stream: Box<dyn io::Read>) -> Result<([u8; 5], Box<dyn io::Read>), Error> {
     let mut buf = [0u8; 5];
 
     match in_stream.read_exact(&mut buf) {
-	Ok(()) => Ok((buf, in_stream)),
-	Err(_) => Err(OCFError::FileTooShort.into()),
+        Ok(()) => Ok((buf, in_stream)),
+        Err(_) => Err(OCFError::FileTooShort.into()),
     }
 }
 
@@ -69,7 +69,7 @@ fn read_compression(
     in_stream: Box<dyn io::Read>,
 ) -> Result<(CompressionFormat, Box<dyn io::Read>), Error> {
     let (first_bytes, in_stream) = get_first_five(in_stream)?;
-    
+
     let mut five_bit_val: u64 = 0;
     for (i, item) in first_bytes.iter().enumerate().take(5) {
         five_bit_val |= (u64::from(*item)) << (8 * (4 - i));
@@ -202,23 +202,26 @@ mod test {
 
         #[test]
         fn gzip() {
-            let (compression, _) = read_compression(Box::new(GZIP_FILE)).expect("Error in read file");
+            let (compression, _) =
+                read_compression(Box::new(GZIP_FILE)).expect("Error in read file");
             assert_eq!(compression, CompressionFormat::Gzip);
         }
 
         #[test]
         fn bzip() {
-            let (compression, _) = read_compression(Box::new(BZIP_FILE)).expect("Error in read file");
+            let (compression, _) =
+                read_compression(Box::new(BZIP_FILE)).expect("Error in read file");
             assert_eq!(compression, CompressionFormat::Bzip);
         }
 
         #[test]
         fn lzma() {
-            let (compression, _) = read_compression(Box::new(LZMA_FILE)).expect("Error in read file");
+            let (compression, _) =
+                read_compression(Box::new(LZMA_FILE)).expect("Error in read file");
             assert_eq!(compression, CompressionFormat::Lzma);
         }
 
-	#[test]
+        #[test]
         fn too_short() {
             let result = read_compression(Box::new(SHORT_FILE));
             assert!(result.is_err());
@@ -227,81 +230,82 @@ mod test {
 
     mod compress_uncompress {
         use super::*;
+        use tempfile::NamedTempFile;
 
         #[test]
         fn gzip() {
-            {
-                let wfile =
-                    std::fs::File::create("tmp.gz").expect("We can't create tmp.file for test");
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
 
+            {
+                let wfile = ofile.reopen().expect("Can't create tmpfile");
                 let mut writer = get_writer(Box::new(wfile), CompressionFormat::Gzip).unwrap();
                 writer
                     .write_all(LOREM_IPSUM)
-                    .expect("Error durring write of data");
+                    .expect("Error during write of data");
             }
 
-            let rfile = std::fs::File::open("tmp.gz").expect("We can't read tmp.file for test");
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
             let (mut reader, compression) =
-                get_reader(Box::new(rfile)).expect("Error in reading of tmp.file");
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
 
             assert_eq!(compression, CompressionFormat::Gzip);
 
             let mut buffer = Vec::new();
             reader
                 .read_to_end(&mut buffer)
-                .expect("Error durring reading");
+                .expect("Error during reading");
             assert_eq!(LOREM_IPSUM, buffer.as_slice());
         }
 
         #[cfg(feature = "bz2")]
         #[test]
         fn bzip() {
-            {
-                let wfile =
-                    std::fs::File::create("tmp.bz2").expect("We can't create tmp.file for test");
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
 
+            {
+                let wfile = ofile.reopen().expect("Can't create tmpfile");
                 let mut writer = get_writer(Box::new(wfile), CompressionFormat::Bzip).unwrap();
                 writer
                     .write_all(LOREM_IPSUM)
-                    .expect("Error durring write of data");
+                    .expect("Error during write of data");
             }
 
-            let rfile = std::fs::File::open("tmp.bz2").expect("We can't read tmp.file for test");
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
             let (mut reader, compression) =
-                get_reader(Box::new(rfile)).expect("Error in reading of tmp.file");
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
 
             assert_eq!(compression, CompressionFormat::Bzip);
 
             let mut buffer = Vec::new();
             reader
                 .read_to_end(&mut buffer)
-                .expect("Error durring reading");
+                .expect("Error during reading");
             assert_eq!(LOREM_IPSUM, buffer.as_slice());
         }
 
         #[cfg(feature = "lzma")]
         #[test]
         fn lzma() {
-            {
-                let wfile =
-                    std::fs::File::create("tmp.xz").expect("We can't create tmp.file for test");
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
 
+            {
+                let wfile = ofile.reopen().expect("Can't create tmpfile");
                 let mut writer = get_writer(Box::new(wfile), CompressionFormat::Lzma).unwrap();
                 writer
                     .write_all(LOREM_IPSUM)
-                    .expect("Error durring write of data");
+                    .expect("Error during write of data");
             }
 
-            let rfile = std::fs::File::open("tmp.xz").expect("We can't read tmp.file for test");
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
             let (mut reader, compression) =
-                get_reader(Box::new(rfile)).expect("Error in reading of tmp.file");
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
 
             assert_eq!(compression, CompressionFormat::Lzma);
 
             let mut buffer = Vec::new();
             reader
                 .read_to_end(&mut buffer)
-                .expect("Error durring reading");
+                .expect("Error during reading");
             assert_eq!(LOREM_IPSUM, buffer.as_slice());
         }
     }
