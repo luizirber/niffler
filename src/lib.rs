@@ -56,14 +56,13 @@ pub enum NifflerError {
     FileTooShort,
 }
 
-
 fn get_first_five(
     mut in_stream: Box<dyn io::Read>,
 ) -> Result<([u8; 5], Box<dyn io::Read>), NifflerError> {
     let mut buf = [0u8; 5];
     match in_stream.read_exact(&mut buf) {
         Ok(()) => Ok((buf, in_stream)),
-        Err(_) => Err(NifflerError::FileTooShort.into())
+        Err(_) => Err(NifflerError::FileTooShort.into()),
     }
 }
 
