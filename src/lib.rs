@@ -265,6 +265,11 @@ mod test {
                 get_writer(Box::new(vec![]), CompressionFormat::Bzip).is_err(),
                 "bz2 disabled, this assertion should fail"
             );
+
+            assert!(
+                get_reader(Box::new(&BZIP_FILE[..])).is_err(),
+                "bz2 disabled, this assertion should fail"
+            );
         }
 
         #[cfg(feature = "bz2")]
@@ -298,6 +303,11 @@ mod test {
         fn no_lzma_feature() {
             assert!(
                 get_writer(Box::new(vec![]), CompressionFormat::Lzma).is_err(),
+                "lzma disabled, this assertion should fail"
+            );
+
+            assert!(
+                get_reader(Box::new(&LZMA_FILE[..])).is_err(),
                 "lzma disabled, this assertion should fail"
             );
         }
