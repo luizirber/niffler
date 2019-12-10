@@ -29,8 +29,8 @@ use cfg_if::cfg_if;
 use enum_primitive::{
     enum_from_primitive, enum_from_primitive_impl, enum_from_primitive_impl_ty, FromPrimitive,
 };
-use failure::{Error, Fail};
 use flate2;
+use thiserror::Error;
 
 /* standard use */
 use std::io;
@@ -47,27 +47,29 @@ enum_from_primitive! {
     }
 }
 
-#[derive(Debug, Fail)]
-pub enum OCFError {
-    #[fail(display = "Feature disabled, enabled it during compilation")]
+#[derive(Debug, Error)]
+pub enum NifflerError {
+    #[error("Feature disabled, enabled it during compilation")]
     FeatureDisabled,
 
-    #[fail(display = "File is too short, less than five bytes")]
+    #[error("File is too short, less than five bytes")]
     FileTooShort,
 }
 
-fn get_first_five(mut in_stream: Box<dyn io::Read>) -> Result<([u8; 5], Box<dyn io::Read>), Error> {
-    let mut buf = [0u8; 5];
 
+fn get_first_five(
+    mut in_stream: Box<dyn io::Read>,
+) -> Result<([u8; 5], Box<dyn io::Read>), NifflerError> {
+    let mut buf = [0u8; 5];
     match in_stream.read_exact(&mut buf) {
         Ok(()) => Ok((buf, in_stream)),
-        Err(_) => Err(OCFError::FileTooShort.into()),
+        Err(_) => Err(NifflerError::FileTooShort.into())
     }
 }
 
 fn read_compression(
     in_stream: Box<dyn io::Read>,
-) -> Result<(CompressionFormat, Box<dyn io::Read>), Error> {
+) -> Result<(CompressionFormat, Box<dyn io::Read>), NifflerError> {
     let (first_bytes, in_stream) = get_first_five(in_stream)?;
 
     let mut five_bit_val: u64 = 0;
@@ -96,7 +98,7 @@ fn read_compression(
 
 pub fn get_reader(
     in_stream: Box<dyn io::Read>,
-) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
+) -> Result<(Box<dyn io::Read>, CompressionFormat), NifflerError> {
     // check compression
     let (compression, in_stream) = read_compression(in_stream)?;
 
@@ -116,7 +118,7 @@ cfg_if! {
     if #[cfg(feature = "bz2")] {
         use bzip2;
 
-        fn new_bz2_encoder(out: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, Error> {
+        fn new_bz2_encoder(out: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, NifflerError> {
             Ok(Box::new(bzip2::write::BzEncoder::new(
                 out,
                 bzip2::Compression::Best,
@@ -125,7 +127,7 @@ cfg_if! {
 
         fn new_bz2_decoder(
             inp: Box<dyn io::Read>,
-        ) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
+        ) -> Result<(Box<dyn io::Read>, CompressionFormat), NifflerError> {
             use bzip2;
             Ok((
                 Box::new(bzip2::read::BzDecoder::new(inp)),
@@ -133,12 +135,12 @@ cfg_if! {
             ))
         }
     } else {
-        fn new_bz2_encoder(_: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, Error> {
-            Err(OCFError::FeatureDisabled.into())
+        fn new_bz2_encoder(_: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, NifflerError> {
+            Err(NifflerError::FeatureDisabled.into())
         }
 
-        fn new_bz2_decoder(_: Box<dyn io::Read>) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
-            Err(OCFError::FeatureDisabled.into())
+        fn new_bz2_decoder(_: Box<dyn io::Read>) -> Result<(Box<dyn io::Read>, CompressionFormat), NifflerError> {
+            Err(NifflerError::FeatureDisabled.into())
         }
     }
 }
@@ -147,13 +149,13 @@ cfg_if! {
     if #[cfg(feature = "lzma")] {
       use xz2;
 
-      fn new_lzma_encoder(out: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, Error> {
+      fn new_lzma_encoder(out: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, NifflerError> {
           Ok(Box::new(xz2::write::XzEncoder::new(out, 9)))
       }
 
       fn new_lzma_decoder(
           inp: Box<dyn io::Read>,
-      ) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
+      ) -> Result<(Box<dyn io::Read>, CompressionFormat), NifflerError> {
           use xz2;
           Ok((
               Box::new(xz2::read::XzDecoder::new(inp)),
@@ -161,12 +163,12 @@ cfg_if! {
           ))
       }
     } else {
-      fn new_lzma_encoder(_: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, Error> {
-          Err(OCFError::FeatureDisabled.into())
+      fn new_lzma_encoder(_: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, NifflerError> {
+          Err(NifflerError::FeatureDisabled.into())
       }
 
-      fn new_lzma_decoder(_: Box<dyn io::Read>) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
-          Err(OCFError::FeatureDisabled.into())
+      fn new_lzma_decoder(_: Box<dyn io::Read>) -> Result<(Box<dyn io::Read>, CompressionFormat), NifflerError> {
+          Err(NifflerError::FeatureDisabled.into())
       }
     }
 }
@@ -174,7 +176,7 @@ cfg_if! {
 pub fn get_writer(
     out_stream: Box<dyn io::Write>,
     format: CompressionFormat,
-) -> Result<Box<dyn io::Write>, Error> {
+) -> Result<Box<dyn io::Write>, NifflerError> {
     match format {
         CompressionFormat::Gzip => Ok(Box::new(flate2::write::GzEncoder::new(
             out_stream,
