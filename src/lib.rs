@@ -227,11 +227,43 @@ mod test {
             let result = read_compression(Box::new(SHORT_FILE));
             assert!(result.is_err());
         }
+
+        #[test]
+        fn no_compression() {
+            let (compression, _) =
+                read_compression(Box::new(LOREM_IPSUM)).expect("Error in read file");
+            assert_eq!(compression, CompressionFormat::No);
+        }
     }
 
     mod compress_uncompress {
         use super::*;
         use tempfile::NamedTempFile;
+
+        #[test]
+        fn no_compression() {
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
+
+            {
+                let wfile = ofile.reopen().expect("Can't create tmpfile");
+                let mut writer = get_writer(Box::new(wfile), CompressionFormat::No).unwrap();
+                writer
+                    .write_all(LOREM_IPSUM)
+                    .expect("Error during write of data");
+            }
+
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
+            let (mut reader, compression) =
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
+
+            assert_eq!(compression, CompressionFormat::No);
+
+            let mut buffer = Vec::new();
+            reader
+                .read_to_end(&mut buffer)
+                .expect("Error during reading");
+            assert_eq!(LOREM_IPSUM, buffer.as_slice());
+        }
 
         #[test]
         fn gzip() {
