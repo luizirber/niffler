@@ -258,6 +258,15 @@ mod test {
             assert_eq!(LOREM_IPSUM, buffer.as_slice());
         }
 
+        #[test]
+        #[cfg(not(feature = "bz2"))]
+        fn no_bzip2_feature() {
+            assert!(
+                get_writer(Box::new(vec![]), CompressionFormat::Bzip).is_err(),
+                "bz2 disabled, this assertion should fail"
+            );
+        }
+
         #[cfg(feature = "bz2")]
         #[test]
         fn bzip() {
@@ -282,6 +291,15 @@ mod test {
                 .read_to_end(&mut buffer)
                 .expect("Error during reading");
             assert_eq!(LOREM_IPSUM, buffer.as_slice());
+        }
+
+        #[test]
+        #[cfg(not(feature = "lzma"))]
+        fn no_lzma_feature() {
+            assert!(
+                get_writer(Box::new(vec![]), CompressionFormat::Lzma).is_err(),
+                "lzma disabled, this assertion should fail"
+            );
         }
 
         #[cfg(feature = "lzma")]

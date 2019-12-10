@@ -85,11 +85,20 @@ jobs:
           toolchain: nightly
           override: true
 
-      - name: Run tests
+      - name: Run tests without default features
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --no-fail-fast
+          args: --no-fail-fast --all --no-default-features
+        env:
+          'CARGO_INCREMENTAL': '0'
+          'RUSTFLAGS': '-Zprofile -Ccodegen-units=1 -Cinline-threshold=0 -Clink-dead-code -Coverflow-checks=off -Zno-landing-pads'
+
+      - name: Run tests for all features
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --no-fail-fast --all --all-features
         env:
           'CARGO_INCREMENTAL': '0'
           'RUSTFLAGS': '-Zprofile -Ccodegen-units=1 -Cinline-threshold=0 -Clink-dead-code -Coverflow-checks=off -Zno-landing-pads'
