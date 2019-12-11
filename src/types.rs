@@ -46,6 +46,7 @@ pub enum NifflerError {
     FileTooShort,
 }
 
+#[derive(Debug, PartialEq)]
 pub enum CompressionLevel {
     One,
     Two,
@@ -95,7 +96,7 @@ cfg_if! {
     use bzip2;
 
     impl Into<bzip2::Compression> for CompressionLevel {
-        fn into(self) -> bzip2::Compression {
+            fn into(self) -> bzip2::Compression {
         match self {
             CompressionLevel::One   => bzip2::Compression::Fastest,
             CompressionLevel::Two   => bzip2::Compression::Default,
@@ -107,7 +108,34 @@ cfg_if! {
             CompressionLevel::Eight => bzip2::Compression::Default,
             CompressionLevel::Nine  => bzip2::Compression::Best,
         }
-        }
+            }
     }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn level2u32() {
+        let tmp: u32 = CompressionLevel::One.into();
+        assert_eq!(tmp, 1);
+    }
+
+    #[test]
+    fn level2flate2() {
+        let tmp: flate2::Compression = CompressionLevel::One.into();
+        assert_eq!(tmp, flate2::Compression::new(1));
+    }
+
+    #[test]
+    #[cfg(feature = "bz2")]
+    fn level2bzip2() {
+        let tmp: bzip2::Compression = CompressionLevel::One.into();
+        assert!(match tmp {
+            bzip2::Compression::Fastest => true,
+            _ => false,
+        });
     }
 }
