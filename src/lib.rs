@@ -24,37 +24,18 @@ Changes:
   - make bzip2 and lzma support optional
 */
 
+/* crates section */
+pub mod types;
+pub use crate::types::*;
+
 /* crates use */
 use cfg_if::cfg_if;
-use enum_primitive::{
-    enum_from_primitive, enum_from_primitive_impl, enum_from_primitive_impl_ty, FromPrimitive,
-};
+use enum_primitive::FromPrimitive;
 use flate2;
-use thiserror::Error;
 
 /* standard use */
 use std::io;
 use std::io::Read;
-
-enum_from_primitive! {
-    #[repr(u64)]
-    #[derive(Debug, PartialEq)]
-    pub enum CompressionFormat {
-        Gzip = 0x1F8B,
-        Bzip = 0x425A,
-        Lzma = 0x00FD_377A_585A,
-        No,
-    }
-}
-
-#[derive(Debug, Error)]
-pub enum NifflerError {
-    #[error("Feature disabled, enabled it during compilation")]
-    FeatureDisabled,
-
-    #[error("File is too short, less than five bytes")]
-    FileTooShort,
-}
 
 fn get_first_five(
     mut in_stream: Box<dyn io::Read>,
@@ -117,10 +98,10 @@ cfg_if! {
     if #[cfg(feature = "bz2")] {
         use bzip2;
 
-        fn new_bz2_encoder(out: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, NifflerError> {
+        fn new_bz2_encoder(out: Box<dyn io::Write>, level: CompressionLevel) -> Result<Box<dyn io::Write>, NifflerError> {
             Ok(Box::new(bzip2::write::BzEncoder::new(
                 out,
-                bzip2::Compression::Best,
+                level.into(),
             )))
         }
 
@@ -134,7 +115,7 @@ cfg_if! {
             ))
         }
     } else {
-        fn new_bz2_encoder(_: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, NifflerError> {
+        fn new_bz2_encoder(_: Box<dyn io::Write>, _: CompressionLevel) -> Result<Box<dyn io::Write>, NifflerError> {
             Err(NifflerError::FeatureDisabled)
         }
 
@@ -148,8 +129,8 @@ cfg_if! {
     if #[cfg(feature = "lzma")] {
       use xz2;
 
-      fn new_lzma_encoder(out: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, NifflerError> {
-          Ok(Box::new(xz2::write::XzEncoder::new(out, 9)))
+      fn new_lzma_encoder(out: Box<dyn io::Write>, level: CompressionLevel) -> Result<Box<dyn io::Write>, NifflerError> {
+          Ok(Box::new(xz2::write::XzEncoder::new(out, level.into())))
       }
 
       fn new_lzma_decoder(
@@ -162,7 +143,7 @@ cfg_if! {
           ))
       }
     } else {
-      fn new_lzma_encoder(_: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, NifflerError> {
+      fn new_lzma_encoder(_: Box<dyn io::Write>, _: CompressionLevel) -> Result<Box<dyn io::Write>, NifflerError> {
           Err(NifflerError::FeatureDisabled)
       }
 
@@ -175,14 +156,15 @@ cfg_if! {
 pub fn get_writer(
     out_stream: Box<dyn io::Write>,
     format: CompressionFormat,
+    level: CompressionLevel,
 ) -> Result<Box<dyn io::Write>, NifflerError> {
     match format {
         CompressionFormat::Gzip => Ok(Box::new(flate2::write::GzEncoder::new(
             out_stream,
-            flate2::Compression::best(),
+            level.into(),
         ))),
-        CompressionFormat::Bzip => new_bz2_encoder(out_stream),
-        CompressionFormat::Lzma => new_lzma_encoder(out_stream),
+        CompressionFormat::Bzip => new_bz2_encoder(out_stream, level),
+        CompressionFormat::Lzma => new_lzma_encoder(out_stream, level),
         CompressionFormat::No => Ok(Box::new(out_stream)),
     }
 }
@@ -246,7 +228,12 @@ mod test {
 
             {
                 let wfile = ofile.reopen().expect("Can't create tmpfile");
-                let mut writer = get_writer(Box::new(wfile), CompressionFormat::No).unwrap();
+                let mut writer = get_writer(
+                    Box::new(wfile),
+                    CompressionFormat::No,
+                    CompressionLevel::One,
+                )
+                .unwrap();
                 writer
                     .write_all(LOREM_IPSUM)
                     .expect("Error during write of data");
@@ -271,7 +258,12 @@ mod test {
 
             {
                 let wfile = ofile.reopen().expect("Can't create tmpfile");
-                let mut writer = get_writer(Box::new(wfile), CompressionFormat::Gzip).unwrap();
+                let mut writer = get_writer(
+                    Box::new(wfile),
+                    CompressionFormat::Gzip,
+                    CompressionLevel::Six,
+                )
+                .unwrap();
                 writer
                     .write_all(LOREM_IPSUM)
                     .expect("Error during write of data");
@@ -294,7 +286,12 @@ mod test {
         #[cfg(not(feature = "bz2"))]
         fn no_bzip2_feature() {
             assert!(
-                get_writer(Box::new(vec![]), CompressionFormat::Bzip).is_err(),
+                get_writer(
+                    Box::new(vec![]),
+                    CompressionFormat::Bzip,
+                    CompressionLevel::Six
+                )
+                .is_err(),
                 "bz2 disabled, this assertion should fail"
             );
 
@@ -311,7 +308,12 @@ mod test {
 
             {
                 let wfile = ofile.reopen().expect("Can't create tmpfile");
-                let mut writer = get_writer(Box::new(wfile), CompressionFormat::Bzip).unwrap();
+                let mut writer = get_writer(
+                    Box::new(wfile),
+                    CompressionFormat::Bzip,
+                    CompressionLevel::Six,
+                )
+                .unwrap();
                 writer
                     .write_all(LOREM_IPSUM)
                     .expect("Error during write of data");
@@ -334,7 +336,12 @@ mod test {
         #[cfg(not(feature = "lzma"))]
         fn no_lzma_feature() {
             assert!(
-                get_writer(Box::new(vec![]), CompressionFormat::Lzma).is_err(),
+                get_writer(
+                    Box::new(vec![]),
+                    CompressionFormat::Lzma,
+                    CompressionLevel::Six
+                )
+                .is_err(),
                 "lzma disabled, this assertion should fail"
             );
 
@@ -351,7 +358,12 @@ mod test {
 
             {
                 let wfile = ofile.reopen().expect("Can't create tmpfile");
-                let mut writer = get_writer(Box::new(wfile), CompressionFormat::Lzma).unwrap();
+                let mut writer = get_writer(
+                    Box::new(wfile),
+                    CompressionFormat::Lzma,
+                    CompressionLevel::Six,
+                )
+                .unwrap();
                 writer
                     .write_all(LOREM_IPSUM)
                     .expect("Error during write of data");
