@@ -46,6 +46,8 @@ enum_from_primitive! {
 }
 
 /// `Level` represent the compression level this value is include between 1 to 9. 1 optimize the compression time 9 optimize the size of the output.
+///
+/// For bzip2 `One` is convert in `bzip2::Compression::Fastest`, `Nine` in `bzip2::Compression::Best` and other value is convert in `bzip2::Compression::Default.
 #[derive(Debug, PartialEq)]
 pub enum Level {
     One,
