@@ -59,6 +59,29 @@ pub mod error;
 
 pub use crate::error::Error;
 
+/// Take a boxed readable stream and return a new one they can be read transparently even if input stream is compress and the compression type of file.
+///
+/// # Example
+/// ```
+/// use niffler::{Error, get_reader};
+/// # fn main() -> Result<(), Error> {
+///
+/// let probably_compress_stream = std::io::Cursor::new(vec![
+///         0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xf3, 0x54, 0xcf, 0x55,
+///         0x48, 0xce, 0xcf, 0x2d, 0x28, 0x4a, 0x2d, 0x2e, 0x56, 0xc8, 0xcc, 0x53, 0x48, 0xaf,
+///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
+///         ]);
+///
+/// let (mut reader, compression) = niffler::get_reader(Box::new(probably_compress_stream))?;
+///
+/// let mut contents = String::new();
+/// reader.read_to_string(&mut contents).expect("Error durring file reading");
+///
+/// assert_eq!(compression, niffler::compression::Format::Gzip);
+/// assert_eq!(contents, "I'm compress in gzip\n");
+/// # Ok(())
+/// # }
+/// ```
 pub fn get_reader(
     in_stream: Box<dyn io::Read>,
 ) -> Result<(Box<dyn io::Read>, compression::Format), Error> {
@@ -77,6 +100,31 @@ pub fn get_reader(
     }
 }
 
+/// Take a boxed writable stream, a compression format, a compression level and return a boxed writable stream where you can write an uncompress stuff, they are write in compressed format.
+///
+/// # Example
+/// ```ignore
+/// use std::io::Read;
+/// use niffler::{Error, get_writer, compression};
+/// # fn main() -> Result<(), Error> {
+///
+/// let wfile = Box::new(std::fs::File::create("output.gz").expect("Can't open output file"));
+/// let mut writer = niffler::get_writer(wfile, compression::Format::Gzip, compression::Level::One)?;
+/// writer.write_all("I'm compress in gzip\n".as_bytes()).expect("Error during write of data");
+/// drop(writer);
+///
+/// let mut rfile = std::fs::File::open("output.gz").expect("Can't open file");
+/// let mut contents = Vec::new();
+/// rfile.read_to_end(&mut contents);
+///
+/// assert_eq!(contents, vec![
+///         0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0xff, 0xf3, 0x54, 0xcf, 0x55,
+///         0x48, 0xce, 0xcf, 0x2d, 0x28, 0x4a, 0x2d, 0x2e, 0x56, 0xc8, 0xcc, 0x53, 0x48, 0xaf,
+///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
+///         ]);
+/// # Ok(())
+/// # }
+/// ```
 pub fn get_writer(
     out_stream: Box<dyn io::Write>,
     format: compression::Format,
