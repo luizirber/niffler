@@ -20,15 +20,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056167acf34fa58/src/file.rs
-Changes:
-  - make bzip2 and lzma support optional
 */
 
 //! # niffler
-//! Get a readable/writable object out of filenames (including compressed files).
+//! Simple and transparent support for compressed files.
 //!
-//! This library sniffs out compression formats from input files and return a
+//! This library provides two main features:
+//! - sniffs out compression formats from input files and return a
 //! Read trait object ready for consumption.
+//! - Create a Writer initialized with compression ready for writing.
+//!
 //! The goal is to lower the barrier to open and use a file, especially in
 //! bioinformatics workflows.
 //!
@@ -59,7 +60,8 @@ pub mod error;
 
 pub use crate::error::Error;
 
-/// Take a boxed readable stream and return a new one they can be read transparently even if input stream is compress and the compression type of file.
+/// Create a readable stream that can be read transparently even if the original stream is compress.
+/// Also returns the compression type of the original stream.
 ///
 /// # Example
 /// ```
@@ -100,7 +102,7 @@ pub fn get_reader(
     }
 }
 
-/// Take a boxed writable stream, a compression format, a compression level and return a boxed writable stream where you can write an uncompress stuff, they are write in compressed format.
+/// Create a new writable stream with the given compression format and level.
 ///
 /// # Example
 /// ```ignore
