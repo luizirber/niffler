@@ -24,199 +24,72 @@ Changes:
   - make bzip2 and lzma support optional
 */
 
-/* crates use */
-use cfg_if::cfg_if;
-use enum_primitive::{
-    enum_from_primitive, enum_from_primitive_impl, enum_from_primitive_impl_ty, FromPrimitive,
-};
-use failure::{Error, Fail};
-use flate2;
+//! # niffler
+//! Get a readable/writable object out of filenames (including compressed files).
+//!
+//! This library sniffs out compression formats from input files and return a
+//! Read trait object ready for consumption.
+//! The goal is to lower the barrier to open and use a file, especially in
+//! bioinformatics workflows.
+//!
+//! # Example
+//!
+//! ```rust
+//! use niffler::{Error, compression};
+//! # fn main() -> Result<(), Error> {
+//!
+//! let mut buffer = Vec::new();
+//!
+//! let mut writer = niffler::get_writer(Box::new(buffer), compression::Format::Gzip, compression::Level::Nine)?;
+//! writer.write_all(b"hello");
+//!
+//! # Ok(())
+//! # }
+//! ```
 
 /* standard use */
-use std::fs::File;
 use std::io;
-use std::io::{BufReader, BufWriter};
 
-enum_from_primitive! {
-    #[repr(u64)]
-    #[derive(Debug, PartialEq)]
-    pub enum CompressionFormat {
-        Gzip = 0x1F8B,
-        Bzip = 0x425A,
-        Lzma = 0x00FD_377A_585A,
-        No,
-    }
-}
+/* crates use */
+use flate2;
 
-#[derive(Debug, Fail)]
-pub enum OCFError {
-    #[fail(display = "Feature disabled, enabled it during compilation")]
-    FeatureDisabled,
-}
+/* crates section */
+pub mod compression;
+pub mod error;
 
-pub fn get_input(input_name: &str) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
-    // choose std::io::stdin or open file
-    if input_name == "-" {
-        Ok((Box::new(get_readable(input_name)), CompressionFormat::No))
-    } else {
-        get_readable_file(input_name)
-    }
-}
+pub use crate::error::Error;
 
-pub fn get_readable_file(
-    input_name: &str,
-) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
-    let raw_input = get_readable(input_name);
-
+pub fn get_reader(
+    in_stream: Box<dyn io::Read>,
+) -> Result<(Box<dyn io::Read>, compression::Format), Error> {
     // check compression
-    let compression = get_compression(raw_input);
+    let (compression, in_stream) = compression::read_compression(in_stream)?;
 
     // return readable and compression status
     match compression {
-        CompressionFormat::Gzip => Ok((
-            Box::new(flate2::read::GzDecoder::new(get_readable(input_name))),
-            CompressionFormat::Gzip,
+        compression::Format::Gzip => Ok((
+            Box::new(flate2::read::GzDecoder::new(in_stream)),
+            compression::Format::Gzip,
         )),
-        CompressionFormat::Bzip => new_bz2_decoder(get_readable(input_name)),
-        CompressionFormat::Lzma => new_lzma_decoder(get_readable(input_name)),
-        CompressionFormat::No => Ok((Box::new(get_readable(input_name)), CompressionFormat::No)),
+        compression::Format::Bzip => compression::new_bz2_decoder(in_stream),
+        compression::Format::Lzma => compression::new_lzma_decoder(in_stream),
+        compression::Format::No => Ok((in_stream, compression::Format::No)),
     }
 }
 
-pub fn get_readable(input_name: &str) -> Box<dyn io::Read> {
-    match input_name {
-        "-" => Box::new(BufReader::new(io::stdin())),
-        _ => Box::new(BufReader::new(
-            File::open(input_name)
-                .unwrap_or_else(|_| panic!("Can't open input file {}", input_name)),
-        )),
-    }
-}
-
-fn get_compression(mut in_stream: Box<dyn io::Read>) -> CompressionFormat {
-    let mut buf = vec![0u8; 5];
-
-    in_stream
-        .read_exact(&mut buf)
-        .expect("Error durring reading first bit of file");
-
-    let mut five_bit_val: u64 = 0;
-    for (i, item) in buf.iter().enumerate().take(5) {
-        five_bit_val |= (u64::from(*item)) << (8 * (4 - i));
-    }
-    if CompressionFormat::from_u64(five_bit_val) == Some(CompressionFormat::Lzma) {
-        return CompressionFormat::Lzma;
-    }
-
-    let mut two_bit_val: u64 = 0;
-    for (i, item) in buf.iter().enumerate().take(2) {
-        two_bit_val |= (u64::from(*item)) << (8 * (1 - i));
-    }
-
-    match CompressionFormat::from_u64(two_bit_val) {
-        e @ Some(CompressionFormat::Gzip) | e @ Some(CompressionFormat::Bzip) => e.unwrap(),
-        _ => CompressionFormat::No,
-    }
-}
-
-cfg_if! {
-    if #[cfg(feature = "bz2")] {
-        use bzip2;
-
-        fn new_bz2_encoder(out: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, Error> {
-            Ok(Box::new(bzip2::write::BzEncoder::new(
-                out,
-                bzip2::Compression::Best,
-            )))
-        }
-
-        fn new_bz2_decoder(
-            inp: Box<dyn io::Read>,
-        ) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
-            use bzip2;
-            Ok((
-                Box::new(bzip2::read::BzDecoder::new(inp)),
-                CompressionFormat::Bzip,
-            ))
-        }
-    } else {
-        fn new_bz2_encoder(_: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, Error> {
-            Err(OCFError::FeatureDisabled.into())
-        }
-
-        fn new_bz2_decoder(_: Box<dyn io::Read>) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
-            Err(OCFError::FeatureDisabled.into())
-        }
-    }
-}
-
-cfg_if! {
-    if #[cfg(feature = "lzma")] {
-      use xz2;
-
-      fn new_lzma_encoder(out: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, Error> {
-          Ok(Box::new(xz2::write::XzEncoder::new(out, 9)))
-      }
-
-      fn new_lzma_decoder(
-          inp: Box<dyn io::Read>,
-      ) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
-          use xz2;
-          Ok((
-              Box::new(xz2::read::XzDecoder::new(inp)),
-              CompressionFormat::Lzma,
-          ))
-      }
-    } else {
-      fn new_lzma_encoder(_: Box<dyn io::Write>) -> Result<Box<dyn io::Write>, Error> {
-          Err(OCFError::FeatureDisabled.into())
-      }
-
-      fn new_lzma_decoder(_: Box<dyn io::Read>) -> Result<(Box<dyn io::Read>, CompressionFormat), Error> {
-          Err(OCFError::FeatureDisabled.into())
-      }
-    }
-}
-
-pub fn get_output(
-    output_name: &str,
-    format: CompressionFormat,
+pub fn get_writer(
+    out_stream: Box<dyn io::Write>,
+    format: compression::Format,
+    level: compression::Level,
 ) -> Result<Box<dyn io::Write>, Error> {
     match format {
-        CompressionFormat::Gzip => Ok(Box::new(flate2::write::GzEncoder::new(
-            get_writable(output_name),
-            flate2::Compression::best(),
+        compression::Format::Gzip => Ok(Box::new(flate2::write::GzEncoder::new(
+            out_stream,
+            level.into(),
         ))),
-        CompressionFormat::Bzip => new_bz2_encoder(get_writable(output_name)),
-        CompressionFormat::Lzma => new_lzma_encoder(get_writable(output_name)),
-        CompressionFormat::No => Ok(Box::new(get_writable(output_name))),
-    }
-}
-
-pub fn choose_compression(
-    input_compression: CompressionFormat,
-    compression_set: bool,
-    compression_value: &str,
-) -> CompressionFormat {
-    if !compression_set {
-        return input_compression;
-    }
-
-    match compression_value {
-        "gzip" => CompressionFormat::Gzip,
-        "bzip2" => CompressionFormat::Bzip,
-        "lzma" => CompressionFormat::Lzma,
-        _ => CompressionFormat::No,
-    }
-}
-
-fn get_writable(output_name: &str) -> Box<dyn io::Write> {
-    match output_name {
-        "-" => Box::new(BufWriter::new(io::stdout())),
-        _ => Box::new(BufWriter::new(
-            File::create(output_name)
-                .unwrap_or_else(|_| panic!("Can't open output file {}", output_name)),
-        )),
+        compression::Format::Bzip => compression::new_bz2_encoder(out_stream, level),
+        compression::Format::Lzma => compression::new_lzma_encoder(out_stream, level),
+        compression::Format::No => Ok(Box::new(out_stream)),
     }
 }
 
@@ -225,51 +98,174 @@ mod test {
 
     use super::*;
 
-    const GZIP_FILE: &'static [u8] = &[0o037, 0o213, 0o0, 0o0, 0o0];
-    const BZIP_FILE: &'static [u8] = &[0o102, 0o132, 0o0, 0o0, 0o0];
-    const LZMA_FILE: &'static [u8] = &[0o375, 0o067, 0o172, 0o130, 0o132];
+    pub(crate) const SHORT_FILE: &'static [u8] = &[0o037, 0o213, 0o0, 0o0];
+    pub(crate) const GZIP_FILE: &'static [u8] = &[0o037, 0o213, 0o0, 0o0, 0o0];
+    pub(crate) const BZIP_FILE: &'static [u8] = &[0o102, 0o132, 0o0, 0o0, 0o0];
+    pub(crate) const LZMA_FILE: &'static [u8] = &[0o375, 0o067, 0o172, 0o130, 0o132];
+    pub(crate) const LOREM_IPSUM: &'static [u8] = b"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies scelerisque diam, a scelerisque enim sagittis at.";
 
-    #[test]
-    fn compression_from_file() {
-        assert_eq!(
-            get_compression(Box::new(GZIP_FILE)),
-            CompressionFormat::Gzip
-        );
-        assert_eq!(
-            get_compression(Box::new(BZIP_FILE)),
-            CompressionFormat::Bzip
-        );
-        assert_eq!(
-            get_compression(Box::new(LZMA_FILE)),
-            CompressionFormat::Lzma
-        );
-    }
+    mod compress_uncompress {
+        use super::*;
+        use tempfile::NamedTempFile;
 
-    #[test]
-    fn compression_from_input_or_cli() {
-        assert_eq!(
-            choose_compression(CompressionFormat::Gzip, false, "_"),
-            CompressionFormat::Gzip
-        );
-        assert_eq!(
-            choose_compression(CompressionFormat::Bzip, false, "_"),
-            CompressionFormat::Bzip
-        );
-        assert_eq!(
-            choose_compression(CompressionFormat::Lzma, false, "_"),
-            CompressionFormat::Lzma
-        );
-        assert_eq!(
-            choose_compression(CompressionFormat::No, true, "gzip"),
-            CompressionFormat::Gzip
-        );
-        assert_eq!(
-            choose_compression(CompressionFormat::No, true, "bzip2"),
-            CompressionFormat::Bzip
-        );
-        assert_eq!(
-            choose_compression(CompressionFormat::No, true, "lzma"),
-            CompressionFormat::Lzma
-        );
+        #[test]
+        fn no_compression() {
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
+
+            {
+                let wfile = ofile.reopen().expect("Can't create tmpfile");
+                let mut writer = get_writer(
+                    Box::new(wfile),
+                    compression::Format::No,
+                    compression::Level::One,
+                )
+                .unwrap();
+                writer
+                    .write_all(LOREM_IPSUM)
+                    .expect("Error during write of data");
+            }
+
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
+            let (mut reader, compression) =
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
+
+            assert_eq!(compression, compression::Format::No);
+
+            let mut buffer = Vec::new();
+            reader
+                .read_to_end(&mut buffer)
+                .expect("Error during reading");
+            assert_eq!(LOREM_IPSUM, buffer.as_slice());
+        }
+
+        #[test]
+        fn gzip() {
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
+
+            {
+                let wfile = ofile.reopen().expect("Can't create tmpfile");
+                let mut writer = get_writer(
+                    Box::new(wfile),
+                    compression::Format::Gzip,
+                    compression::Level::Six,
+                )
+                .unwrap();
+                writer
+                    .write_all(LOREM_IPSUM)
+                    .expect("Error during write of data");
+            }
+
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
+            let (mut reader, compression) =
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
+
+            assert_eq!(compression, compression::Format::Gzip);
+
+            let mut buffer = Vec::new();
+            reader
+                .read_to_end(&mut buffer)
+                .expect("Error during reading");
+            assert_eq!(LOREM_IPSUM, buffer.as_slice());
+        }
+
+        #[test]
+        #[cfg(not(feature = "bz2"))]
+        fn no_bzip2_feature() {
+            assert!(
+                get_writer(
+                    Box::new(vec![]),
+                    compression::Format::Bzip,
+                    compression::Level::Six
+                )
+                .is_err(),
+                "bz2 disabled, this assertion should fail"
+            );
+
+            assert!(
+                get_reader(Box::new(&BZIP_FILE[..])).is_err(),
+                "bz2 disabled, this assertion should fail"
+            );
+        }
+
+        #[cfg(feature = "bz2")]
+        #[test]
+        fn bzip() {
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
+
+            {
+                let wfile = ofile.reopen().expect("Can't create tmpfile");
+                let mut writer = get_writer(
+                    Box::new(wfile),
+                    compression::Format::Bzip,
+                    compression::Level::Six,
+                )
+                .unwrap();
+                writer
+                    .write_all(LOREM_IPSUM)
+                    .expect("Error during write of data");
+            }
+
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
+            let (mut reader, compression) =
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
+
+            assert_eq!(compression, compression::Format::Bzip);
+
+            let mut buffer = Vec::new();
+            reader
+                .read_to_end(&mut buffer)
+                .expect("Error during reading");
+            assert_eq!(LOREM_IPSUM, buffer.as_slice());
+        }
+
+        #[test]
+        #[cfg(not(feature = "lzma"))]
+        fn no_lzma_feature() {
+            assert!(
+                get_writer(
+                    Box::new(vec![]),
+                    compression::Format::Lzma,
+                    compression::Level::Six
+                )
+                .is_err(),
+                "lzma disabled, this assertion should fail"
+            );
+
+            assert!(
+                get_reader(Box::new(&LZMA_FILE[..])).is_err(),
+                "lzma disabled, this assertion should fail"
+            );
+        }
+
+        #[cfg(feature = "lzma")]
+        #[test]
+        fn lzma() {
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
+
+            {
+                let wfile = ofile.reopen().expect("Can't create tmpfile");
+                let mut writer = get_writer(
+                    Box::new(wfile),
+                    compression::Format::Lzma,
+                    compression::Level::Six,
+                )
+                .unwrap();
+                writer
+                    .write_all(LOREM_IPSUM)
+                    .expect("Error during write of data");
+            }
+
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
+            let (mut reader, compression) =
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
+
+            assert_eq!(compression, compression::Format::Lzma);
+
+            let mut buffer = Vec::new();
+            reader
+                .read_to_end(&mut buffer)
+                .expect("Error during reading");
+            assert_eq!(LOREM_IPSUM, buffer.as_slice());
+        }
     }
 }
