@@ -60,9 +60,9 @@ pub mod error;
 
 pub use crate::error::Error;
 
-pub fn get_reader(
-    in_stream: Box<dyn io::Read>,
-) -> Result<(Box<dyn io::Read>, compression::Format), Error> {
+pub fn get_reader<'a>(
+    in_stream: Box<dyn io::Read + 'a>,
+) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
     // check compression
     let (compression, in_stream) = compression::read_compression(in_stream)?;
 
@@ -78,11 +78,11 @@ pub fn get_reader(
     }
 }
 
-pub fn get_writer(
-    out_stream: Box<dyn io::Write>,
+pub fn get_writer<'a>(
+    out_stream: Box<dyn io::Write + 'a>,
     format: compression::Format,
     level: compression::Level,
-) -> Result<Box<dyn io::Write>, Error> {
+) -> Result<Box<dyn io::Write + 'a>, Error> {
     match format {
         compression::Format::Gzip => Ok(Box::new(flate2::write::GzEncoder::new(
             out_stream,
@@ -115,9 +115,9 @@ pub fn get_writer(
 /// # Ok(())
 /// # }
 /// ```
-pub fn from_path<P: AsRef<Path>>(
+pub fn from_path<'a, P: AsRef<Path>>(
     path: P,
-) -> Result<(Box<dyn io::Read>, compression::Format), Error> {
+) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
     let readable = io::BufReader::new(std::fs::File::open(path)?);
     get_reader(Box::new(readable))
 }
@@ -141,11 +141,11 @@ pub fn from_path<P: AsRef<Path>>(
 /// # Ok(())
 /// # }
 /// ```
-pub fn to_path<P: AsRef<Path>>(
+pub fn to_path<'a, P: AsRef<Path>>(
     path: P,
     format: compression::Format,
     level: compression::Level,
-) -> Result<Box<dyn io::Write>, Error> {
+) -> Result<Box<dyn io::Write + 'a>, Error> {
     let writable = io::BufWriter::new(std::fs::File::create(path)?);
     get_writer(Box::new(writable), format, level)
 }
