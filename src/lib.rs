@@ -88,7 +88,6 @@ pub use crate::error::Error;
 pub fn get_reader<'a>(
     in_stream: Box<dyn io::Read + 'a>,
 ) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
-
     // check compression
     let (compression, in_stream) = compression::read_compression(in_stream)?;
 
