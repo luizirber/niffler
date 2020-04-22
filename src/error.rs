@@ -7,4 +7,7 @@ pub enum Error {
 
     #[error("File is too short, less than five bytes")]
     FileTooShort,
+
+    #[error("I/O error")]
+    IOError(#[from] std::io::Error),
 }
