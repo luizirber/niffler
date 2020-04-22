@@ -20,15 +20,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056167acf34fa58/src/file.rs
-Changes:
-  - make bzip2 and lzma support optional
 */
 
 //! # niffler
-//! Get a readable/writable object out of filenames (including compressed files).
+//! Simple and transparent support for compressed files.
 //!
-//! This library sniffs out compression formats from input files and return a
+//! This library provides two main features:
+//! - sniffs out compression formats from input files and return a
 //! Read trait object ready for consumption.
+//! - Create a Writer initialized with compression ready for writing.
+//!
 //! The goal is to lower the barrier to open and use a file, especially in
 //! bioinformatics workflows.
 //!
@@ -60,6 +61,30 @@ pub mod error;
 
 pub use crate::error::Error;
 
+/// Create a readable stream that can be read transparently even if the original stream is compress.
+/// Also returns the compression type of the original stream.
+///
+/// # Example
+/// ```
+/// use niffler::{Error, get_reader};
+/// # fn main() -> Result<(), Error> {
+///
+/// let probably_compress_stream = std::io::Cursor::new(vec![
+///         0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xf3, 0x54, 0xcf, 0x55,
+///         0x48, 0xce, 0xcf, 0x2d, 0x28, 0x4a, 0x2d, 0x2e, 0x56, 0xc8, 0xcc, 0x53, 0x48, 0xaf,
+///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
+///         ]);
+///
+/// let (mut reader, compression) = niffler::get_reader(Box::new(probably_compress_stream))?;
+///
+/// let mut contents = String::new();
+/// reader.read_to_string(&mut contents).expect("Error durring file reading");
+///
+/// assert_eq!(compression, niffler::compression::Format::Gzip);
+/// assert_eq!(contents, "I'm compress in gzip\n");
+/// # Ok(())
+/// # }
+/// ```
 pub fn get_reader<'a>(
     in_stream: Box<dyn io::Read + 'a>,
 ) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
@@ -77,6 +102,32 @@ pub fn get_reader<'a>(
         compression::Format::No => Ok((in_stream, compression::Format::No)),
     }
 }
+
+/// Create a new writable stream with the given compression format and level.
+///
+/// # Example
+/// ```ignore
+/// use std::io::Read;
+/// use niffler::{Error, get_writer, compression};
+/// # fn main() -> Result<(), Error> {
+///
+/// let wfile = Box::new(std::fs::File::create("output.gz").expect("Can't open output file"));
+/// let mut writer = niffler::get_writer(wfile, compression::Format::Gzip, compression::Level::One)?;
+/// writer.write_all("I'm compress in gzip\n".as_bytes()).expect("Error during write of data");
+/// drop(writer);
+///
+/// let mut rfile = std::fs::File::open("output.gz").expect("Can't open file");
+/// let mut contents = Vec::new();
+/// rfile.read_to_end(&mut contents);
+///
+/// assert_eq!(contents, vec![
+///         0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0xff, 0xf3, 0x54, 0xcf, 0x55,
+///         0x48, 0xce, 0xcf, 0x2d, 0x28, 0x4a, 0x2d, 0x2e, 0x56, 0xc8, 0xcc, 0x53, 0x48, 0xaf,
+///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
+///         ]);
+/// # Ok(())
+/// # }
+/// ```
 
 pub fn get_writer<'a>(
     out_stream: Box<dyn io::Write + 'a>,

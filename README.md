@@ -2,7 +2,15 @@
 
 # niffler
 
-**Get a readable/writable object out of filenames (including compressed files)**
+Simple and transparent support for compressed files.
+
+This library provides two main features:
+- sniffs out compression formats from input files and return a
+Read trait object ready for consumption.
+- Create a Writer initialized with compression ready for writing.
+
+The goal is to lower the barrier to open and use a file, especially in
+bioinformatics workflows.
 
 [![build-status]][github-actions]
 [![Crates.io](https://img.shields.io/crates/v/niffler.svg)](https://crates.io/crates/niffler)
