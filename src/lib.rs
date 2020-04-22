@@ -50,6 +50,7 @@ Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056
 
 /* standard use */
 use std::io;
+use std::path::Path;
 
 /* crates use */
 use flate2;
@@ -84,9 +85,10 @@ pub use crate::error::Error;
 /// # Ok(())
 /// # }
 /// ```
-pub fn get_reader(
-    in_stream: Box<dyn io::Read>,
-) -> Result<(Box<dyn io::Read>, compression::Format), Error> {
+pub fn get_reader<'a>(
+    in_stream: Box<dyn io::Read + 'a>,
+) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
+
     // check compression
     let (compression, in_stream) = compression::read_compression(in_stream)?;
 
@@ -127,11 +129,12 @@ pub fn get_reader(
 /// # Ok(())
 /// # }
 /// ```
-pub fn get_writer(
-    out_stream: Box<dyn io::Write>,
+
+pub fn get_writer<'a>(
+    out_stream: Box<dyn io::Write + 'a>,
     format: compression::Format,
     level: compression::Level,
-) -> Result<Box<dyn io::Write>, Error> {
+) -> Result<Box<dyn io::Write + 'a>, Error> {
     match format {
         compression::Format::Gzip => Ok(Box::new(flate2::write::GzEncoder::new(
             out_stream,
@@ -141,6 +144,62 @@ pub fn get_writer(
         compression::Format::Lzma => compression::new_lzma_encoder(out_stream, level),
         compression::Format::No => Ok(Box::new(out_stream)),
     }
+}
+
+/// Open a possibly compressed file and decompress it transparently.
+/// ```
+/// use niffler::{Error, compression};
+/// # fn main() -> Result<(), Error> {
+///
+/// # let file = tempfile::NamedTempFile::new()?;
+///
+/// # {
+/// #   let mut writer = niffler::to_path(file.path(), compression::Format::Gzip, compression::Level::Nine)?;
+/// #   writer.write_all(b"hello")?;
+/// # }
+///
+/// let (mut reader, format) = niffler::from_path(file.path())?;
+///
+/// let mut contents = vec![];
+/// reader.read_to_end(&mut contents);
+/// # assert_eq!(&contents, b"hello");
+///
+/// # Ok(())
+/// # }
+/// ```
+pub fn from_path<'a, P: AsRef<Path>>(
+    path: P,
+) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
+    let readable = io::BufReader::new(std::fs::File::open(path)?);
+    get_reader(Box::new(readable))
+}
+
+/// Create a file with specific compression format.
+/// ```
+/// use niffler::{Error, compression};
+/// # fn main() -> Result<(), Error> {
+///
+/// # let file = tempfile::NamedTempFile::new()?;
+///
+/// # {
+/// let mut writer = niffler::to_path(file.path(), compression::Format::Gzip, compression::Level::Nine)?;
+/// writer.write_all(b"hello")?;
+/// # }
+///
+/// # let (mut reader, format) = niffler::from_path(&file.path())?;
+/// # let mut contents = vec![];
+/// # reader.read_to_end(&mut contents)?;
+/// # assert_eq!(&contents, b"hello");
+/// # Ok(())
+/// # }
+/// ```
+pub fn to_path<'a, P: AsRef<Path>>(
+    path: P,
+    format: compression::Format,
+    level: compression::Level,
+) -> Result<Box<dyn io::Write + 'a>, Error> {
+    let writable = io::BufWriter::new(std::fs::File::create(path)?);
+    get_writer(Box::new(writable), format, level)
 }
 
 #[cfg(test)]

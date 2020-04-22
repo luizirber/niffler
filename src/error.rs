@@ -10,4 +10,7 @@ pub enum Error {
     /// This file is shorter than five bytes, it's probably not a compression file or corrupted.
     #[error("File is too short, less than five bytes")]
     FileTooShort,
+
+    #[error("I/O error")]
+    IOError(#[from] std::io::Error),
 }
