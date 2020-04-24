@@ -5,7 +5,7 @@
 Simple and transparent support for compressed files.
 
 This library provides two main features:
-- sniffs out compression formats from input files and return a
+- sniffs out compression formats from input files and returns a
 Read trait object ready for consumption.
 - Create a Writer initialized with compression ready for writing.
 
@@ -21,7 +21,7 @@ bioinformatics workflows.
 
 ## Similar project
 
-Many similar project exist in other language:
+Many similar projects exist in other languages:
 
 - C: [rbread](https://github.com/ocxtal/rbread)
 - Python: [xphyle](https://github.com/jdidion/xphyle)
