@@ -52,9 +52,6 @@ Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056
 use std::io;
 use std::path::Path;
 
-/* crates use */
-use flate2;
-
 /* crates section */
 pub mod compression;
 pub mod error;

@@ -29,7 +29,6 @@ use cfg_if::cfg_if;
 use enum_primitive::{
     enum_from_primitive, enum_from_primitive_impl, enum_from_primitive_impl_ty, FromPrimitive,
 };
-use flate2;
 
 use crate::error::Error;
 
