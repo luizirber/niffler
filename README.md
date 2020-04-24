@@ -19,6 +19,15 @@ bioinformatics workflows.
 [build-status]: https://github.com/luizirber/niffler/workflows/CI/badge.svg
 [github-actions]: https://github.com/luizirber/niffler/actions?query=workflow%3ACI
 
+## Similar project
+
+Many similar project exist in other language:
+
+- C: [rbread](https://github.com/ocxtal/rbread)
+- Python: [xphyle](https://github.com/jdidion/xphyle)
+- Perl: [AnyUncompress](https://perldoc.perl.org/IO/Uncompress/AnyUncompress.html)
+
+
 ## License
 
 Licensed under either of these:
