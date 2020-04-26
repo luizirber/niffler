@@ -41,9 +41,20 @@ Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056
 //!
 //! let mut buffer = Vec::new();
 //!
-//! let mut writer = niffler::get_writer(Box::new(buffer), compression::Format::Gzip, compression::Level::Nine)?;
-//! writer.write_all(b"hello");
+//! {
+//!   let mut writer = niffler::get_writer(Box::new(&mut buffer), compression::Format::Gzip, compression::Level::Nine)?;
+//!   writer.write_all(b"hello")?;
+//! }
 //!
+//! # assert_eq!(&buffer, &[0x1f, 0x8b, 8, 0, 0, 0, 0, 0, 2, 255, 203, 72, 205, 201, 201, 7, 0, 134, 166, 16, 54, 5, 0, 0, 0]);
+//!
+//! let (mut reader, compression) = niffler::get_reader(Box::new(&buffer[..]))?;
+//!
+//! let mut contents = String::new();
+//! reader.read_to_string(&mut contents)?;
+//!
+//! assert_eq!(compression, niffler::compression::Format::Gzip);
+//! assert_eq!(contents, "hello");
 //! # Ok(())
 //! # }
 //! ```
@@ -103,19 +114,19 @@ pub fn get_reader<'a>(
 /// Create a new writable stream with the given compression format and level.
 ///
 /// # Example
-/// ```ignore
+/// ```
 /// use std::io::Read;
 /// use niffler::{Error, get_writer, compression};
 /// # fn main() -> Result<(), Error> {
 ///
-/// let wfile = Box::new(std::fs::File::create("output.gz").expect("Can't open output file"));
-/// let mut writer = niffler::get_writer(wfile, compression::Format::Gzip, compression::Level::One)?;
-/// writer.write_all("I'm compress in gzip\n".as_bytes()).expect("Error during write of data");
-/// drop(writer);
+/// let mut buffer = vec![];
+/// {
+///   let mut writer = niffler::get_writer(Box::new(&mut buffer), compression::Format::Gzip, compression::Level::One)?;
+///   writer.write_all("I'm compress in gzip\n".as_bytes())?
+/// }
 ///
-/// let mut rfile = std::fs::File::open("output.gz").expect("Can't open file");
 /// let mut contents = Vec::new();
-/// rfile.read_to_end(&mut contents);
+/// buffer.as_slice().read_to_end(&mut contents)?;
 ///
 /// assert_eq!(contents, vec![
 ///         0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0xff, 0xf3, 0x54, 0xcf, 0x55,

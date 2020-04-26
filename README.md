@@ -26,6 +26,7 @@ Many similar projects exist in other languages:
 - C: [rbread](https://github.com/ocxtal/rbread)
 - Python: [xphyle](https://github.com/jdidion/xphyle)
 - Perl: [AnyUncompress](https://perldoc.perl.org/IO/Uncompress/AnyUncompress.html)
+- go: [Archiver](https://github.com/mholt/archiver)
 
 
 ## License
