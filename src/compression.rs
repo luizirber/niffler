@@ -35,7 +35,7 @@ use crate::error::Error;
 enum_from_primitive! {
     #[repr(u64)]
     /// `Format` represent a compression format of a file. Currently Gzip, Bzip, Lzma or No are supported.
-    #[derive(Debug, PartialEq)]
+    #[derive(Debug, PartialEq, Clone, Copy)]
     pub enum Format {
         Gzip = 0x1F8B,
         Bzip = 0x425A,
@@ -52,7 +52,7 @@ enum_from_primitive! {
 ///  - `One` is convert in `bzip2::Compression::Fastest`,
 ///  - `Nine` in `bzip2::Compression::Best`
 /// and other value is convert in `bzip2::Compression::Default.
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Level {
     One,
     Two,
