@@ -75,7 +75,7 @@ fn get_first_five<'a>(
     }
 }
 
-pub(crate) fn read_compression<'a>(
+pub fn read_compression<'a>(
     in_stream: Box<dyn io::Read + 'a>,
 ) -> Result<(Format, Box<dyn io::Read + 'a>), Error> {
     let (first_bytes, in_stream) = get_first_five(in_stream)?;
