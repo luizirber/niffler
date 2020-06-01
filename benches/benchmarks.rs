@@ -54,19 +54,65 @@ const LZMA_FILE: &'static [u8] = &[
 fn detect_format(c: &mut Criterion) {
     let mut g = c.benchmark_group("Format detection");
 
-    g.bench_function("detect gzip", |b| {
+    g.bench_function("gzip", |b| {
         b.iter(|| black_box(niffler::compression::read_compression(Box::new(GZIP_FILE))))
     });
-    g.bench_function("detect bzip", |b| {
+    g.bench_function("bzip", |b| {
         b.iter(|| black_box(niffler::compression::read_compression(Box::new(BZIP_FILE))))
     });
-    g.bench_function("detect lzma", |b| {
+    g.bench_function("lzma", |b| {
         b.iter(|| black_box(niffler::compression::read_compression(Box::new(LZMA_FILE))))
     });
 }
 
+// Benches file reading
+fn read_all_stream<'a>(stream: Box<dyn std::io::Read + 'a>) {
+    for b in stream.bytes() {
+        black_box(b).unwrap();
+    }
+}
+
+fn reads_in_ram(c: &mut Criterion) {
+    // bench short in ram gzip stream
+    {
+        let mut g = c.benchmark_group("Gzip reads");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| read_all_stream(niffler::get_reader(Box::new(GZIP_FILE)).unwrap().0))
+        });
+        g.bench_function("flate2", |b| {
+            b.iter(|| read_all_stream(Box::new(flate2::read::GzDecoder::new(GZIP_FILE))))
+        });
+    }
+
+    // bench short in ram bzip2 stream
+    {
+        let mut g = c.benchmark_group("Bzip2 reads");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| read_all_stream(niffler::get_reader(Box::new(BZIP_FILE)).unwrap().0))
+        });
+        g.bench_function("bzip2", |b| {
+            b.iter(|| read_all_stream(Box::new(bzip2::read::BzDecoder::new(BZIP_FILE))))
+        });
+    }
+
+    // bench short in ram lzma stream
+    {
+        let mut g = c.benchmark_group("LZMA reads");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| read_all_stream(niffler::get_reader(Box::new(LZMA_FILE)).unwrap().0))
+        });
+        g.bench_function("xz2", |b| {
+            b.iter(|| read_all_stream(Box::new(xz2::read::XzDecoder::new(LZMA_FILE))))
+        });
+    }
+}
+
 fn setup(c: &mut Criterion) {
     detect_format(c);
+    reads_in_ram(c);
 }
 
 criterion_group!(benches, setup);
