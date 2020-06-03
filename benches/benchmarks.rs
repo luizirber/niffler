@@ -29,6 +29,8 @@ use niffler;
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
 // Benches format detection to be sure modification in the code didn't create performance regression or to test if we have a better method in future
+const BASIC_FILE: &'static [u8] = b"I'm not compressed";
+
 const GZIP_FILE: &'static [u8] = &[
     0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xf3, 0x54, 0xcf, 0x55, 0x48, 0xce,
     0xcf, 0x2d, 0x28, 0x4a, 0x2d, 0x2e, 0x56, 0xc8, 0xcc, 0x53, 0x48, 0xaf, 0xca, 0x2c, 0xe0, 0x02,
@@ -110,9 +112,110 @@ fn reads_in_ram(c: &mut Criterion) {
     }
 }
 
+// Benches file writing
+fn write_all_data<'a>(mut stream: Box<dyn std::io::Write + 'a>, data: &[u8]) {
+    black_box(stream.write(data)).unwrap();
+}
+
+fn write_in_ram(c: &mut Criterion) {
+    let mut out = std::io::Cursor::new(Vec::new());
+
+    // bench short in ram gzip stream
+    {
+        let mut g = c.benchmark_group("Gzip write");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| {
+                write_all_data(
+                    niffler::get_writer(
+                        Box::new(&mut out),
+                        niffler::compression::Format::Gzip,
+                        niffler::compression::Level::One,
+                    )
+                    .unwrap(),
+                    BASIC_FILE,
+                )
+            })
+        });
+
+        g.bench_function("flate2", |b| {
+            b.iter(|| {
+                write_all_data(
+                    Box::new(flate2::write::GzEncoder::new(
+                        &mut out,
+                        flate2::Compression::fast(),
+                    )),
+                    BASIC_FILE,
+                )
+            })
+        });
+    }
+
+    // bench short in ram bzip2 stream
+    {
+        let mut g = c.benchmark_group("Bzip2 write");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| {
+                write_all_data(
+                    niffler::get_writer(
+                        Box::new(&mut out),
+                        niffler::compression::Format::Bzip,
+                        niffler::compression::Level::One,
+                    )
+                    .unwrap(),
+                    BASIC_FILE,
+                )
+            })
+        });
+
+        g.bench_function("bzip2", |b| {
+            b.iter(|| {
+                write_all_data(
+                    Box::new(bzip2::write::BzEncoder::new(
+                        &mut out,
+                        bzip2::Compression::Fastest,
+                    )),
+                    BASIC_FILE,
+                )
+            })
+        });
+    }
+
+    // bench short in ram bzip2 stream
+    {
+        let mut g = c.benchmark_group("LZMA write");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| {
+                write_all_data(
+                    niffler::get_writer(
+                        Box::new(&mut out),
+                        niffler::compression::Format::Lzma,
+                        niffler::compression::Level::One,
+                    )
+                    .unwrap(),
+                    BASIC_FILE,
+                )
+            })
+        });
+
+        g.bench_function("xz2", |b| {
+            b.iter(|| {
+                write_all_data(
+                    Box::new(xz2::write::XzEncoder::new(&mut out, 1)),
+                    BASIC_FILE,
+                )
+            })
+        });
+    }
+}
+
 fn setup(c: &mut Criterion) {
     detect_format(c);
+
     reads_in_ram(c);
+    write_in_ram(c);
 }
 
 criterion_group!(benches, setup);
