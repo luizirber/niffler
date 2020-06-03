@@ -216,22 +216,118 @@ mod test {
 
     #[test]
     fn level2u32() {
-        let tmp: u32 = Level::One.into();
+        let mut tmp: u32 = Level::One.into();
         assert_eq!(tmp, 1);
+
+        tmp = Level::Two.into();
+        assert_eq!(tmp, 2);
+
+        tmp = Level::Three.into();
+        assert_eq!(tmp, 3);
+
+        tmp = Level::Four.into();
+        assert_eq!(tmp, 4);
+
+        tmp = Level::Five.into();
+        assert_eq!(tmp, 5);
+
+        tmp = Level::Six.into();
+        assert_eq!(tmp, 6);
+
+        tmp = Level::Seven.into();
+        assert_eq!(tmp, 7);
+
+        tmp = Level::Eight.into();
+        assert_eq!(tmp, 8);
+
+        tmp = Level::Nine.into();
+        assert_eq!(tmp, 9);
     }
 
     #[test]
     fn level2flate2() {
-        let tmp: flate2::Compression = Level::One.into();
+        let mut tmp: flate2::Compression = Level::One.into();
         assert_eq!(tmp, flate2::Compression::new(1));
+
+        tmp = Level::Two.into();
+        assert_eq!(tmp, flate2::Compression::new(2));
+
+        tmp = Level::Three.into();
+        assert_eq!(tmp, flate2::Compression::new(3));
+
+        tmp = Level::Four.into();
+        assert_eq!(tmp, flate2::Compression::new(4));
+
+        tmp = Level::Five.into();
+        assert_eq!(tmp, flate2::Compression::new(5));
+
+        tmp = Level::Six.into();
+        assert_eq!(tmp, flate2::Compression::new(6));
+
+        tmp = Level::Seven.into();
+        assert_eq!(tmp, flate2::Compression::new(7));
+
+        tmp = Level::Eight.into();
+        assert_eq!(tmp, flate2::Compression::new(8));
+
+        tmp = Level::Nine.into();
+        assert_eq!(tmp, flate2::Compression::new(9));
     }
 
     #[test]
     #[cfg(feature = "bz2")]
     fn level2bzip2() {
-        let tmp: bzip2::Compression = Level::One.into();
+        let mut tmp: bzip2::Compression = Level::One.into();
         assert!(match tmp {
             bzip2::Compression::Fastest => true,
+            _ => false,
+        });
+
+        tmp = Level::Two.into();
+        assert!(match tmp {
+            bzip2::Compression::Default => true,
+            _ => false,
+        });
+
+        tmp = Level::Three.into();
+        assert!(match tmp {
+            bzip2::Compression::Default => true,
+            _ => false,
+        });
+
+        tmp = Level::Four.into();
+        assert!(match tmp {
+            bzip2::Compression::Default => true,
+            _ => false,
+        });
+
+        tmp = Level::Five.into();
+        assert!(match tmp {
+            bzip2::Compression::Default => true,
+            _ => false,
+        });
+
+        tmp = Level::Six.into();
+        assert!(match tmp {
+            bzip2::Compression::Default => true,
+            _ => false,
+        });
+
+        tmp = Level::Seven.into();
+        assert!(match tmp {
+            bzip2::Compression::Default => true,
+            _ => false,
+        });
+
+        tmp = Level::Eight.into();
+        assert!(match tmp {
+            bzip2::Compression::Default => true,
+            _ => false,
+        });
+
+        tmp = Level::Nine.into();
+        assert!(match tmp {
+            bzip2::Compression::Best => true,
             _ => false,
         });
     }
