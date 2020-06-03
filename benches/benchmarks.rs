@@ -23,6 +23,8 @@ Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056
 */
 
 use std::io::Read;
+use std::io::Seek;
+use std::io::Write;
 
 use niffler;
 
@@ -182,7 +184,7 @@ fn write_in_ram(c: &mut Criterion) {
         });
     }
 
-    // bench short in ram bzip2 stream
+    // bench short in ram lzma stream
     {
         let mut g = c.benchmark_group("LZMA write");
 
@@ -211,11 +213,257 @@ fn write_in_ram(c: &mut Criterion) {
     }
 }
 
+// On disk benchmark
+fn read_on_disk(c: &mut Criterion) {
+    // bench random gzip file
+    {
+        let mut compress_file = tempfile::NamedTempFile::new().unwrap();
+
+        // fill file
+        {
+            let wfile = compress_file.reopen().unwrap();
+            let mut writer = niffler::get_writer(
+                Box::new(wfile),
+                niffler::compression::Format::Gzip,
+                niffler::compression::Level::One,
+            )
+            .unwrap();
+
+            for _ in 0..(8 * 1024) {
+                writer.write(&[42]).unwrap();
+            }
+
+            writer.flush().unwrap();
+        }
+
+        let mut g = c.benchmark_group("Gzip reads on disk");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| {
+                compress_file.seek(std::io::SeekFrom::Start(0)).unwrap();
+
+                read_all_stream(
+                    niffler::get_reader(Box::new(compress_file.as_file()))
+                        .unwrap()
+                        .0,
+                );
+            })
+        });
+
+        g.bench_function("flate2", |b| {
+            b.iter(|| {
+                compress_file.seek(std::io::SeekFrom::Start(0)).unwrap();
+
+                read_all_stream(Box::new(flate2::read::GzDecoder::new(
+                    compress_file.as_file(),
+                )));
+            })
+        });
+    }
+
+    // bench random bzip2 file
+    {
+        let mut compress_file = tempfile::NamedTempFile::new().unwrap();
+
+        // fill file
+        {
+            let wfile = compress_file.reopen().unwrap();
+            let mut writer = niffler::get_writer(
+                Box::new(wfile),
+                niffler::compression::Format::Bzip,
+                niffler::compression::Level::One,
+            )
+            .unwrap();
+
+            for _ in 0..(8 * 1024) {
+                writer.write(&[42]).unwrap();
+            }
+
+            writer.flush().unwrap();
+        }
+
+        let mut g = c.benchmark_group("Bzip2 reads on disk");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| {
+                compress_file.seek(std::io::SeekFrom::Start(0)).unwrap();
+
+                read_all_stream(
+                    niffler::get_reader(Box::new(compress_file.as_file()))
+                        .unwrap()
+                        .0,
+                );
+            })
+        });
+
+        g.bench_function("bzip2", |b| {
+            b.iter(|| {
+                compress_file.seek(std::io::SeekFrom::Start(0)).unwrap();
+
+                read_all_stream(Box::new(bzip2::read::BzDecoder::new(
+                    compress_file.as_file(),
+                )));
+            })
+        });
+    }
+
+    // bench random lzma file
+    {
+        let mut compress_file = tempfile::NamedTempFile::new().unwrap();
+
+        // fill file
+        {
+            let wfile = compress_file.reopen().unwrap();
+            let mut writer = niffler::get_writer(
+                Box::new(wfile),
+                niffler::compression::Format::Lzma,
+                niffler::compression::Level::One,
+            )
+            .unwrap();
+
+            for _ in 0..(8 * 1024) {
+                writer.write(&[42]).unwrap();
+            }
+
+            writer.flush().unwrap();
+        }
+
+        let mut g = c.benchmark_group("Lzma reads on disk");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| {
+                compress_file.seek(std::io::SeekFrom::Start(0)).unwrap();
+
+                read_all_stream(
+                    niffler::get_reader(Box::new(compress_file.as_file()))
+                        .unwrap()
+                        .0,
+                );
+            })
+        });
+
+        g.bench_function("xz2", |b| {
+            b.iter(|| {
+                compress_file.seek(std::io::SeekFrom::Start(0)).unwrap();
+
+                read_all_stream(Box::new(xz2::read::XzDecoder::new(compress_file.as_file())));
+            })
+        });
+    }
+}
+
+fn write_on_disk(c: &mut Criterion) {
+    // bench random gzip file
+    {
+        let compress_file = tempfile::NamedTempFile::new().unwrap();
+
+        let mut g = c.benchmark_group("Gzip write on disk");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| {
+                let wfile = compress_file.reopen().unwrap();
+                let mut writer = niffler::get_writer(
+                    Box::new(wfile),
+                    niffler::compression::Format::Gzip,
+                    niffler::compression::Level::One,
+                )
+                .unwrap();
+
+                for _ in 0..(8 * 1024) {
+                    writer.write(&[42]).unwrap();
+                }
+            })
+        });
+
+        g.bench_function("flate2", |b| {
+            b.iter(|| {
+                let wfile = compress_file.reopen().unwrap();
+                let mut writer = flate2::write::GzEncoder::new(wfile, flate2::Compression::new(1));
+
+                for _ in 0..(8 * 1024) {
+                    writer.write(&[42]).unwrap();
+                }
+            })
+        });
+    }
+
+    // bench random bzip2 file
+    {
+        let compress_file = tempfile::NamedTempFile::new().unwrap();
+
+        let mut g = c.benchmark_group("Bzip2 write on disk");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| {
+                let wfile = compress_file.reopen().unwrap();
+                let mut writer = niffler::get_writer(
+                    Box::new(wfile),
+                    niffler::compression::Format::Bzip,
+                    niffler::compression::Level::One,
+                )
+                .unwrap();
+
+                for _ in 0..(8 * 1024) {
+                    writer.write(&[42]).unwrap();
+                }
+            })
+        });
+
+        g.bench_function("bzip2", |b| {
+            b.iter(|| {
+                let wfile = compress_file.reopen().unwrap();
+                let mut writer = bzip2::write::BzEncoder::new(wfile, bzip2::Compression::Fastest);
+
+                for _ in 0..(8 * 1024) {
+                    writer.write(&[42]).unwrap();
+                }
+            })
+        });
+    }
+
+    // bench random lzma file
+    {
+        let compress_file = tempfile::NamedTempFile::new().unwrap();
+
+        let mut g = c.benchmark_group("Lzma write on disk");
+
+        g.bench_function("niffler", |b| {
+            b.iter(|| {
+                let wfile = compress_file.reopen().unwrap();
+                let mut writer = niffler::get_writer(
+                    Box::new(wfile),
+                    niffler::compression::Format::Lzma,
+                    niffler::compression::Level::One,
+                )
+                .unwrap();
+
+                for _ in 0..(8 * 1024) {
+                    writer.write(&[42]).unwrap();
+                }
+            })
+        });
+
+        g.bench_function("xz2", |b| {
+            b.iter(|| {
+                let wfile = compress_file.reopen().unwrap();
+                let mut writer = xz2::write::XzEncoder::new(wfile, 1);
+
+                for _ in 0..(8 * 1024) {
+                    writer.write(&[42]).unwrap();
+                }
+            })
+        });
+    }
+}
+
 fn setup(c: &mut Criterion) {
     detect_format(c);
 
     reads_in_ram(c);
     write_in_ram(c);
+
+    read_on_disk(c);
+    write_on_disk(c);
 }
 
 criterion_group!(benches, setup);
