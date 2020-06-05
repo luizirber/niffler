@@ -61,13 +61,71 @@ Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056
 
 /* standard use */
 use std::io;
+use std::io::Read;
 use std::path::Path;
+
+/* extern crate use */
+use enum_primitive::FromPrimitive;
 
 /* crates section */
 pub mod compression;
 pub mod error;
 
 pub use crate::error::Error;
+
+/// Take a stream return this stream and the compression format, detect based on magic number.
+///
+/// # Example
+/// ```
+/// use niffler::{Error, sniff};
+/// # fn main() -> Result<(), Error> {
+///
+/// let data = vec![
+///         0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xf3, 0x54, 0xcf, 0x55,
+///         0x48, 0xce, 0xcf, 0x2d, 0x28, 0x4a, 0x2d, 0x2e, 0x56, 0xc8, 0xcc, 0x53, 0x48, 0xaf,
+///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
+///         ];
+///
+/// let probably_compress_stream = std::io::Cursor::new(data.clone());
+///
+/// let (mut reader, compression) = niffler::sniff(Box::new(probably_compress_stream))?;
+///
+/// let mut contents = Vec::new();
+/// reader.read_to_end(&mut contents).expect("Error durring file reading");
+///
+/// assert_eq!(compression, niffler::compression::Format::Gzip);
+/// assert_eq!(contents, data);
+/// # Ok(())
+/// # }
+/// ```
+pub fn sniff<'a>(
+    in_stream: Box<dyn io::Read + 'a>,
+) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
+    let (first_bytes, in_stream) = compression::get_first_five(in_stream)?;
+
+    let mut five_bit_val: u64 = 0;
+    for (i, item) in first_bytes.iter().enumerate().take(5) {
+        five_bit_val |= (u64::from(*item)) << (8 * (4 - i));
+    }
+
+    if compression::Format::from_u64(five_bit_val) == Some(compression::Format::Lzma) {
+        let cursor = io::Cursor::new(first_bytes);
+        return Ok((Box::new(cursor.chain(in_stream)), compression::Format::Lzma));
+    }
+
+    let mut two_bit_val: u64 = 0;
+    for (i, item) in first_bytes.iter().enumerate().take(2) {
+        two_bit_val |= (u64::from(*item)) << (8 * (1 - i));
+    }
+
+    let cursor = io::Cursor::new(first_bytes);
+    match compression::Format::from_u64(two_bit_val) {
+        e @ Some(compression::Format::Gzip) | e @ Some(compression::Format::Bzip) => {
+            Ok((Box::new(cursor.chain(in_stream)), e.unwrap()))
+        }
+        _ => Ok((Box::new(cursor.chain(in_stream)), compression::Format::No)),
+    }
+}
 
 /// Create a readable stream that can be read transparently even if the original stream is compress.
 /// Also returns the compression type of the original stream.
@@ -97,7 +155,7 @@ pub fn get_reader<'a>(
     in_stream: Box<dyn io::Read + 'a>,
 ) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
     // check compression
-    let (compression, in_stream) = compression::read_compression(in_stream)?;
+    let (in_stream, compression) = sniff(in_stream)?;
 
     // return readable and compression status
     match compression {
@@ -382,6 +440,40 @@ mod test {
                 .read_to_end(&mut buffer)
                 .expect("Error during reading");
             assert_eq!(LOREM_IPSUM, buffer.as_slice());
+        }
+    }
+
+    mod compression_format_detection {
+        use super::*;
+
+        #[test]
+        fn gzip() {
+            let (_, compression) = sniff(Box::new(GZIP_FILE)).expect("Error in read file");
+            assert_eq!(compression, compression::Format::Gzip);
+        }
+
+        #[test]
+        fn bzip() {
+            let (_, compression) = sniff(Box::new(BZIP_FILE)).expect("Error in read file");
+            assert_eq!(compression, compression::Format::Bzip);
+        }
+
+        #[test]
+        fn lzma() {
+            let (_, compression) = sniff(Box::new(LZMA_FILE)).expect("Error in read file");
+            assert_eq!(compression, compression::Format::Lzma);
+        }
+
+        #[test]
+        fn too_short() {
+            let result = sniff(Box::new(SHORT_FILE));
+            assert!(result.is_err());
+        }
+
+        #[test]
+        fn no_compression() {
+            let (_, compression) = sniff(Box::new(LOREM_IPSUM)).expect("Error in read file");
+            assert_eq!(compression, compression::Format::No);
         }
     }
 }

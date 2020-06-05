@@ -59,13 +59,13 @@ fn detect_format(c: &mut Criterion) {
     let mut g = c.benchmark_group("Format detection");
 
     g.bench_function("gzip", |b| {
-        b.iter(|| black_box(niffler::compression::read_compression(Box::new(GZIP_FILE))))
+        b.iter(|| black_box(niffler::sniff(Box::new(GZIP_FILE))))
     });
     g.bench_function("bzip", |b| {
-        b.iter(|| black_box(niffler::compression::read_compression(Box::new(BZIP_FILE))))
+        b.iter(|| black_box(niffler::sniff(Box::new(BZIP_FILE))))
     });
     g.bench_function("lzma", |b| {
-        b.iter(|| black_box(niffler::compression::read_compression(Box::new(LZMA_FILE))))
+        b.iter(|| black_box(niffler::sniff(Box::new(LZMA_FILE))))
     });
 }
 
