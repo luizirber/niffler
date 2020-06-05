@@ -28,6 +28,31 @@ Many similar projects exist in other languages:
 - Perl: [AnyUncompress](https://perldoc.perl.org/IO/Uncompress/AnyUncompress.html)
 - go: [Archiver](https://github.com/mholt/archiver)
 
+## Development
+
+niffler development is open, if you want add your contribution you can create a [pull request](https://github.com/luizirber/niffler/pulls).
+
+Before create your pull request, if it's require please write a test, benchmark and run: 
+```
+cargo fmt
+cargo test
+cargo clippy
+```
+
+To run test use:
+```
+cargo test --features "bz2"	--features "lzma"
+```
+
+To test benchmark run:
+```
+cargo test --benches --features "bz2" --features "lzma"
+```
+
+To run all benchmark use:
+```
+cargo bench --features "bz2" --features "lzma"
+```
 
 ## License
 
