@@ -30,29 +30,33 @@ Many similar projects exist in other languages:
 
 ## Development
 
-niffler development is open, if you want add your contribution you can create a [pull request](https://github.com/luizirber/niffler/pulls).
+niffler development is open, and [pull requests](https://github.com/luizirber/niffler/pulls) are welcome!
 
-Before create your pull request, if it's require please write a test, benchmark and run: 
+Before creating your pull request, please try to write a test and benchmark (if possible).
+Some commands we suggest running to help with these tasks:
 ```
 cargo fmt
 cargo test
 cargo clippy
 ```
 
-To run test use:
+To run tests use:
 ```
-cargo test --features "bz2"	--features "lzma"
+cargo test --all-features
 ```
 
 To test benchmark run:
 ```
-cargo test --benches --features "bz2" --features "lzma"
+cargo test --benches --all-features
 ```
 
 To run all benchmark use:
 ```
-cargo bench --features "bz2" --features "lzma"
+cargo bench --all-features
 ```
+
+As a shortcut, you can also run `make`,
+which will execute all these commands.
 
 ## License
 

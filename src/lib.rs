@@ -73,12 +73,14 @@ pub mod error;
 
 pub use crate::error::Error;
 
-/// Take a stream return this stream and the compression format, detect based on magic number.
+/// Finds out what is the compression format for a stream based on magic numbers
+/// (the first few bytes of the stream).
+///
+/// Return the stream and the compression format detected.
 ///
 /// # Example
 /// ```
-/// use niffler::{Error, sniff};
-/// # fn main() -> Result<(), Error> {
+/// # fn main() -> Result<(), niffler::Error> {
 ///
 /// let data = vec![
 ///         0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xf3, 0x54, 0xcf, 0x55,
@@ -86,9 +88,7 @@ pub use crate::error::Error;
 ///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
 ///         ];
 ///
-/// let probably_compress_stream = std::io::Cursor::new(data.clone());
-///
-/// let (mut reader, compression) = niffler::sniff(Box::new(probably_compress_stream))?;
+/// let (mut reader, compression) = niffler::sniff(Box::new(&data[..]))?;
 ///
 /// let mut contents = Vec::new();
 /// reader.read_to_end(&mut contents).expect("Error durring file reading");
