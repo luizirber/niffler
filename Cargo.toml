@@ -25,3 +25,22 @@ xz2 = { version = "0.1", optional = true }
 
 [dev-dependencies]
 tempfile = "3"
+criterion = "0.3"
+
+[[bench]]
+name = "detect_format"
+harness = false
+
+[[bench]]
+name = "gzip"
+harness = false
+
+[[bench]]
+name = "bzip2"
+harness = false
+required-features = ["bz2"]
+
+[[bench]]
+name = "lzma"
+harness = false
+required-features = ["xz2"]

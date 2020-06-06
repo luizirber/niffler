@@ -28,6 +28,35 @@ Many similar projects exist in other languages:
 - Perl: [AnyUncompress](https://perldoc.perl.org/IO/Uncompress/AnyUncompress.html)
 - go: [Archiver](https://github.com/mholt/archiver)
 
+## Development
+
+niffler development is open, and [pull requests](https://github.com/luizirber/niffler/pulls) are welcome!
+
+Before creating your pull request, please try to write a test and benchmark (if possible).
+Some commands we suggest running to help with these tasks:
+```
+cargo fmt
+cargo test
+cargo clippy
+```
+
+To run tests use:
+```
+cargo test --all-features
+```
+
+To test benchmark run:
+```
+cargo test --benches --all-features
+```
+
+To run all benchmark use:
+```
+cargo bench --all-features
+```
+
+As a shortcut, you can also run `make`,
+which will execute all these commands.
 
 ## License
 

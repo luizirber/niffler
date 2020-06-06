@@ -22,13 +22,10 @@ SOFTWARE.
 
 /* standard use */
 use std::io;
-use std::io::Read;
 
 /* crates use */
 use cfg_if::cfg_if;
-use enum_primitive::{
-    enum_from_primitive, enum_from_primitive_impl, enum_from_primitive_impl_ty, FromPrimitive,
-};
+use enum_primitive::{enum_from_primitive, enum_from_primitive_impl, enum_from_primitive_impl_ty};
 
 use crate::error::Error;
 
@@ -65,42 +62,13 @@ pub enum Level {
     Nine,
 }
 
-fn get_first_five<'a>(
+pub(crate) fn get_first_five<'a>(
     mut in_stream: Box<dyn io::Read + 'a>,
 ) -> Result<([u8; 5], Box<dyn io::Read + 'a>), Error> {
     let mut buf = [0u8; 5];
     match in_stream.read_exact(&mut buf) {
         Ok(()) => Ok((buf, in_stream)),
         Err(_) => Err(Error::FileTooShort),
-    }
-}
-
-pub(crate) fn read_compression<'a>(
-    in_stream: Box<dyn io::Read + 'a>,
-) -> Result<(Format, Box<dyn io::Read + 'a>), Error> {
-    let (first_bytes, in_stream) = get_first_five(in_stream)?;
-
-    let mut five_bit_val: u64 = 0;
-    for (i, item) in first_bytes.iter().enumerate().take(5) {
-        five_bit_val |= (u64::from(*item)) << (8 * (4 - i));
-    }
-
-    if Format::from_u64(five_bit_val) == Some(Format::Lzma) {
-        let cursor = io::Cursor::new(first_bytes);
-        return Ok((Format::Lzma, Box::new(cursor.chain(in_stream))));
-    }
-
-    let mut two_bit_val: u64 = 0;
-    for (i, item) in first_bytes.iter().enumerate().take(2) {
-        two_bit_val |= (u64::from(*item)) << (8 * (1 - i));
-    }
-
-    let cursor = io::Cursor::new(first_bytes);
-    match Format::from_u64(two_bit_val) {
-        e @ Some(Format::Gzip) | e @ Some(Format::Bzip) => {
-            Ok((e.unwrap(), Box::new(cursor.chain(in_stream))))
-        }
-        _ => Ok((Format::No, Box::new(cursor.chain(in_stream)))),
     }
 }
 
@@ -212,7 +180,6 @@ cfg_if! {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::test::{BZIP_FILE, GZIP_FILE, LOREM_IPSUM, LZMA_FILE, SHORT_FILE};
 
     #[test]
     fn level2u32() {
@@ -330,43 +297,5 @@ mod test {
             bzip2::Compression::Best => true,
             _ => false,
         });
-    }
-
-    mod compression_format_detection {
-        use super::*;
-
-        #[test]
-        fn gzip() {
-            let (compression, _) =
-                read_compression(Box::new(GZIP_FILE)).expect("Error in read file");
-            assert_eq!(compression, Format::Gzip);
-        }
-
-        #[test]
-        fn bzip() {
-            let (compression, _) =
-                read_compression(Box::new(BZIP_FILE)).expect("Error in read file");
-            assert_eq!(compression, Format::Bzip);
-        }
-
-        #[test]
-        fn lzma() {
-            let (compression, _) =
-                read_compression(Box::new(LZMA_FILE)).expect("Error in read file");
-            assert_eq!(compression, Format::Lzma);
-        }
-
-        #[test]
-        fn too_short() {
-            let result = read_compression(Box::new(SHORT_FILE));
-            assert!(result.is_err());
-        }
-
-        #[test]
-        fn no_compression() {
-            let (compression, _) =
-                read_compression(Box::new(LOREM_IPSUM)).expect("Error in read file");
-            assert_eq!(compression, Format::No);
-        }
     }
 }
