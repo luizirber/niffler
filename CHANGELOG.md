@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2020-06-06
+
+### Added
+
+- `sniff` function to detect compression format, and add benchmarks for most methods (#25)
+- More test on compression level conversion (#26)
+
 ## [2.0.1] - 2020-05-20
 
 ### Added
