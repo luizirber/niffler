@@ -159,10 +159,7 @@ pub fn get_reader<'a>(
 
     // return readable and compression status
     match compression {
-        compression::Format::Gzip => Ok((
-            Box::new(flate2::read::MultiGzDecoder::new(in_stream)),
-            compression::Format::Gzip,
-        )),
+        compression::Format::Gzip => compression::new_gz_decoder(in_stream),
         compression::Format::Bzip => compression::new_bz2_decoder(in_stream),
         compression::Format::Lzma => compression::new_lzma_decoder(in_stream),
         compression::Format::No => Ok((in_stream, compression::Format::No)),
@@ -201,10 +198,7 @@ pub fn get_writer<'a>(
     level: compression::Level,
 ) -> Result<Box<dyn io::Write + 'a>, Error> {
     match format {
-        compression::Format::Gzip => Ok(Box::new(flate2::write::GzEncoder::new(
-            out_stream,
-            level.into(),
-        ))),
+        compression::Format::Gzip => compression::new_gz_encoder(out_stream, level),
         compression::Format::Bzip => compression::new_bz2_encoder(out_stream, level),
         compression::Format::Lzma => compression::new_lzma_encoder(out_stream, level),
         compression::Format::No => Ok(Box::new(out_stream)),
@@ -312,6 +306,7 @@ mod test {
             assert_eq!(LOREM_IPSUM, buffer.as_slice());
         }
 
+        #[cfg(feature = "gz")]
         #[test]
         fn gzip() {
             let ofile = NamedTempFile::new().expect("Can't create tmpfile");
