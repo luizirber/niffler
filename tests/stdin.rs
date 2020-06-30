@@ -3,6 +3,7 @@ use std::io::{Seek, SeekFrom, Write};
 use assert_cmd::prelude::*;
 use predicates::str::contains;
 
+#[cfg(not(tarpaulin))] // Tarpaulin interacts weirdly with escargot
 #[cfg(feature = "gz")]
 #[test]
 fn test_stdin_gz() {
@@ -29,6 +30,7 @@ fn test_stdin_gz() {
         .stdout(contains("Gzip"));
 }
 
+#[cfg(not(tarpaulin))] // Tarpaulin interacts weirdly with escargot
 #[cfg(feature = "bz2")]
 #[test]
 fn test_stdin_bz2() {
@@ -57,6 +59,7 @@ fn test_stdin_bz2() {
         .stdout(contains("Bzip"));
 }
 
+#[cfg(not(tarpaulin))] // Tarpaulin interacts weirdly with escargot
 #[cfg(feature = "lzma")]
 #[test]
 fn test_stdin_lzma() {
