@@ -160,7 +160,7 @@ pub fn get_reader<'a>(
     // return readable and compression status
     match compression {
         compression::Format::Gzip => Ok((
-            Box::new(flate2::read::GzDecoder::new(in_stream)),
+            Box::new(flate2::read::MultiGzDecoder::new(in_stream)),
             compression::Format::Gzip,
         )),
         compression::Format::Bzip => compression::new_bz2_decoder(in_stream),
