@@ -59,7 +59,7 @@ jobs:
           command: test
           args: --no-fail-fast
 
-  test_all_features:
+  test_all_feature_combinations:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -69,11 +69,14 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: Run tests
-        uses: actions-rs/cargo@v1
+      - uses: actions-rs/install@v0.1
         with:
-          command: test
-          args: --no-fail-fast --all --all-features
+          crate: cargo-all-features
+          version: latest
+          use-tool-cache: true
+
+      - name: Run tests for all feature combinations
+        run: cargo test-all-features --no-fail-fast --all
 
   coverage:
     runs-on: ubuntu-latest
