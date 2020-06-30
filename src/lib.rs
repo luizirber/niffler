@@ -211,6 +211,13 @@ pub fn get_writer<'a>(
 }
 
 /// Open a possibly compressed file and decompress it transparently.
+///
+/// If `-` is provided as a path, reads input from stdin. This doesn't [lock]
+/// stdin, so depending on your use case you might want to lock explicitly and
+/// use `niffler::get_reader` instead.
+///
+/// [lock]: https://doc.rust-lang.org/std/io/struct.Stdin.html#method.lock
+///
 /// ```
 /// use niffler::{Error, compression};
 /// # fn main() -> Result<(), Error> {
