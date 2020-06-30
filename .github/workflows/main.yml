@@ -92,7 +92,7 @@ jobs:
         uses: actions-rs/tarpaulin@v0.1.2
         with:
           version: '0.9.0'
-          args: '-- --test-threads 1'
+          args: '--all-features -- --test-threads 1'
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v1.0.3
