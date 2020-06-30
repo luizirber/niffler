@@ -236,8 +236,13 @@ pub fn get_writer<'a>(
 pub fn from_path<'a, P: AsRef<Path>>(
     path: P,
 ) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
-    let readable = io::BufReader::new(std::fs::File::open(path)?);
-    get_reader(Box::new(readable))
+    let path = path.as_ref();
+    let readable: Box<dyn Read> = if path == Path::new("-") {
+        Box::new(io::BufReader::new(io::stdin()))
+    } else {
+        Box::new(io::BufReader::new(std::fs::File::open(path)?))
+    };
+    get_reader(readable)
 }
 
 /// Create a file with specific compression format.

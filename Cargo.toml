@@ -27,6 +27,9 @@ xz2 = { version = "0.1", optional = true }
 [dev-dependencies]
 tempfile = "3"
 criterion = "0.3"
+escargot = "0.5.0"
+assert_cmd = "1.0.1"
+predicates = "1.0.4"
 
 [[bench]]
 name = "detect_format"
