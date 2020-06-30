@@ -38,7 +38,7 @@ Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056
 //! ```rust
 //! use niffler::{Error, compression};
 //! # fn main() -> Result<(), Error> {
-//!
+//! # #[cfg(feature = "gz")] {
 //! let mut buffer = Vec::new();
 //!
 //! {
@@ -55,6 +55,7 @@ Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056
 //!
 //! assert_eq!(compression, niffler::compression::Format::Gzip);
 //! assert_eq!(contents, "hello");
+//! # }
 //! # Ok(())
 //! # }
 //! ```
@@ -141,6 +142,7 @@ pub fn sniff<'a>(
 ///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
 ///         ]);
 ///
+/// # #[cfg(feature = "gz")] {
 /// let (mut reader, compression) = niffler::get_reader(Box::new(probably_compress_stream))?;
 ///
 /// let mut contents = String::new();
@@ -148,6 +150,7 @@ pub fn sniff<'a>(
 ///
 /// assert_eq!(compression, niffler::compression::Format::Gzip);
 /// assert_eq!(contents, "I'm compress in gzip\n");
+/// # }
 /// # Ok(())
 /// # }
 /// ```
@@ -174,6 +177,7 @@ pub fn get_reader<'a>(
 /// use niffler::{Error, get_writer, compression};
 /// # fn main() -> Result<(), Error> {
 ///
+/// # #[cfg(feature = "gz")] {
 /// let mut buffer = vec![];
 /// {
 ///   let mut writer = niffler::get_writer(Box::new(&mut buffer), compression::Format::Gzip, compression::Level::One)?;
@@ -188,6 +192,7 @@ pub fn get_reader<'a>(
 ///         0x48, 0xce, 0xcf, 0x2d, 0x28, 0x4a, 0x2d, 0x2e, 0x56, 0xc8, 0xcc, 0x53, 0x48, 0xaf,
 ///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
 ///         ]);
+/// # }
 /// # Ok(())
 /// # }
 /// ```
@@ -210,6 +215,7 @@ pub fn get_writer<'a>(
 /// use niffler::{Error, compression};
 /// # fn main() -> Result<(), Error> {
 ///
+/// # #[cfg(feature = "gz")] {
 /// # let file = tempfile::NamedTempFile::new()?;
 ///
 /// # {
@@ -223,6 +229,7 @@ pub fn get_writer<'a>(
 /// reader.read_to_end(&mut contents);
 /// # assert_eq!(&contents, b"hello");
 ///
+/// # }
 /// # Ok(())
 /// # }
 /// ```
@@ -238,6 +245,7 @@ pub fn from_path<'a, P: AsRef<Path>>(
 /// use niffler::{Error, compression};
 /// # fn main() -> Result<(), Error> {
 ///
+/// # #[cfg(feature = "gz")] {
 /// # let file = tempfile::NamedTempFile::new()?;
 ///
 /// # {
@@ -249,6 +257,7 @@ pub fn from_path<'a, P: AsRef<Path>>(
 /// # let mut contents = vec![];
 /// # reader.read_to_end(&mut contents)?;
 /// # assert_eq!(&contents, b"hello");
+/// # }
 /// # Ok(())
 /// # }
 /// ```
