@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.2.0] - 2020-06-30
+## [2.2.0] - 2020-07-01
+
+### Added
+
+- Support for using '-' as an alias for stdin in from_path
 
 ### Changed
 
