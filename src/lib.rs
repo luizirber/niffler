@@ -211,13 +211,6 @@ pub fn get_writer<'a>(
 }
 
 /// Open a possibly compressed file and decompress it transparently.
-///
-/// If `-` is provided as a path, reads input from stdin. This doesn't [lock]
-/// stdin, so depending on your use case you might want to lock explicitly and
-/// use `niffler::get_reader` instead.
-///
-/// [lock]: https://doc.rust-lang.org/std/io/struct.Stdin.html#method.lock
-///
 /// ```
 /// use niffler::{Error, compression};
 /// # fn main() -> Result<(), Error> {
@@ -243,13 +236,8 @@ pub fn get_writer<'a>(
 pub fn from_path<'a, P: AsRef<Path>>(
     path: P,
 ) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
-    let path = path.as_ref();
-    let readable: Box<dyn Read> = if path == Path::new("-") {
-        Box::new(io::BufReader::new(io::stdin()))
-    } else {
-        Box::new(io::BufReader::new(std::fs::File::open(path)?))
-    };
-    get_reader(readable)
+    let readable = io::BufReader::new(std::fs::File::open(path)?);
+    get_reader(Box::new(readable))
 }
 
 /// Create a file with specific compression format.
