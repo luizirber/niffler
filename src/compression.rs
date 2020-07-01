@@ -73,6 +73,33 @@ pub(crate) fn get_first_five<'a>(
 }
 
 cfg_if! {
+    if #[cfg(feature = "gz")] {
+        pub(crate) fn new_gz_encoder<'a>(out: Box<dyn io::Write + 'a>, level: Level) -> Result<Box<dyn io::Write + 'a>, Error> {
+          Ok(Box::new(flate2::write::GzEncoder::new(
+            out,
+            level.into(),
+          )))
+        }
+
+        pub(crate) fn new_gz_decoder<'a>(
+            inp: Box<dyn io::Read + 'a>,
+        ) -> Result<(Box<dyn io::Read + 'a>, Format), Error> {
+          Ok((
+            Box::new(flate2::read::MultiGzDecoder::new(inp)),
+            Format::Gzip,
+          ))
+        }
+    } else {
+        pub(crate) fn new_gz_encoder<'a>(_: Box<dyn io::Write + 'a>, _: Level) -> Result<Box<dyn io::Write + 'a>, Error> {
+            Err(Error::FeatureDisabled)
+        }
+        pub(crate) fn new_gz_decoder<'a>(_: Box<dyn io::Read + 'a>) -> Result<(Box<dyn io::Read + 'a>, Format), Error> {
+            Err(Error::FeatureDisabled)
+        }
+}
+}
+
+cfg_if! {
     if #[cfg(feature = "bz2")] {
         pub(crate) fn new_bz2_encoder<'a>(out: Box<dyn io::Write + 'a>, level: Level) -> Result<Box<dyn io::Write + 'a>, Error> {
             Ok(Box::new(bzip2::write::BzEncoder::new(
@@ -141,6 +168,7 @@ impl Into<u32> for Level {
     }
 }
 
+#[cfg(feature = "gz")]
 impl Into<flate2::Compression> for Level {
     fn into(self) -> flate2::Compression {
         match self {
@@ -157,23 +185,20 @@ impl Into<flate2::Compression> for Level {
     }
 }
 
-cfg_if! {
-    if #[cfg(feature = "bz2")] {
-    impl Into<bzip2::Compression> for Level {
-        fn into(self) -> bzip2::Compression {
-            match self {
-                Level::One   => bzip2::Compression::Fastest,
-                Level::Two   => bzip2::Compression::Default,
-                Level::Three => bzip2::Compression::Default,
-                Level::Four  => bzip2::Compression::Default,
-                Level::Five  => bzip2::Compression::Default,
-                Level::Six   => bzip2::Compression::Default,
-                Level::Seven => bzip2::Compression::Default,
-                Level::Eight => bzip2::Compression::Default,
-                Level::Nine  => bzip2::Compression::Best,
-            }
-            }
-    }
+#[cfg(feature = "bz2")]
+impl Into<bzip2::Compression> for Level {
+    fn into(self) -> bzip2::Compression {
+        match self {
+            Level::One => bzip2::Compression::Fastest,
+            Level::Two => bzip2::Compression::Default,
+            Level::Three => bzip2::Compression::Default,
+            Level::Four => bzip2::Compression::Default,
+            Level::Five => bzip2::Compression::Default,
+            Level::Six => bzip2::Compression::Default,
+            Level::Seven => bzip2::Compression::Default,
+            Level::Eight => bzip2::Compression::Default,
+            Level::Nine => bzip2::Compression::Best,
+        }
     }
 }
 
@@ -211,6 +236,7 @@ mod test {
         assert_eq!(tmp, 9);
     }
 
+    #[cfg(feature = "gz")]
     #[test]
     fn level2flate2() {
         let mut tmp: flate2::Compression = Level::One.into();
