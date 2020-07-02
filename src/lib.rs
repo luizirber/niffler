@@ -69,7 +69,7 @@ Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056
 //! currently only `gz` is supported in Webassembly environments
 //! (because `niffler` depends on crates that have system dependencies for `bz2` and `lzma` compression),
 //! so you can use this in your `Cargo.toml` to select only the `gz` support:
-//! ```
+//! ```toml
 //! niffler = { version = "2.2.0", default-features = false, features = ["gz"] }
 //! ```
 //!
