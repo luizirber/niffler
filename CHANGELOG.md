@@ -7,17 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Document how to use features in README and docs (#32)
+
 ## [2.2.0] - 2020-07-01
 
 ### Changed
 
-- Make gz compression optional too, matching behavior of other compression formats.
+- Make gz compression optional too, matching behavior of other compression formats (#29)
 
 ## [2.1.1] - 2020-06-30
 
 ### Changed
 
-- Replace `GzDecoder` with `MultiGzDecoder` for gzip decompression.
+- Replace `GzDecoder` with `MultiGzDecoder` for gzip decompression (#28)
 
 ## [2.1.0] - 2020-06-06
 

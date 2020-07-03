@@ -19,6 +19,24 @@ bioinformatics workflows.
 [build-status]: https://github.com/luizirber/niffler/workflows/CI/badge.svg
 [github-actions]: https://github.com/luizirber/niffler/actions?query=workflow%3ACI
 
+## Selecting compression formats
+
+By default all supported compression formats are enabled.
+If you're working on systems that don't support them you can disable default
+features and select the ones you want.
+For example,
+currently only `gz` is supported in Webassembly environments
+(because `niffler` depends on crates that have system dependencies for `bz2` and `lzma` compression),
+so you can use this in your `Cargo.toml` to select only the `gz` support:
+```
+niffler = { version = "2.2.0", default-features = false, features = ["gz"] }
+```
+
+You can still use `niffler::sniff()` to find what is the compression format,
+even if any feature is disabled.
+But if you try to use `niffler::get_reader` for a disabled feature,
+it will throw a runtime error.
+
 ## Similar project
 
 Many similar projects exist in other languages:
