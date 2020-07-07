@@ -37,6 +37,10 @@ even if any feature is disabled.
 But if you try to use `niffler::get_reader` for a disabled feature,
 it will throw a runtime error.
 
+## Minimum supported Rust version
+
+Currently the minimum supported Rust version is 1.37.0.
+
 ## Similar project
 
 Many similar projects exist in other languages:
