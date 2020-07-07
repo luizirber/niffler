@@ -189,15 +189,15 @@ impl Into<flate2::Compression> for Level {
 impl Into<bzip2::Compression> for Level {
     fn into(self) -> bzip2::Compression {
         match self {
-            Level::One => bzip2::Compression::Fastest,
-            Level::Two => bzip2::Compression::Default,
-            Level::Three => bzip2::Compression::Default,
-            Level::Four => bzip2::Compression::Default,
-            Level::Five => bzip2::Compression::Default,
-            Level::Six => bzip2::Compression::Default,
-            Level::Seven => bzip2::Compression::Default,
-            Level::Eight => bzip2::Compression::Default,
-            Level::Nine => bzip2::Compression::Best,
+            Level::One => bzip2::Compression::new(1),
+            Level::Two => bzip2::Compression::new(2),
+            Level::Three => bzip2::Compression::new(3),
+            Level::Four => bzip2::Compression::new(4),
+            Level::Five => bzip2::Compression::new(5),
+            Level::Six => bzip2::Compression::new(6),
+            Level::Seven => bzip2::Compression::new(7),
+            Level::Eight => bzip2::Compression::new(8),
+            Level::Nine => bzip2::Compression::new(9),
         }
     }
 }
@@ -270,58 +270,31 @@ mod test {
     #[test]
     #[cfg(feature = "bz2")]
     fn level2bzip2() {
-        let mut tmp: bzip2::Compression = Level::One.into();
-        assert!(match tmp {
-            bzip2::Compression::Fastest => true,
-            _ => false,
-        });
+        let tmp: bzip2::Compression = Level::One.into();
+        assert_eq!(tmp.level(), bzip2::Compression::new(1).level());
 
-        tmp = Level::Two.into();
-        assert!(match tmp {
-            bzip2::Compression::Default => true,
-            _ => false,
-        });
+        let tmp: bzip2::Compression = Level::Two.into();
+        assert_eq!(tmp.level(), bzip2::Compression::new(2).level());
 
-        tmp = Level::Three.into();
-        assert!(match tmp {
-            bzip2::Compression::Default => true,
-            _ => false,
-        });
+        let tmp: bzip2::Compression = Level::Three.into();
+        assert_eq!(tmp.level(), bzip2::Compression::new(3).level());
 
-        tmp = Level::Four.into();
-        assert!(match tmp {
-            bzip2::Compression::Default => true,
-            _ => false,
-        });
+        let tmp: bzip2::Compression = Level::Four.into();
+        assert_eq!(tmp.level(), bzip2::Compression::new(4).level());
 
-        tmp = Level::Five.into();
-        assert!(match tmp {
-            bzip2::Compression::Default => true,
-            _ => false,
-        });
+        let tmp: bzip2::Compression = Level::Five.into();
+        assert_eq!(tmp.level(), bzip2::Compression::new(5).level());
 
-        tmp = Level::Six.into();
-        assert!(match tmp {
-            bzip2::Compression::Default => true,
-            _ => false,
-        });
+        let tmp: bzip2::Compression = Level::Six.into();
+        assert_eq!(tmp.level(), bzip2::Compression::new(6).level());
 
-        tmp = Level::Seven.into();
-        assert!(match tmp {
-            bzip2::Compression::Default => true,
-            _ => false,
-        });
+        let tmp: bzip2::Compression = Level::Seven.into();
+        assert_eq!(tmp.level(), bzip2::Compression::new(7).level());
 
-        tmp = Level::Eight.into();
-        assert!(match tmp {
-            bzip2::Compression::Default => true,
-            _ => false,
-        });
+        let tmp: bzip2::Compression = Level::Eight.into();
+        assert_eq!(tmp.level(), bzip2::Compression::new(8).level());
 
-        tmp = Level::Nine.into();
-        assert!(match tmp {
-            bzip2::Compression::Best => true,
-            _ => false,
-        });
+        let tmp: bzip2::Compression = Level::Nine.into();
+        assert_eq!(tmp.level(), bzip2::Compression::new(9).level());
     }
 }
