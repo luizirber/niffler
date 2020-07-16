@@ -46,7 +46,7 @@ Currently the minimum supported Rust version is 1.37.0.
 Many similar projects exist in other languages:
 
 - C: [rbread](https://github.com/ocxtal/rbread)
-- Python: [xphyle](https://github.com/jdidion/xphyle)
+- Python: [xphyle](https://github.com/jdidion/xphyle), [xopen](https://github.com/marcelm/xopen)
 - Perl: [AnyUncompress](https://perldoc.perl.org/IO/Uncompress/AnyUncompress.html)
 - go: [Archiver](https://github.com/mholt/archiver)
 
