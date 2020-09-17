@@ -25,7 +25,9 @@ use std::io;
 
 /* crates use */
 use cfg_if::cfg_if;
-use enum_primitive::{enum_from_primitive, enum_from_primitive_impl, enum_from_primitive_impl_ty};
+use enum_primitive::{
+    enum_from_primitive, enum_from_primitive_impl, enum_from_primitive_impl_ty, FromPrimitive,
+};
 
 use crate::error::Error;
 
@@ -69,6 +71,40 @@ pub(crate) fn get_first_five<'a>(
     match in_stream.read_exact(&mut buf) {
         Ok(()) => Ok((buf, in_stream)),
         Err(_) => Err(Error::FileTooShort),
+    }
+}
+
+pub(crate) fn get_first_five_seek<'a>(
+    mut in_stream: Box<dyn crate::ReadSeek + Send + 'a>,
+) -> Result<([u8; 5], Box<dyn crate::ReadSeek + Send + 'a>), Error> {
+    let mut buf = [0u8; 5];
+    match in_stream.read_exact(&mut buf) {
+        Ok(()) => {
+            in_stream.seek(io::SeekFrom::Start(0))?;
+            Ok((buf, in_stream))
+        }
+        Err(_) => Err(Error::FileTooShort),
+    }
+}
+
+pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
+    let mut five_bit_val: u64 = 0;
+    for (i, item) in bytes.iter().enumerate().take(5) {
+        five_bit_val |= (u64::from(*item)) << (8 * (4 - i));
+    }
+
+    if Format::from_u64(five_bit_val) == Some(Format::Lzma) {
+        return Format::Lzma;
+    }
+
+    let mut two_bit_val: u64 = 0;
+    for (i, item) in bytes.iter().enumerate().take(2) {
+        two_bit_val |= (u64::from(*item)) << (8 * (1 - i));
+    }
+
+    match Format::from_u64(two_bit_val) {
+        e @ Some(Format::Gzip) | e @ Some(Format::Bzip) => e.unwrap(),
+        _ => Format::No,
     }
 }
 
