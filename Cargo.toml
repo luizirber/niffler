@@ -17,7 +17,7 @@ lzma = ["xz2"]
 gz = ["flate2"]
 
 [dependencies]
-cfg-if = "0.1"
+cfg-if = "1.0"
 enum_primitive = "0.1.1"
 thiserror = "1.0"
 bzip2 = { version = "0.4.1", optional = true }
