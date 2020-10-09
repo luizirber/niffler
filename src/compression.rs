@@ -1,25 +1,3 @@
-/*
-Copyright (c) 2018 Pierre Marijon <pmarijon@mpi-inf.mpg.de>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
- */
-
 /* standard use */
 use std::io;
 
@@ -29,8 +7,10 @@ use enum_primitive::{
     enum_from_primitive, enum_from_primitive_impl, enum_from_primitive_impl_ty, FromPrimitive,
 };
 
+/* project use */
 use crate::error::Error;
 
+/* Format detection enum */
 enum_from_primitive! {
     #[repr(u64)]
     /// `Format` represent a compression format of a file. Currently Gzip, Bzip, Lzma or No are supported.
@@ -74,19 +54,6 @@ pub(crate) fn get_first_five<'a>(
     }
 }
 
-pub(crate) fn get_first_five_seek<'a>(
-    mut in_stream: Box<dyn crate::ReadSeek + Send + 'a>,
-) -> Result<([u8; 5], Box<dyn crate::ReadSeek + Send + 'a>), Error> {
-    let mut buf = [0u8; 5];
-    match in_stream.read_exact(&mut buf) {
-        Ok(()) => {
-            in_stream.seek(io::SeekFrom::Start(0))?;
-            Ok((buf, in_stream))
-        }
-        Err(_) => Err(Error::FileTooShort),
-    }
-}
-
 pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
     let mut five_bit_val: u64 = 0;
     for (i, item) in bytes.iter().enumerate().take(5) {
@@ -111,28 +78,29 @@ pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
 cfg_if! {
     if #[cfg(feature = "gz")] {
         pub(crate) fn new_gz_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
-          Ok(Box::new(flate2::write::GzEncoder::new(
-            out,
-            level.into(),
-          )))
+            Ok(Box::new(flate2::write::GzEncoder::new(
+        out,
+        level.into(),
+            )))
         }
 
         pub(crate) fn new_gz_decoder<'a>(
             inp: Box<dyn io::Read + Send + 'a>,
         ) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
-          Ok((
-            Box::new(flate2::read::MultiGzDecoder::new(inp)),
-            Format::Gzip,
-          ))
+            Ok((
+        Box::new(flate2::read::MultiGzDecoder::new(inp)),
+        Format::Gzip,
+            ))
         }
     } else {
         pub(crate) fn new_gz_encoder<'a>(_: Box<dyn io::Write + Send + 'a>, _: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
             Err(Error::FeatureDisabled)
         }
+
         pub(crate) fn new_gz_decoder<'a>(_: Box<dyn io::Read + Send + 'a>) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
             Err(Error::FeatureDisabled)
         }
-}
+    }
 }
 
 cfg_if! {
@@ -165,26 +133,26 @@ cfg_if! {
 
 cfg_if! {
     if #[cfg(feature = "lzma")] {
-      pub(crate) fn new_lzma_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
-          Ok(Box::new(xz2::write::XzEncoder::new(out, level.into())))
-      }
+    pub(crate) fn new_lzma_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
+            Ok(Box::new(xz2::write::XzEncoder::new(out, level.into())))
+    }
 
-      pub(crate) fn new_lzma_decoder<'a>(
-          inp: Box<dyn io::Read + Send + 'a>,
-      ) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
-          Ok((
-              Box::new(xz2::read::XzDecoder::new(inp)),
-              Format::Lzma,
-          ))
-      }
+    pub(crate) fn new_lzma_decoder<'a>(
+            inp: Box<dyn io::Read + Send + 'a>,
+    ) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
+            Ok((
+        Box::new(xz2::read::XzDecoder::new(inp)),
+        Format::Lzma,
+            ))
+    }
     } else {
-      pub(crate) fn new_lzma_encoder<'a>(_: Box<dyn io::Write + Send + 'a>, _: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
-          Err(Error::FeatureDisabled)
-      }
+    pub(crate) fn new_lzma_encoder<'a>(_: Box<dyn io::Write + Send + 'a>, _: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
+            Err(Error::FeatureDisabled)
+    }
 
-      pub(crate) fn new_lzma_decoder<'a>(_: Box<dyn io::Read + Send + 'a>) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
-          Err(Error::FeatureDisabled)
-      }
+    pub(crate) fn new_lzma_decoder<'a>(_: Box<dyn io::Read + Send + 'a>) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
+            Err(Error::FeatureDisabled)
+    }
     }
 }
 

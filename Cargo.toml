@@ -11,10 +11,11 @@ documentation = "https://docs.rs/niffler"
 edition = "2018"
 
 [features]
-default = ["bz2", "lzma", "gz"]
+default = ["bz2", "lzma", "gz", "bgz"]
 bz2 = ["bzip2"]
 lzma = ["xz2"]
 gz = ["flate2"]
+bgz = ["bgzip"]
 
 [dependencies]
 cfg-if = "0.1"
@@ -23,6 +24,7 @@ thiserror = "1.0"
 bzip2 = { version = "0.4.1", optional = true }
 flate2 = { version = "1.0", optional = true }
 xz2 = { version = "0.1", optional = true }
+bgzip = { version = "0.1", optional = true }
 
 [dev-dependencies]
 tempfile = "3"
@@ -46,3 +48,4 @@ required-features = ["bz2"]
 name = "lzma"
 harness = false
 required-features = ["xz2"]
+

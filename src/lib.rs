@@ -1,27 +1,3 @@
-/*
-Copyright (c) 2018 Pierre Marijon <pierre.marijon@inria.fr>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056167acf34fa58/src/file.rs
-*/
-
 //! # niffler
 //! Simple and transparent support for compressed files.
 //!
@@ -78,16 +54,20 @@ Originally from https://github.com/natir/yacrd/blob/3fc6ef8b5b51256f0c4bc45b8056
 //! But if you try to use `niffler::get_reader` for a disabled feature,
 //! it will throw a runtime error.
 
+/* declare mod */
+pub mod compression;
+pub mod error;
+pub mod seek;
+
+/* reexport for convinent usage of niffler */
+pub use crate::compression::Format;
+pub use crate::compression::Level;
+pub use crate::error::Error;
+
 /* standard use */
 use std::io;
 use std::io::Read;
 use std::path::Path;
-
-/* crates section */
-pub mod compression;
-pub mod error;
-
-pub use crate::error::Error;
 
 /// Finds out what is the compression format for a stream based on magic numbers
 /// (the first few bytes of the stream).
@@ -125,23 +105,6 @@ pub fn sniff<'a>(
         | e @ compression::Format::Bzip
         | e @ compression::Format::Lzma => Ok((Box::new(cursor.chain(in_stream)), e)),
         _ => Ok((Box::new(cursor.chain(in_stream)), compression::Format::No)),
-    }
-}
-
-pub trait ReadSeek: io::Read + io::Seek {}
-
-impl<T> ReadSeek for T where T: io::Read + io::Seek {}
-
-pub fn sniff_seek<'a>(
-    in_stream: Box<dyn ReadSeek + Send + 'a>,
-) -> Result<(Box<dyn ReadSeek + Send + 'a>, compression::Format), Error> {
-    let (first_bytes, in_stream) = compression::get_first_five_seek(in_stream)?;
-
-    match compression::bytes2type(first_bytes) {
-        e @ compression::Format::Gzip
-        | e @ compression::Format::Bzip
-        | e @ compression::Format::Lzma => Ok((in_stream, e)),
-        _ => Ok((in_stream, compression::Format::No)),
     }
 }
 
@@ -285,6 +248,7 @@ pub fn to_path<'a, P: AsRef<Path>>(
     let writable = io::BufWriter::new(std::fs::File::create(path)?);
     get_writer(Box::new(writable), format, level)
 }
+
 #[cfg(test)]
 mod test {
 
@@ -478,32 +442,8 @@ mod test {
         }
 
         #[test]
-        fn gzip_seek() {
-            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
-
-            write(&ofile, GZIP_FILE);
-
-            let rfile = ofile.reopen().expect("Can't create tmpfile");
-
-            let (_, compression) = sniff_seek(Box::new(rfile)).expect("Error in read file");
-            assert_eq!(compression, compression::Format::Gzip);
-        }
-
-        #[test]
         fn bzip() {
             let (_, compression) = sniff(Box::new(BZIP_FILE)).expect("Error in read file");
-            assert_eq!(compression, compression::Format::Bzip);
-        }
-
-        #[test]
-        fn bzip_seek() {
-            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
-
-            write(&ofile, BZIP_FILE);
-
-            let rfile = ofile.reopen().expect("Can't create tmpfile");
-
-            let (_, compression) = sniff_seek(Box::new(rfile)).expect("Error in read file");
             assert_eq!(compression, compression::Format::Bzip);
         }
 
@@ -514,50 +454,14 @@ mod test {
         }
 
         #[test]
-        fn lzma_seek() {
-            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
-
-            write(&ofile, LZMA_FILE);
-
-            let rfile = ofile.reopen().expect("Can't create tmpfile");
-
-            let (_, compression) = sniff_seek(Box::new(rfile)).expect("Error in read file");
-            assert_eq!(compression, compression::Format::Lzma);
-        }
-
-        #[test]
         fn too_short() {
             let result = sniff(Box::new(SHORT_FILE));
             assert!(result.is_err());
         }
 
         #[test]
-        fn too_short_seek() {
-            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
-
-            write(&ofile, SHORT_FILE);
-
-            let rfile = ofile.reopen().expect("Can't create tmpfile");
-
-            let result = sniff_seek(Box::new(rfile));
-            assert!(result.is_err());
-        }
-
-        #[test]
         fn no_compression() {
             let (_, compression) = sniff(Box::new(LOREM_IPSUM)).expect("Error in read file");
-            assert_eq!(compression, compression::Format::No);
-        }
-
-        #[test]
-        fn no_compression_seek() {
-            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
-
-            write(&ofile, LOREM_IPSUM);
-
-            let rfile = ofile.reopen().expect("Can't create tmpfile");
-
-            let (_, compression) = sniff_seek(Box::new(rfile)).expect("Error in read file");
             assert_eq!(compression, compression::Format::No);
         }
     }
