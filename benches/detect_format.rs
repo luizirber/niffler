@@ -1,6 +1,6 @@
 mod share;
 
-use share::{BASIC_FILE, BZIP_FILE, GZIP_FILE, LZMA_FILE};
+use share::{BASIC_FILE, BGZIP_FILE, BZIP_FILE, GZIP_FILE, LZMA_FILE};
 
 use niffler;
 
@@ -21,6 +21,13 @@ fn detect_format(c: &mut Criterion) {
     });
     g.bench_function("lzma", |b| {
         b.iter(|| black_box(niffler::sniff(Box::new(LZMA_FILE))))
+    });
+    g.bench_function("bgzip", |b| {
+        b.iter(|| {
+            black_box(niffler::seek::sniff(Box::new(std::io::Cursor::new(
+                BGZIP_FILE,
+            ))))
+        })
     });
 }
 
