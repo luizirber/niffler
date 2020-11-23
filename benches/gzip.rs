@@ -14,7 +14,7 @@ fn read_in_ram(c: &mut Criterion) {
         b.iter(|| read_all_stream(niffler::get_reader(Box::new(GZIP_FILE)).unwrap().0))
     });
     g.bench_function("flate2", |b| {
-        b.iter(|| read_all_stream(Box::new(flate2::read::GzDecoder::new(GZIP_FILE))))
+        b.iter(|| read_all_stream(Box::new(flate2::read::MultiGzDecoder::new(GZIP_FILE))))
     });
 }
 
@@ -88,7 +88,7 @@ fn read_on_disk(c: &mut Criterion) {
         b.iter(|| {
             compress_file.seek(std::io::SeekFrom::Start(0)).unwrap();
 
-            read_all_stream(Box::new(flate2::read::GzDecoder::new(
+            read_all_stream(Box::new(flate2::read::MultiGzDecoder::new(
                 compress_file.as_file(),
             )));
         })
