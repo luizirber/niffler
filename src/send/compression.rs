@@ -25,8 +25,8 @@ enum_from_primitive! {
 }
 
 pub(crate) fn get_first_five<'a>(
-    mut in_stream: Box<dyn io::Read + 'a>,
-) -> Result<([u8; 5], Box<dyn io::Read + 'a>), Error> {
+    mut in_stream: Box<dyn io::Read + Send + 'a>,
+) -> Result<([u8; 5], Box<dyn io::Read + Send + 'a>), Error> {
     let mut buf = [0u8; 5];
     match in_stream.read_exact(&mut buf) {
         Ok(()) => Ok((buf, in_stream)),
@@ -57,7 +57,7 @@ pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
 
 cfg_if! {
     if #[cfg(feature = "gz")] {
-        pub(crate) fn new_gz_encoder<'a>(out: Box<dyn io::Write  + 'a>, level: Level) -> Result<Box<dyn io::Write  + 'a>, Error> {
+        pub(crate) fn new_gz_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
             Ok(Box::new(flate2::write::GzEncoder::new(
         out,
         level.into(),
@@ -65,19 +65,19 @@ cfg_if! {
         }
 
         pub(crate) fn new_gz_decoder<'a>(
-            inp: Box<dyn io::Read  + 'a>,
-        ) -> Result<(Box<dyn io::Read  + 'a>, Format), Error> {
+            inp: Box<dyn io::Read + Send + 'a>,
+        ) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
             Ok((
         Box::new(flate2::read::MultiGzDecoder::new(inp)),
         Format::Gzip,
             ))
         }
     } else {
-        pub(crate) fn new_gz_encoder<'a>(_: Box<dyn io::Write  + 'a>, _: Level) -> Result<Box<dyn io::Write  + 'a>, Error> {
+        pub(crate) fn new_gz_encoder<'a>(_: Box<dyn io::Write + Send + 'a>, _: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
             Err(Error::FeatureDisabled)
         }
 
-        pub(crate) fn new_gz_decoder<'a>(_: Box<dyn io::Read  + 'a>) -> Result<(Box<dyn io::Read  + 'a>, Format), Error> {
+        pub(crate) fn new_gz_decoder<'a>(_: Box<dyn io::Read + Send + 'a>) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
             Err(Error::FeatureDisabled)
         }
     }
@@ -85,7 +85,7 @@ cfg_if! {
 
 cfg_if! {
     if #[cfg(feature = "bz2")] {
-        pub(crate) fn new_bz2_encoder<'a>(out: Box<dyn io::Write  + 'a>, level: Level) -> Result<Box<dyn io::Write  + 'a>, Error> {
+        pub(crate) fn new_bz2_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
             Ok(Box::new(bzip2::write::BzEncoder::new(
                 out,
                 level.into(),
@@ -93,19 +93,19 @@ cfg_if! {
         }
 
         pub(crate) fn new_bz2_decoder<'a>(
-            inp: Box<dyn io::Read  + 'a>,
-        ) -> Result<(Box<dyn io::Read  + 'a>, Format), Error> {
+            inp: Box<dyn io::Read + Send + 'a>,
+        ) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
             Ok((
                 Box::new(bzip2::read::BzDecoder::new(inp)),
                 Format::Bzip,
             ))
         }
     } else {
-        pub(crate) fn new_bz2_encoder<'a>(_: Box<dyn io::Write  + 'a>, _: Level) -> Result<Box<dyn io::Write  + 'a>, Error> {
+        pub(crate) fn new_bz2_encoder<'a>(_: Box<dyn io::Write + Send + 'a>, _: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
             Err(Error::FeatureDisabled)
         }
 
-        pub(crate) fn new_bz2_decoder<'a>(_: Box<dyn io::Read  + 'a>) -> Result<(Box<dyn io::Read  + 'a>, Format), Error> {
+        pub(crate) fn new_bz2_decoder<'a>(_: Box<dyn io::Read + Send + 'a>) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
             Err(Error::FeatureDisabled)
         }
     }
@@ -113,24 +113,24 @@ cfg_if! {
 
 cfg_if! {
     if #[cfg(feature = "lzma")] {
-    pub(crate) fn new_lzma_encoder<'a>(out: Box<dyn io::Write  + 'a>, level: Level) -> Result<Box<dyn io::Write  + 'a>, Error> {
+    pub(crate) fn new_lzma_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
             Ok(Box::new(xz2::write::XzEncoder::new(out, level.into())))
     }
 
     pub(crate) fn new_lzma_decoder<'a>(
-            inp: Box<dyn io::Read  + 'a>,
-    ) -> Result<(Box<dyn io::Read  + 'a>, Format), Error> {
+            inp: Box<dyn io::Read + Send + 'a>,
+    ) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
             Ok((
         Box::new(xz2::read::XzDecoder::new(inp)),
         Format::Lzma,
             ))
     }
     } else {
-    pub(crate) fn new_lzma_encoder<'a>(_: Box<dyn io::Write  + 'a>, _: Level) -> Result<Box<dyn io::Write  + 'a>, Error> {
+    pub(crate) fn new_lzma_encoder<'a>(_: Box<dyn io::Write + Send + 'a>, _: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
             Err(Error::FeatureDisabled)
     }
 
-    pub(crate) fn new_lzma_decoder<'a>(_: Box<dyn io::Read  + 'a>) -> Result<(Box<dyn io::Read  + 'a>, Format), Error> {
+    pub(crate) fn new_lzma_decoder<'a>(_: Box<dyn io::Read + Send + 'a>) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
             Err(Error::FeatureDisabled)
     }
     }

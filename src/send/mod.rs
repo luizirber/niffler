@@ -35,8 +35,8 @@ use crate::level::Level;
 /// # }
 /// ```
 pub fn sniff<'a>(
-    in_stream: Box<dyn io::Read + 'a>,
-) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
+    in_stream: Box<dyn io::Read + Send + 'a>,
+) -> Result<(Box<dyn io::Read + Send + 'a>, compression::Format), Error> {
     let (first_bytes, in_stream) = compression::get_first_five(in_stream)?;
 
     let cursor = io::Cursor::new(first_bytes);
@@ -75,8 +75,8 @@ pub fn sniff<'a>(
 /// # }
 /// ```
 pub fn get_reader<'a>(
-    in_stream: Box<dyn io::Read + 'a>,
-) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
+    in_stream: Box<dyn io::Read + Send + 'a>,
+) -> Result<(Box<dyn io::Read + Send + 'a>, compression::Format), Error> {
     // check compression
     let (in_stream, compression) = sniff(in_stream)?;
 
@@ -117,10 +117,10 @@ pub fn get_reader<'a>(
 /// # }
 /// ```
 pub fn get_writer<'a>(
-    out_stream: Box<dyn io::Write + 'a>,
+    out_stream: Box<dyn io::Write + Send + 'a>,
     format: compression::Format,
     level: Level,
-) -> Result<Box<dyn io::Write + 'a>, Error> {
+) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
     match format {
         compression::Format::Gzip => compression::new_gz_encoder(out_stream, level),
         compression::Format::Bzip => compression::new_bz2_encoder(out_stream, level),
@@ -154,7 +154,7 @@ pub fn get_writer<'a>(
 /// ```
 pub fn from_path<'a, P: AsRef<Path>>(
     path: P,
-) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
+) -> Result<(Box<dyn io::Read + Send + 'a>, compression::Format), Error> {
     let readable = io::BufReader::new(std::fs::File::open(path)?);
     get_reader(Box::new(readable))
 }
@@ -184,7 +184,7 @@ pub fn to_path<'a, P: AsRef<Path>>(
     path: P,
     format: compression::Format,
     level: Level,
-) -> Result<Box<dyn io::Write + 'a>, Error> {
+) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
     let writable = io::BufWriter::new(std::fs::File::create(path)?);
     get_writer(Box::new(writable), format, level)
 }
