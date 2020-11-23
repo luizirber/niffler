@@ -2,11 +2,9 @@
 use std::io;
 
 /* crates use */
-use cfg_if::cfg_if;
 
 /* project use */
 use crate::error::Error;
-use crate::level::Level;
 
 /* Some trait definition */
 pub trait ReadSeek: io::Read + io::Seek {}
@@ -44,29 +42,5 @@ pub(crate) fn bytes2type(bytes: [u8; 17]) -> Format {
             Format::BGzip
         }
         _ => Format::No,
-    }
-}
-
-cfg_if! {
-    if #[cfg(feature = "bgz")] {
-        pub(crate) fn new_bgz_encoder<'a>(_out: Box<dyn WriteSeek  + 'a>, _level: Level) -> Result<Box<dyn WriteSeek  + 'a>, Error> {
-            Err(Error::FeatureDisabled)
-        }
-
-        pub(crate) fn new_bgz_decoder<'a>(
-            _inp: Box<dyn ReadSeek  + 'a>,
-        ) -> Result<(Box<dyn ReadSeek  + 'a>, Format), Error> {
-            Err(Error::FeatureDisabled)
-        }
-    } else {
-    pub(crate) fn new_bgz_encoder<'a>(_out: Box<dyn WriteSeek  + 'a>, _level: Level) -> Result<Box<dyn WriteSeek  + 'a>, Error> {
-            Err(Error::FeatureDisabled)
-        }
-
-        pub(crate) fn new_bgz_decoder<'a>(
-            _inp: Box<dyn ReadSeek  + 'a>,
-        ) -> Result<(Box<dyn ReadSeek  + 'a>, Format), Error> {
-            Err(Error::FeatureDisabled)
-        }
     }
 }

@@ -343,12 +343,6 @@ mod test {
     mod compression_format_detection {
         use super::*;
 
-        use std::io::Write;
-        fn write(file: &NamedTempFile, content: &[u8]) {
-            let mut wfile = file.reopen().expect("Can't create tmpfile");
-            wfile.write_all(content).expect("Can't write in tmpfile");
-        }
-
         #[test]
         fn gzip() {
             let (_, compression) = sniff(Box::new(GZIP_FILE)).expect("Error in read file");

@@ -2,6 +2,8 @@
 pub mod compression;
 
 /* standard use */
+use std::io;
+use std::path::Path;
 
 /* project use */
 use crate::error::Error;
@@ -35,12 +37,28 @@ pub fn get_reader<'a>(
 pub fn get_writer<'a>(
     out_stream: Box<dyn compression::WriteSeek + 'a>,
     format: compression::Format,
-    level: Level,
+    _level: Level,
 ) -> Result<Box<dyn compression::WriteSeek + 'a>, Error> {
     match format {
         compression::Format::No => Ok(Box::new(out_stream)),
         _ => Err(Error::FeatureDisabled),
     }
+}
+
+pub fn from_path<'a, P: AsRef<Path>>(
+    path: P,
+) -> Result<(Box<dyn compression::ReadSeek + 'a>, compression::Format), Error> {
+    let readable = io::BufReader::new(std::fs::File::open(path)?);
+    get_reader(Box::new(readable))
+}
+
+pub fn to_path<'a, P: AsRef<Path>>(
+    path: P,
+    format: compression::Format,
+    level: Level,
+) -> Result<Box<dyn compression::WriteSeek + 'a>, Error> {
+    let writable = io::BufWriter::new(std::fs::File::create(path)?);
+    get_writer(Box::new(writable), format, level)
 }
 
 #[cfg(test)]
