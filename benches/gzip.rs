@@ -29,7 +29,7 @@ fn write_in_ram(c: &mut Criterion) {
                 niffler::get_writer(
                     Box::new(&mut out),
                     niffler::compression::Format::Gzip,
-                    niffler::compression::Level::One,
+                    niffler::level::Level::One,
                 )
                 .unwrap(),
                 BASIC_FILE,
@@ -59,7 +59,7 @@ fn read_on_disk(c: &mut Criterion) {
         let mut writer = niffler::get_writer(
             Box::new(wfile),
             niffler::compression::Format::Gzip,
-            niffler::compression::Level::One,
+            niffler::level::Level::One,
         )
         .unwrap();
 
@@ -106,7 +106,7 @@ fn write_on_disk(c: &mut Criterion) {
             let mut writer = niffler::get_writer(
                 Box::new(wfile),
                 niffler::compression::Format::Gzip,
-                niffler::compression::Level::One,
+                niffler::level::Level::One,
             )
             .unwrap();
 
