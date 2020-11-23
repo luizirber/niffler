@@ -10,7 +10,7 @@ use crate::error::Error;
 use crate::level::Level;
 use crate::seek::compression::{ReadSeek, WriteSeek};
 
-/// Similar as sniff but accept and keep Seekable
+/// Similar to [seek::sniff](crate::sniff) but readble seekable object is now sendable
 pub fn sniff<'a>(
     mut in_stream: Box<dyn ReadSeek + Send + 'a>,
 ) -> Result<(Box<dyn ReadSeek + Send + 'a>, compression::Format), Error> {
@@ -22,6 +22,7 @@ pub fn sniff<'a>(
     }
 }
 
+/// Similar to [seek::get_reader](crate::get_reader) but readble seekable object is now sendable
 pub fn get_reader<'a>(
     in_stream: Box<dyn ReadSeek + Send + 'a>,
 ) -> Result<(Box<dyn ReadSeek + Send + 'a>, compression::Format), Error> {
@@ -35,6 +36,7 @@ pub fn get_reader<'a>(
     }
 }
 
+/// Similar to [seek::get_writer](crate::get_writer) but writable seekable object is now sendable
 pub fn get_writer<'a>(
     out_stream: Box<dyn WriteSeek + Send + 'a>,
     format: compression::Format,
@@ -46,6 +48,7 @@ pub fn get_writer<'a>(
     }
 }
 
+/// Similar to [seek::from_path](crate::from_path) but readble seekable object is now sendable
 pub fn from_path<'a, P: AsRef<Path>>(
     path: P,
 ) -> Result<(Box<dyn ReadSeek + Send + 'a>, compression::Format), Error> {
@@ -53,6 +56,7 @@ pub fn from_path<'a, P: AsRef<Path>>(
     get_reader(Box::new(readable))
 }
 
+/// Similar to [seek::to_path](crate::to_path) but writable seekable object is now sendable
 pub fn to_path<'a, P: AsRef<Path>>(
     path: P,
     format: compression::Format,

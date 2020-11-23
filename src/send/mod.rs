@@ -9,31 +9,7 @@ use std::path::Path;
 use crate::error::Error;
 use crate::level::Level;
 
-/// Finds out what is the compression format for a stream based on magic numbers
-/// (the first few bytes of the stream).
-///
-/// Return the stream and the compression format detected.
-///
-/// # Example
-/// ```
-/// # fn main() -> Result<(), niffler::Error> {
-///
-/// let data = vec![
-///         0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xf3, 0x54, 0xcf, 0x55,
-///         0x48, 0xce, 0xcf, 0x2d, 0x28, 0x4a, 0x2d, 0x2e, 0x56, 0xc8, 0xcc, 0x53, 0x48, 0xaf,
-///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
-///         ];
-///
-/// let (mut reader, compression) = niffler::sniff(Box::new(&data[..]))?;
-///
-/// let mut contents = Vec::new();
-/// reader.read_to_end(&mut contents).expect("Error durring file reading");
-///
-/// assert_eq!(compression, niffler::compression::Format::Gzip);
-/// assert_eq!(contents, data);
-/// # Ok(())
-/// # }
-/// ```
+/// Similar to [sniff](crate::sniff) but readable stream is now sendable
 pub fn sniff<'a>(
     in_stream: Box<dyn io::Read + Send + 'a>,
 ) -> Result<(Box<dyn io::Read + Send + 'a>, compression::Format), Error> {
@@ -48,32 +24,7 @@ pub fn sniff<'a>(
     }
 }
 
-/// Create a readable stream that can be read transparently even if the original stream is compress.
-/// Also returns the compression type of the original stream.
-///
-/// # Example
-/// ```
-/// use niffler::{Error, get_reader};
-/// # fn main() -> Result<(), Error> {
-///
-/// let probably_compress_stream = std::io::Cursor::new(vec![
-///         0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xf3, 0x54, 0xcf, 0x55,
-///         0x48, 0xce, 0xcf, 0x2d, 0x28, 0x4a, 0x2d, 0x2e, 0x56, 0xc8, 0xcc, 0x53, 0x48, 0xaf,
-///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
-///         ]);
-///
-/// # #[cfg(feature = "gz")] {
-/// let (mut reader, compression) = niffler::get_reader(Box::new(probably_compress_stream))?;
-///
-/// let mut contents = String::new();
-/// reader.read_to_string(&mut contents).expect("Error durring file reading");
-///
-/// assert_eq!(compression, niffler::compression::Format::Gzip);
-/// assert_eq!(contents, "I'm compress in gzip\n");
-/// # }
-/// # Ok(())
-/// # }
-/// ```
+/// Similar to [get_reader](crate::get_reader) but readable stream is now sendable
 pub fn get_reader<'a>(
     in_stream: Box<dyn io::Read + Send + 'a>,
 ) -> Result<(Box<dyn io::Read + Send + 'a>, compression::Format), Error> {
@@ -89,33 +40,7 @@ pub fn get_reader<'a>(
     }
 }
 
-/// Create a new writable stream with the given compression format and level.
-///
-/// # Example
-/// ```
-/// use std::io::Read;
-/// use niffler::{Error, get_writer, compression};
-/// # fn main() -> Result<(), Error> {
-///
-/// # #[cfg(feature = "gz")] {
-/// let mut buffer = vec![];
-/// {
-///   let mut writer = niffler::get_writer(Box::new(&mut buffer), compression::Format::Gzip, niffler::Level::One)?;
-///   writer.write_all("I'm compress in gzip\n".as_bytes())?
-/// }
-///
-/// let mut contents = Vec::new();
-/// buffer.as_slice().read_to_end(&mut contents)?;
-///
-/// assert_eq!(contents, vec![
-///         0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0xff, 0xf3, 0x54, 0xcf, 0x55,
-///         0x48, 0xce, 0xcf, 0x2d, 0x28, 0x4a, 0x2d, 0x2e, 0x56, 0xc8, 0xcc, 0x53, 0x48, 0xaf,
-///         0xca, 0x2c, 0xe0, 0x02, 0x00, 0x45, 0x7c, 0xf4, 0x10, 0x15, 0x00, 0x00, 0x00
-///         ]);
-/// # }
-/// # Ok(())
-/// # }
-/// ```
+/// Similar to [get_writer](crate::get_writer) but writable stream is now sendable
 pub fn get_writer<'a>(
     out_stream: Box<dyn io::Write + Send + 'a>,
     format: compression::Format,
@@ -129,29 +54,7 @@ pub fn get_writer<'a>(
     }
 }
 
-/// Open a possibly compressed file and decompress it transparently.
-/// ```
-/// use niffler::{Error, compression};
-/// # fn main() -> Result<(), Error> {
-///
-/// # #[cfg(feature = "gz")] {
-/// # let file = tempfile::NamedTempFile::new()?;
-///
-/// # {
-/// #   let mut writer = niffler::to_path(file.path(), compression::Format::Gzip, niffler::Level::Nine)?;
-/// #   writer.write_all(b"hello")?;
-/// # }
-///
-/// let (mut reader, format) = niffler::from_path(file.path())?;
-///
-/// let mut contents = vec![];
-/// reader.read_to_end(&mut contents);
-/// # assert_eq!(&contents, b"hello");
-///
-/// # }
-/// # Ok(())
-/// # }
-/// ```
+/// Similar to [from_path](crate::from_path) but readable stream is now sendable
 pub fn from_path<'a, P: AsRef<Path>>(
     path: P,
 ) -> Result<(Box<dyn io::Read + Send + 'a>, compression::Format), Error> {
@@ -159,27 +62,7 @@ pub fn from_path<'a, P: AsRef<Path>>(
     get_reader(Box::new(readable))
 }
 
-/// Create a file with specific compression format.
-/// ```
-/// use niffler::{Error, compression};
-/// # fn main() -> Result<(), Error> {
-///
-/// # #[cfg(feature = "gz")] {
-/// # let file = tempfile::NamedTempFile::new()?;
-///
-/// # {
-/// let mut writer = niffler::to_path(file.path(), compression::Format::Gzip, niffler::Level::Nine)?;
-/// writer.write_all(b"hello")?;
-/// # }
-///
-/// # let (mut reader, format) = niffler::from_path(&file.path())?;
-/// # let mut contents = vec![];
-/// # reader.read_to_end(&mut contents)?;
-/// # assert_eq!(&contents, b"hello");
-/// # }
-/// # Ok(())
-/// # }
-/// ```
+/// Similar to [to_path](crate::to_path) but writable stream is now sendable
 pub fn to_path<'a, P: AsRef<Path>>(
     path: P,
     format: compression::Format,

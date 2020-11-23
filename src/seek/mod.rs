@@ -9,7 +9,9 @@ use std::path::Path;
 use crate::error::Error;
 use crate::level::Level;
 
-/// Similar as sniff but accept and keep Seekable
+/// Similar as [sniff](crate::sniff) but from seekable format
+///
+/// Only [compression::Format] are support
 pub fn sniff<'a>(
     mut in_stream: Box<dyn compression::ReadSeek + 'a>,
 ) -> Result<(Box<dyn compression::ReadSeek + 'a>, compression::Format), Error> {
@@ -21,6 +23,9 @@ pub fn sniff<'a>(
     }
 }
 
+/// Similar as [get_reader](crate::sniff) but from seekable format
+///
+/// Warning actualy this function work only for not compressed file
 pub fn get_reader<'a>(
     in_stream: Box<dyn compression::ReadSeek + 'a>,
 ) -> Result<(Box<dyn compression::ReadSeek + 'a>, compression::Format), Error> {
@@ -34,6 +39,9 @@ pub fn get_reader<'a>(
     }
 }
 
+/// Similar as [get_writer](crate::get_writer) but from seekable format
+///
+/// Warning actualy this function work only for not compressed file
 pub fn get_writer<'a>(
     out_stream: Box<dyn compression::WriteSeek + 'a>,
     format: compression::Format,
@@ -45,6 +53,9 @@ pub fn get_writer<'a>(
     }
 }
 
+/// Similar as [from_path](crate::from_path) but from seekable format
+///
+/// Warning actualy this function work only for not compressed file
 pub fn from_path<'a, P: AsRef<Path>>(
     path: P,
 ) -> Result<(Box<dyn compression::ReadSeek + 'a>, compression::Format), Error> {
@@ -52,6 +63,9 @@ pub fn from_path<'a, P: AsRef<Path>>(
     get_reader(Box::new(readable))
 }
 
+/// Similar as [to_path](crate::to_path) but from seekable format
+///
+/// Warning actualy this function work only for not compressed file
 pub fn to_path<'a, P: AsRef<Path>>(
     path: P,
     format: compression::Format,
