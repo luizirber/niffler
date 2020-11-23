@@ -42,7 +42,7 @@ fn write_in_ram(c: &mut Criterion) {
             write_all_data(
                 Box::new(bzip2::write::BzEncoder::new(
                     &mut out,
-                    bzip2::Compression::Fastest,
+                    bzip2::Compression::fast(),
                 )),
                 BASIC_FILE,
             )
@@ -119,7 +119,7 @@ fn write_on_disk(c: &mut Criterion) {
     g.bench_function("bzip2", |b| {
         b.iter(|| {
             let wfile = compress_file.reopen().unwrap();
-            let mut writer = bzip2::write::BzEncoder::new(wfile, bzip2::Compression::Fastest);
+            let mut writer = bzip2::write::BzEncoder::new(wfile, bzip2::Compression::fast());
 
             for _ in 0..(8 * 1024) {
                 writer.write(&[42]).unwrap();
