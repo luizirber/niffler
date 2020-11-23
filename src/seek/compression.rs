@@ -6,6 +6,7 @@ use cfg_if::cfg_if;
 
 /* project use */
 use crate::error::Error;
+use crate::level::Level;
 
 /* Some trait definition */
 pub trait ReadSeek: io::Read + io::Seek {}
@@ -24,7 +25,7 @@ pub enum Format {
 }
 
 pub(crate) fn get_first_bytes<'a>(
-    in_stream: &mut Box<dyn ReadSeek + Send + 'a>,
+    in_stream: &mut Box<dyn ReadSeek + 'a>,
 ) -> Result<[u8; 17], Error> {
     let mut buf = [0u8; 17];
 
@@ -48,23 +49,23 @@ pub(crate) fn bytes2type(bytes: [u8; 17]) -> Format {
 
 cfg_if! {
     if #[cfg(feature = "bgz")] {
-        pub(crate) fn new_bgz_encoder<'a>(_out: Box<dyn WriteSeek + Send + 'a>, _level: crate::compression::Level) -> Result<Box<dyn WriteSeek + Send + 'a>, Error> {
+        pub(crate) fn new_bgz_encoder<'a>(_out: Box<dyn WriteSeek  + 'a>, _level: Level) -> Result<Box<dyn WriteSeek  + 'a>, Error> {
             Err(Error::FeatureDisabled)
         }
 
         pub(crate) fn new_bgz_decoder<'a>(
-            _inp: Box<dyn ReadSeek + Send + 'a>,
-        ) -> Result<(Box<dyn ReadSeek + Send + 'a>, Format), Error> {
+            _inp: Box<dyn ReadSeek  + 'a>,
+        ) -> Result<(Box<dyn ReadSeek  + 'a>, Format), Error> {
             Err(Error::FeatureDisabled)
         }
     } else {
-    pub(crate) fn new_bgz_encoder<'a>(_out: Box<dyn WriteSeek + Send + 'a>, _level: crate::compression::Level) -> Result<Box<dyn WriteSeek + Send + 'a>, Error> {
+    pub(crate) fn new_bgz_encoder<'a>(_out: Box<dyn WriteSeek  + 'a>, _level: Level) -> Result<Box<dyn WriteSeek  + 'a>, Error> {
             Err(Error::FeatureDisabled)
         }
 
         pub(crate) fn new_bgz_decoder<'a>(
-            _inp: Box<dyn ReadSeek + Send + 'a>,
-        ) -> Result<(Box<dyn ReadSeek + Send + 'a>, Format), Error> {
+            _inp: Box<dyn ReadSeek  + 'a>,
+        ) -> Result<(Box<dyn ReadSeek  + 'a>, Format), Error> {
             Err(Error::FeatureDisabled)
         }
     }

@@ -5,17 +5,12 @@ pub mod compression;
 
 /* project use */
 use crate::error::Error;
+use crate::level::Level;
 
 /// Similar as sniff but accept and keep Seekable
 pub fn sniff<'a>(
-    mut in_stream: Box<dyn compression::ReadSeek + Send + 'a>,
-) -> Result<
-    (
-        Box<dyn compression::ReadSeek + Send + 'a>,
-        compression::Format,
-    ),
-    Error,
-> {
+    mut in_stream: Box<dyn compression::ReadSeek + 'a>,
+) -> Result<(Box<dyn compression::ReadSeek + 'a>, compression::Format), Error> {
     let first_bytes = compression::get_first_bytes(&mut in_stream)?;
 
     match compression::bytes2type(first_bytes) {
@@ -25,20 +20,25 @@ pub fn sniff<'a>(
 }
 
 pub fn get_reader<'a>(
-    in_stream: Box<dyn compression::ReadSeek + Send + 'a>,
-) -> Result<
-    (
-        Box<dyn compression::ReadSeek + Send + 'a>,
-        compression::Format,
-    ),
-    Error,
-> {
+    in_stream: Box<dyn compression::ReadSeek + 'a>,
+) -> Result<(Box<dyn compression::ReadSeek + 'a>, compression::Format), Error> {
     // check compression
     let (in_stream, compression) = sniff(in_stream)?;
 
     // return readable and compression status
     match compression {
         compression::Format::No => Ok((in_stream, compression::Format::No)),
+        _ => Err(Error::FeatureDisabled),
+    }
+}
+
+pub fn get_writer<'a>(
+    out_stream: Box<dyn compression::WriteSeek + 'a>,
+    format: compression::Format,
+    level: Level,
+) -> Result<Box<dyn compression::WriteSeek + 'a>, Error> {
+    match format {
+        compression::Format::No => Ok(Box::new(out_stream)),
         _ => Err(Error::FeatureDisabled),
     }
 }
