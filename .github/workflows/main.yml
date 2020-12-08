@@ -157,14 +157,31 @@ jobs:
 
       - uses: actions-rs/toolchain@v1
         with:
-          toolchain: 1.37.0
+          toolchain: 1.40.0
           override: true
 
       - name: check if README matches MSRV defined here
-        run: grep '1.37.0' README.md
+        run: grep '1.40.0' README.md
 
       - name: Run tests
         uses: actions-rs/cargo@v1
         with:
           command: test
           args: --all-features --no-fail-fast
+
+  wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          target: wasm32-unknown-unknown
+
+      - name: Build on wasm
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --target wasm32-unknown-unknown --no-default-features --features gz
