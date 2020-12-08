@@ -1,6 +1,6 @@
 [package]
 name = "niffler"
-version = "2.3.0-alpha"
+version = "2.3.0"
 authors = ["Pierre Marijon <pierre@marijon.fr>", "Luiz Irber <luiz.irber@gmail.com>"]
 description = "Simple and transparent support for compressed files"
 license = "MIT/Apache-2.0"
@@ -48,4 +48,3 @@ required-features = ["bz2"]
 name = "lzma"
 harness = false
 required-features = ["xz2"]
-
