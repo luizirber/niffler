@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2020-12-08
+
 ### Added
 
-- Document how to use features in README and docs (#32)
+- Support Seek and Send and prepare for future extension (#37)
 
 ## [2.2.0] - 2020-07-01
 
@@ -64,7 +66,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename crate from `ocf` to `niffler`
 - Import codebase from sourmash repo (which copied it from the yacrd repo)
 
-[unreleased]: https://github.com/luizirber/niffler/compare/v2.0.1...HEAD
+[unreleased]: https://github.com/luizirber/niffler/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/luizirber/niffler/compare/v2.2.0..v2.3.0
+[2.2.0]: https://github.com/luizirber/niffler/compare/v2.0.1..v2.2.0
 [2.0.1]: https://github.com/luizirber/niffler/compare/v2.0.0..v2.0.1
 [2.0.0]: https://github.com/luizirber/niffler/compare/v1.0.0..v2.0.0
 [1.0.0]: https://github.com/luizirber/niffler/releases/tag/v1.0.0
