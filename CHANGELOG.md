@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.1] - 2020-12-08
+
+### Fixed
+
+- Maintain backward compatibility by re-exporting compression::Level
+
 ## [2.3.0] - 2020-12-08
 
 ### Added

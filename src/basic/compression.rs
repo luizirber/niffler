@@ -9,7 +9,9 @@ use enum_primitive::{
 
 /* project use */
 use crate::error::Error;
-use crate::level::Level;
+
+/* backward compatibility, can remove on 3.x */
+pub use crate::level::Level;
 
 /* Format detection enum */
 enum_from_primitive! {
