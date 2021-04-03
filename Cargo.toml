@@ -11,7 +11,7 @@ documentation = "https://docs.rs/niffler"
 edition = "2018"
 
 [features]
-default = ["bz2", "lzma", "gz", "bgz"]
+default = ["bz2", "lzma", "xz", "gz", "bgz"]
 bz2 = ["bzip2"]
 lzma = ["xz2"]
 gz = ["flate2"]

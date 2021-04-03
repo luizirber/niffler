@@ -338,6 +338,47 @@ mod test {
                 .expect("Error during reading");
             assert_eq!(LOREM_IPSUM, buffer.as_slice());
         }
+
+        #[test]
+        #[cfg(not(feature = "xz"))]
+        fn no_xz_feature() {
+            assert!(
+                get_writer(Box::new(vec![]), compression::Format::Xz, Level::Six).is_err(),
+                "xz disabled, this assertion should fail"
+            );
+
+            assert!(
+                get_reader(Box::new(&LZMA_FILE[..])).is_err(),
+                "lzma disabled, this assertion should fail"
+            );
+        }
+
+        #[cfg(feature = "xz")]
+        #[test]
+        fn xz() {
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
+
+            {
+                let wfile = ofile.reopen().expect("Can't create tmpfile");
+                let mut writer =
+                    get_writer(Box::new(wfile), compression::Format::Xz, Level::Six).unwrap();
+                writer
+                    .write_all(LOREM_IPSUM)
+                    .expect("Error during write of data");
+            }
+
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
+            let (mut reader, compression) =
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
+
+            assert_eq!(compression, compression::Format::Xz);
+
+            let mut buffer = Vec::new();
+            reader
+                .read_to_end(&mut buffer)
+                .expect("Error during reading");
+            assert_eq!(LOREM_IPSUM, buffer.as_slice());
+        }
     }
 
     mod compression_format_detection {
@@ -359,6 +400,12 @@ mod test {
         fn lzma() {
             let (_, compression) = sniff(Box::new(LZMA_FILE)).expect("Error in read file");
             assert_eq!(compression, compression::Format::Lzma);
+        }
+
+        #[test]
+        fn xz() {
+            let (_, compression) = sniff(Box::new(LZMA_FILE)).expect("Error in read file");
+            assert_eq!(compression, compression::Format::Xz);
         }
 
         #[test]
