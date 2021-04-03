@@ -21,6 +21,7 @@ pub enum Format {
 }
 
 impl Format {
+    /// An alias for Lzma, Format::Lzma == Format::Xz
     #[allow(non_upper_case_globals)]
     pub const Xz: Format = Format::Lzma;
 }

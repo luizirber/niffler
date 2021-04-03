@@ -222,7 +222,7 @@ mod test {
             assert_eq!(LOREM_IPSUM, buffer.as_slice());
         }
 
-	#[test]
+        #[test]
         #[cfg(not(feature = "xz"))]
         fn no_xz_feature() {
             assert!(
@@ -235,7 +235,7 @@ mod test {
                 "lzma disabled, this assertion should fail"
             );
         }
-	
+
         #[cfg(feature = "xz")]
         #[test]
         fn xz() {
@@ -285,7 +285,7 @@ mod test {
             assert_eq!(compression, compression::Format::Lzma);
         }
 
-	#[test]
+        #[test]
         fn xz() {
             let (_, compression) = sniff(Box::new(LZMA_FILE)).expect("Error in read file");
             assert_eq!(compression, compression::Format::Xz);
