@@ -16,6 +16,7 @@ bz2 = ["bzip2"]
 lzma = ["xz2"]
 gz = ["flate2"]
 bgz = ["bgzip"]
+xz = ["lzma"]
 
 [dependencies]
 cfg-if = "1.0"
