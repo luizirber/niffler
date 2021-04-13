@@ -19,9 +19,9 @@ pub enum Level {
     Nine,
 }
 
-impl Into<u32> for Level {
-    fn into(self) -> u32 {
-        match self {
+impl From<Level> for u32 {
+    fn from(level: Level) -> Self {
+        match level {
             Level::One => 1,
             Level::Two => 2,
             Level::Three => 3,
@@ -36,9 +36,9 @@ impl Into<u32> for Level {
 }
 
 #[cfg(feature = "gz")]
-impl Into<flate2::Compression> for Level {
-    fn into(self) -> flate2::Compression {
-        match self {
+impl From<Level> for flate2::Compression {
+    fn from(level: Level) -> Self {
+        match level {
             Level::One => flate2::Compression::new(1),
             Level::Two => flate2::Compression::new(2),
             Level::Three => flate2::Compression::new(3),
@@ -53,9 +53,9 @@ impl Into<flate2::Compression> for Level {
 }
 
 #[cfg(feature = "bz2")]
-impl Into<bzip2::Compression> for Level {
-    fn into(self) -> bzip2::Compression {
-        match self {
+impl From<Level> for bzip2::Compression {
+    fn from(level: Level) -> Self {
+        match level {
             Level::One => bzip2::Compression::new(1),
             Level::Two => bzip2::Compression::new(2),
             Level::Three => bzip2::Compression::new(3),
