@@ -1,3 +1,5 @@
+#![allow(clippy::unnecessary_wraps)]
+
 /* standard use */
 use std::io;
 
