@@ -1,27 +1,23 @@
+#![allow(clippy::unnecessary_wraps)]
+
 /* standard use */
 use std::io;
 
 /* crates use */
 use cfg_if::cfg_if;
-use enum_primitive::{
-    enum_from_primitive, enum_from_primitive_impl, enum_from_primitive_impl_ty, FromPrimitive,
-};
 
 /* project use */
 use crate::error::Error;
 use crate::level::Level;
 
 /* Format detection enum */
-enum_from_primitive! {
-    #[repr(u64)]
-    /// `Format` represent a compression format of a file. Currently Gzip, Bzip, Lzma or No are supported.
-    #[derive(Debug, PartialEq, Clone, Copy)]
-    pub enum Format {
-        Gzip = 0x1F8B,
-        Bzip = 0x425A,
-        Lzma = 0x00FD_377A_585A,
-        No,
-    }
+/// `Format` represent a compression format of a file. Currently Gzip, Bzip, Lzma or No are supported.
+#[derive(Debug, PartialEq, Clone, Copy)]
+pub enum Format {
+    Gzip,
+    Bzip,
+    Lzma,
+    No,
 }
 
 pub(crate) fn get_first_five<'a>(
@@ -35,22 +31,10 @@ pub(crate) fn get_first_five<'a>(
 }
 
 pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
-    let mut five_bit_val: u64 = 0;
-    for (i, item) in bytes.iter().enumerate().take(5) {
-        five_bit_val |= (u64::from(*item)) << (8 * (4 - i));
-    }
-
-    if Format::from_u64(five_bit_val) == Some(Format::Lzma) {
-        return Format::Lzma;
-    }
-
-    let mut two_bit_val: u64 = 0;
-    for (i, item) in bytes.iter().enumerate().take(2) {
-        two_bit_val |= (u64::from(*item)) << (8 * (1 - i));
-    }
-
-    match Format::from_u64(two_bit_val) {
-        e @ Some(Format::Gzip) | e @ Some(Format::Bzip) => e.unwrap(),
+    match bytes {
+        [0x1f, 0x8b, ..] => Format::Gzip,
+        [0x42, 0x5a, ..] => Format::Bzip,
+        [0xfd, 0x37, 0x7a, 0x58, 0x5a] => Format::Lzma,
         _ => Format::No,
     }
 }
