@@ -223,7 +223,7 @@ mod test {
         }
 
         #[test]
-        #[cfg(not(feature = "xz"))]
+        #[cfg(all(not(feature = "xz"), not(feature = "lzma")))]
         fn no_xz_feature() {
             assert!(
                 get_writer(Box::new(vec![]), compression::Format::Xz, Level::Six).is_err(),
