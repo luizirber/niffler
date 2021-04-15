@@ -20,6 +20,12 @@ pub enum Format {
     No,
 }
 
+impl Format {
+    /// An alias for Lzma, Format::Lzma == Format::Xz
+    #[allow(non_upper_case_globals)]
+    pub const Xz: Format = Format::Lzma;
+}
+
 pub(crate) fn get_first_five<'a>(
     mut in_stream: Box<dyn io::Read + Send + 'a>,
 ) -> Result<([u8; 5], Box<dyn io::Read + Send + 'a>), Error> {
