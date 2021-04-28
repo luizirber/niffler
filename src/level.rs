@@ -35,6 +35,22 @@ impl From<Level> for u32 {
     }
 }
 
+impl From<Level> for i32 {
+    fn from(level: Level) -> Self {
+        match level {
+            Level::One => 1,
+            Level::Two => 2,
+            Level::Three => 3,
+            Level::Four => 4,
+            Level::Five => 5,
+            Level::Six => 6,
+            Level::Seven => 7,
+            Level::Eight => 8,
+            Level::Nine => 9,
+        }
+    }
+}
+
 #[cfg(feature = "gz")]
 impl From<Level> for flate2::Compression {
     fn from(level: Level) -> Self {
