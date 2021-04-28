@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Zstd basic support (#44)
+- GitHub issues templates (#47)
+
+### Changed
+
+- Bump MSRV to 1.51 (#48)
+
 ## [2.3.2] - 2021-05-27
 
 ### Changed
