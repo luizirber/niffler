@@ -3,9 +3,6 @@
 /* standard use */
 use std::io;
 
-/* crates use */
-use cfg_if::cfg_if;
-
 /* project use */
 use crate::error::Error;
 use crate::level::Level;
@@ -45,83 +42,68 @@ pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
     }
 }
 
-cfg_if! {
-    if #[cfg(feature = "gz")] {
-        pub(crate) fn new_gz_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
-            Ok(Box::new(flate2::write::GzEncoder::new(
-        out,
-        level.into(),
-            )))
-        }
-
-        pub(crate) fn new_gz_decoder<'a>(
-            inp: Box<dyn io::Read + Send + 'a>,
-        ) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
-            Ok((
-        Box::new(flate2::read::MultiGzDecoder::new(inp)),
-        Format::Gzip,
-            ))
-        }
+pub(crate) fn new_gz_encoder<'a>(
+    out: Box<dyn io::Write + Send + 'a>,
+    level: Level,
+) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
+    if cfg!(feature = "gz") {
+        Ok(Box::new(flate2::write::GzEncoder::new(out, level.into())))
     } else {
-        pub(crate) fn new_gz_encoder<'a>(_: Box<dyn io::Write + Send + 'a>, _: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
-            Err(Error::FeatureDisabled)
-        }
-
-        pub(crate) fn new_gz_decoder<'a>(_: Box<dyn io::Read + Send + 'a>) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
-            Err(Error::FeatureDisabled)
-        }
+        Err(Error::FeatureDisabled)
     }
 }
 
-cfg_if! {
-    if #[cfg(feature = "bz2")] {
-        pub(crate) fn new_bz2_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
-            Ok(Box::new(bzip2::write::BzEncoder::new(
-                out,
-                level.into(),
-            )))
-        }
-
-        pub(crate) fn new_bz2_decoder<'a>(
-            inp: Box<dyn io::Read + Send + 'a>,
-        ) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
-            Ok((
-                Box::new(bzip2::read::BzDecoder::new(inp)),
-                Format::Bzip,
-            ))
-        }
+pub(crate) fn new_gz_decoder<'a>(
+    inp: Box<dyn io::Read + Send + 'a>,
+) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
+    if cfg!(feature = "gz") {
+        Ok((
+            Box::new(flate2::read::MultiGzDecoder::new(inp)),
+            Format::Gzip,
+        ))
     } else {
-        pub(crate) fn new_bz2_encoder<'a>(_: Box<dyn io::Write + Send + 'a>, _: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
-            Err(Error::FeatureDisabled)
-        }
-
-        pub(crate) fn new_bz2_decoder<'a>(_: Box<dyn io::Read + Send + 'a>) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
-            Err(Error::FeatureDisabled)
-        }
+        Err(Error::FeatureDisabled)
     }
 }
 
-cfg_if! {
-    if #[cfg(feature = "lzma")] {
-    pub(crate) fn new_lzma_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
-            Ok(Box::new(xz2::write::XzEncoder::new(out, level.into())))
-    }
-
-    pub(crate) fn new_lzma_decoder<'a>(
-            inp: Box<dyn io::Read + Send + 'a>,
-    ) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
-            Ok((
-        Box::new(xz2::read::XzDecoder::new(inp)),
-        Format::Lzma,
-            ))
-    }
+pub(crate) fn new_bz2_encoder<'a>(
+    out: Box<dyn io::Write + Send + 'a>,
+    level: Level,
+) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
+    if cfg!(feature = "bz2") {
+        Ok(Box::new(bzip2::write::BzEncoder::new(out, level.into())))
     } else {
-    pub(crate) fn new_lzma_encoder<'a>(_: Box<dyn io::Write + Send + 'a>, _: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
-            Err(Error::FeatureDisabled)
+        Err(Error::FeatureDisabled)
     }
+}
 
-    pub(crate) fn new_lzma_decoder<'a>(_: Box<dyn io::Read + Send + 'a>) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
-            Err(Error::FeatureDisabled)
+pub(crate) fn new_bz2_decoder<'a>(
+    inp: Box<dyn io::Read + Send + 'a>,
+) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
+    if cfg!(feature = "bz2") {
+        Ok((Box::new(bzip2::read::BzDecoder::new(inp)), Format::Bzip))
+    } else {
+        Err(Error::FeatureDisabled)
     }
+}
+
+pub(crate) fn new_lzma_encoder<'a>(
+    out: Box<dyn io::Write + Send + 'a>,
+    level: Level,
+) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
+    if cfg!(feature = "lzma") {
+        Ok(Box::new(xz2::write::XzEncoder::new(out, level.into())))
+    } else {
+        Err(Error::FeatureDisabled)
+    }
+}
+
+pub(crate) fn new_lzma_decoder<'a>(
+    inp: Box<dyn io::Read + Send + 'a>,
+) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
+    if cfg!(feature = "lzma") {
+        Ok((Box::new(xz2::read::XzDecoder::new(inp)), Format::Lzma))
+    } else {
+        Err(Error::FeatureDisabled)
     }
 }
