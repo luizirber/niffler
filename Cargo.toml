@@ -19,7 +19,6 @@ bgz = ["bgzip"]
 xz = ["lzma"]
 
 [dependencies]
-cfg-if = "1.0"
 thiserror = "1.0"
 bzip2 = { version = "0.4.1", optional = true }
 flate2 = { version = "1.0", optional = true }
