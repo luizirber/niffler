@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.2] - 2021-05-27
+
+### Changed
+
+- Bump bgzip version to 0.2.0, removing dependency on failure
+
 ## [2.3.1] - 2020-12-08
 
 ### Fixed
