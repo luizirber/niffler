@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2021-12-25
+
+### Added
+
+- Zstd basic support (#44)
+- GitHub issues templates (#47)
+
+### Changed
+
+- Bump MSRV to 1.51 (#48)
+
 ## [2.3.2] - 2021-05-27
 
 ### Changed
@@ -78,7 +89,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename crate from `ocf` to `niffler`
 - Import codebase from sourmash repo (which copied it from the yacrd repo)
 
-[unreleased]: https://github.com/luizirber/niffler/compare/v2.3.0...HEAD
+[unreleased]: https://github.com/luizirber/niffler/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/luizirber/niffler/compare/v2.3.2..v2.4.0
+[2.3.2]: https://github.com/luizirber/niffler/compare/v2.3.1..v2.3.2
+[2.3.1]: https://github.com/luizirber/niffler/compare/v2.3.0..v2.3.1
 [2.3.0]: https://github.com/luizirber/niffler/compare/v2.2.0..v2.3.0
 [2.2.0]: https://github.com/luizirber/niffler/compare/v2.0.1..v2.2.0
 [2.0.1]: https://github.com/luizirber/niffler/compare/v2.0.0..v2.0.1
