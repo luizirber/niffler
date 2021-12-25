@@ -1,6 +1,6 @@
 [package]
 name = "niffler"
-version = "2.3.2"
+version = "2.4.0"
 authors = ["Pierre Marijon <pierre@marijon.fr>", "Luiz Irber <luiz.irber@gmail.com>"]
 description = "Simple and transparent support for compressed files"
 license = "MIT/Apache-2.0"
