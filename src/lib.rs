@@ -61,6 +61,7 @@ pub mod level;
 pub mod seek;
 pub mod seeksend;
 pub mod send;
+pub(crate) mod utils;
 
 /* reexport for convinent usage of niffler */
 pub use crate::basic::compression::Format;

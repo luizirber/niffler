@@ -14,7 +14,7 @@ use crate::seek::compression::{ReadSeek, WriteSeek};
 pub fn sniff<'a>(
     mut in_stream: Box<dyn ReadSeek + Send + 'a>,
 ) -> Result<(Box<dyn ReadSeek + Send + 'a>, compression::Format), Error> {
-    let first_bytes = compression::get_first_bytes(&mut in_stream)?;
+    let first_bytes = crate::utils::get_first_bytes(&mut in_stream)?;
 
     match compression::bytes2type(first_bytes) {
         e @ compression::Format::BGzip => Ok((in_stream, e)),
