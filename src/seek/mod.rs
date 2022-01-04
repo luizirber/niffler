@@ -15,7 +15,7 @@ use crate::level::Level;
 pub fn sniff<'a>(
     mut in_stream: Box<dyn compression::ReadSeek + 'a>,
 ) -> Result<(Box<dyn compression::ReadSeek + 'a>, compression::Format), Error> {
-    let first_bytes = compression::get_first_bytes(&mut in_stream)?;
+    let first_bytes = crate::utils::get_first_bytes(&mut in_stream)?;
 
     match compression::bytes2type(first_bytes) {
         e @ compression::Format::BGzip => Ok((in_stream, e)),

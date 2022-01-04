@@ -28,16 +28,6 @@ impl Format {
     pub const Xz: Format = Format::Lzma;
 }
 
-pub(crate) fn get_first_five<'a>(
-    mut in_stream: Box<dyn io::Read + 'a>,
-) -> Result<([u8; 5], Box<dyn io::Read + 'a>), Error> {
-    let mut buf = [0u8; 5];
-    match in_stream.read_exact(&mut buf) {
-        Ok(()) => Ok((buf, in_stream)),
-        Err(_) => Err(Error::FileTooShort),
-    }
-}
-
 pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
     match bytes {
         [0x1f, 0x8b, ..] => Format::Gzip,

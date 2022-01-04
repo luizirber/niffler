@@ -37,7 +37,7 @@ use crate::level::Level;
 pub fn sniff<'a>(
     in_stream: Box<dyn io::Read + 'a>,
 ) -> Result<(Box<dyn io::Read + 'a>, compression::Format), Error> {
-    let (first_bytes, in_stream) = compression::get_first_five(in_stream)?;
+    let (first_bytes, in_stream) = crate::utils::get_first_five(in_stream)?;
 
     let cursor = io::Cursor::new(first_bytes);
     match compression::bytes2type(first_bytes) {
