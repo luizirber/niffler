@@ -18,6 +18,22 @@ gz = ["flate2"]
 bgz = ["bgzip"]
 xz = ["lzma"]
 
+# bzip2 feature transitivity
+bz2_tokio = ["bzip2/tokio"]
+bz2_static = ["bzip2/static"]
+
+# lzma feature transitivity
+lzma_tokio = ["xz2/tokio"]
+
+# flate2 feature transitivity
+gz_zlib = ["flate2/zlib"]
+gz_zlib-ng-compat = ["flate2/zlib-ng-compat"]
+gz_cloudflare_zlib = ["flate2/cloudflare_zlib"]
+gz_rust_backend = ["flate2/rust_backend"]
+
+# xz feature transitivity
+xz_tokio = ["xz2/tokio"]
+
 [dependencies]
 cfg-if = "1.0"
 thiserror = "1.0"
