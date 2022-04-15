@@ -26,12 +26,11 @@ flate2 = { version = "1.0", optional = true }
 xz2 = { version = "0.1", optional = true }
 bgzip = { version = "0.2.0", optional = true }
 zstd = { version = "0.7.0", optional = true }
+serde_json = "1"
 
 [dev-dependencies]
 tempfile = "3"
 criterion = "0.3"
-reqwest = { version = "0.11", features = ["blocking"] }
-serde_json = "1"
 
 [[bench]]
 name = "detect_format"
@@ -51,8 +50,3 @@ required-features = ["bz2"]
 name = "lzma"
 harness = false
 required-features = ["xz2"]
-
-[[bench]]
-name = "json_parse"
-harness = false
-required-features = ["gz", "bz2", "xz2"]
