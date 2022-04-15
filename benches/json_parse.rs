@@ -62,6 +62,8 @@ fn read_json_disk(c: &mut Criterion) {
     }
 
     let mut g = c.benchmark_group("json");
+    g.sample_size(10);
+    g.nresamples(1);
 
     g.bench_function("flate", |b| {
         b.iter(|| {
