@@ -1,5 +1,5 @@
 /// `Format` represent a compression format of a file. Currently BGzip are supported.
-#[derive(Debug, PartialEq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum Format {
     BGzip,
     No,

@@ -53,6 +53,19 @@
 //! even if any feature is disabled.
 //! But if you try to use `niffler::get_reader` for a disabled feature,
 //! it will throw a runtime error.
+//!
+//! ## Backends features
+//!
+//! The libraries that are used for decompression provide a number of features that can have a significant impact on performance.
+//! Here is the list of features available with corresponding backend crates and features name in backend crates:
+//! - bz2_tokio -> bzip2 tokio
+//! - bz2_static -> bzip2 static
+//! - lzma_tokio -> lzma tokio
+//! - gz_zlib -> flate2 zlib
+//! - gz_zlib-ng-compat -> flate2 zlib-ng-compat
+//! - gz_cloudflare_zlib -> flate2 cloudflare_zlib
+//! - gz_rust_backend -> flate2 rust_backend
+//! - xz_tokio -> xz2 tokio
 
 /* declare mod */
 pub mod basic;
