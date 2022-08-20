@@ -39,7 +39,7 @@ it will throw a runtime error.
 
 ## Minimum supported Rust version
 
-Currently the minimum supported Rust version is 1.51.0.
+Currently the minimum supported Rust version is 1.56.1.
 
 ## Similar project
 

@@ -14,7 +14,7 @@ pub use crate::level::Level;
 
 /* Format detection enum */
 /// `Format` represent a compression format of a file. Currently Gzip, Bzip, Lzma or No are supported.
-#[derive(Debug, PartialEq, Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Clone, Copy)]
 pub enum Format {
     Gzip,
     Bzip,

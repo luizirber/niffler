@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add continuous deployment workflow (#57)
+- Add features to allow user to select features of backend (#54)
+
+### Changed
+
+- Bump MSRV to 1.56.1 (#54)
+
+### Fixed
+
+- Deduplicate implementation of get_first_{bytes|five} functions (#52)
+
 ## [2.4.0] - 2021-12-25
 
 ### Added

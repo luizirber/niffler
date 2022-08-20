@@ -8,7 +8,8 @@ repository = "https://github.com/luizirber/niffler"
 homepage = "https://github.com/luizirber/niffler"
 readme = "README.md"
 documentation = "https://docs.rs/niffler"
-edition = "2018"
+edition = "2021"
+rust-version = "1.56.1"
 
 [features]
 default = ["bz2", "lzma", "xz", "gz", "bgz", "zstd"]
