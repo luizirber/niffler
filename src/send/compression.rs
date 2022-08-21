@@ -17,6 +17,7 @@ pub enum Format {
     Gzip,
     Bzip,
     Lzma,
+    Zstd,
     No,
 }
 
@@ -31,6 +32,7 @@ pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
         [0x1f, 0x8b, ..] => Format::Gzip,
         [0x42, 0x5a, ..] => Format::Bzip,
         [0xfd, 0x37, 0x7a, 0x58, 0x5a] => Format::Lzma,
+        [0x28, 0xb5, 0x2f, 0xfd, ..] => Format::Zstd,
         _ => Format::No,
     }
 }
@@ -113,5 +115,32 @@ cfg_if! {
     pub(crate) fn new_lzma_decoder<'a>(_: Box<dyn io::Read + Send + 'a>) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
             Err(Error::FeatureDisabled)
     }
+    }
+}
+
+cfg_if! {
+    if #[cfg(feature = "zstd")] {
+        pub(crate) fn new_zstd_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write +Send + 'a>, Error> {
+            Ok(Box::new(zstd::stream::write::Encoder::new(
+                        out,
+                        level.into(),
+            )?.auto_finish()))
+        }
+
+        pub(crate) fn new_zstd_decoder<'a>(
+            inp: Box<dyn io::Read +Send + 'a>,
+        ) -> Result<(Box<dyn io::Read + Send + 'a>, Format), Error> {
+            Ok((Box::new(zstd::stream::read::Decoder::new(inp)?),
+                         Format::Zstd,
+            ))
+        }
+    } else {
+        pub(crate) fn new_zstd_encoder<'a>(_: Box<dyn io::Write +Send + 'a>, _: Level) -> Result<Box<dyn io::Write+Send  + 'a>, Error> {
+            Err(Error::FeatureDisabled)
+        }
+
+        pub(crate) fn new_zstd_decoder<'a>(_: Box<dyn io::Read +Send + 'a>) -> Result<(Box<dyn io::Read+Send  + 'a>, Format), Error> {
+            Err(Error::FeatureDisabled)
+        }
     }
 }

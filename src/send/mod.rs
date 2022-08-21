@@ -19,7 +19,8 @@ pub fn sniff<'a>(
     match compression::bytes2type(first_bytes) {
         e @ compression::Format::Gzip
         | e @ compression::Format::Bzip
-        | e @ compression::Format::Lzma => Ok((Box::new(cursor.chain(in_stream)), e)),
+        | e @ compression::Format::Lzma
+        | e @ compression::Format::Zstd => Ok((Box::new(cursor.chain(in_stream)), e)),
         _ => Ok((Box::new(cursor.chain(in_stream)), compression::Format::No)),
     }
 }
@@ -36,6 +37,7 @@ pub fn get_reader<'a>(
         compression::Format::Gzip => compression::new_gz_decoder(in_stream),
         compression::Format::Bzip => compression::new_bz2_decoder(in_stream),
         compression::Format::Lzma => compression::new_lzma_decoder(in_stream),
+        compression::Format::Zstd => compression::new_zstd_decoder(in_stream),
         compression::Format::No => Ok((in_stream, compression::Format::No)),
     }
 }
@@ -50,6 +52,7 @@ pub fn get_writer<'a>(
         compression::Format::Gzip => compression::new_gz_encoder(out_stream, level),
         compression::Format::Bzip => compression::new_bz2_encoder(out_stream, level),
         compression::Format::Lzma => compression::new_lzma_encoder(out_stream, level),
+        compression::Format::Zstd => compression::new_zstd_encoder(out_stream, level),
         compression::Format::No => Ok(Box::new(out_stream)),
     }
 }
@@ -83,6 +86,7 @@ mod test {
     pub(crate) const BZIP_FILE: &'static [u8] = &[0o102, 0o132, 0o0, 0o0, 0o0];
     pub(crate) const LZMA_FILE: &'static [u8] = &[0o375, 0o067, 0o172, 0o130, 0o132];
     pub(crate) const LOREM_IPSUM: &'static [u8] = b"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies scelerisque diam, a scelerisque enim sagittis at.";
+    pub(crate) const ZSTD_FILE: &'static [u8] = &[0x28, 0xb5, 0x2f, 0xfd, 0];
 
     mod compress_uncompress {
         use super::*;
@@ -255,6 +259,47 @@ mod test {
                 get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
 
             assert_eq!(compression, compression::Format::Xz);
+
+            let mut buffer = Vec::new();
+            reader
+                .read_to_end(&mut buffer)
+                .expect("Error during reading");
+            assert_eq!(LOREM_IPSUM, buffer.as_slice());
+        }
+
+        #[test]
+        #[cfg(not(feature = "zstd"))]
+        fn no_zstd_feature() {
+            assert!(
+                get_writer(Box::new(vec![]), compression::Format::Zstd, Level::Six).is_err(),
+                "zstd disabled, this assertion should fail"
+            );
+
+            assert!(
+                get_reader(Box::new(&ZSTD_FILE[..])).is_err(),
+                "zstd disabled, this assertion should fail"
+            );
+        }
+
+        #[cfg(feature = "zstd")]
+        #[test]
+        fn zstd() {
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
+
+            {
+                let wfile = ofile.reopen().expect("Can't create tmpfile");
+                let mut writer =
+                    get_writer(Box::new(wfile), compression::Format::Zstd, Level::Six).unwrap();
+                writer
+                    .write_all(LOREM_IPSUM)
+                    .expect("Error during write of data");
+            }
+
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
+            let (mut reader, compression) =
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
+
+            assert_eq!(compression, compression::Format::Zstd);
 
             let mut buffer = Vec::new();
             reader
