@@ -38,11 +38,11 @@ xz_tokio = ["xz2/tokio"]
 [dependencies]
 cfg-if = "1.0"
 thiserror = "1.0"
-bzip2 = { version = "0.4.1", optional = true }
+bzip2 = { version = "0.4.3", optional = true }
 flate2 = { version = "1.0", optional = true }
 xz2 = { version = "0.1", optional = true }
-bgzip = { version = "0.2.0", optional = true }
-zstd = { version = "0.7.0", optional = true }
+bgzip = { version = "0.2.2", optional = true }
+zstd = { version = "0.12.2+zstd.1.5.2", optional = true }
 
 [dev-dependencies]
 tempfile = "3"
