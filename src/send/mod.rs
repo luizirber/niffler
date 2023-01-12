@@ -337,6 +337,12 @@ mod test {
         }
 
         #[test]
+        fn zstd() {
+            let (_, compression) = sniff(Box::new(ZSTD_FILE)).expect("Error in read file");
+            assert_eq!(compression, compression::Format::Zstd);
+        }
+
+        #[test]
         fn too_short() {
             let result = sniff(Box::new(SHORT_FILE));
             assert!(result.is_err());
