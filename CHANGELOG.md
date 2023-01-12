@@ -9,11 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+
+### Changed
+
+
+### Fixed
+
+## [2.5.0] - 2023-01-12
+
+### Added
+
+- Add support of zstd in send (#59)
 - Add continuous deployment workflow (#57)
 - Add features to allow user to select features of backend (#54)
 
 ### Changed
 
+- Bump MSRV to 1.57.0 (#59)
 - Bump MSRV to 1.56.1 (#54)
 
 ### Fixed
@@ -72,7 +84,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Clone and Copy traits to pub enums [@schmidmt](https://github.com/schmidmt). 
+- Clone and Copy traits to pub enums [@schmidmt](https://github.com/schmidmt).
 
 ## [2.0.0] - 2020-04-27
 

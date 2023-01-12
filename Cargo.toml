@@ -1,6 +1,6 @@
 [package]
 name = "niffler"
-version = "2.4.0"
+version = "2.5.0"
 authors = ["Pierre Marijon <pierre@marijon.fr>", "Luiz Irber <luiz.irber@gmail.com>"]
 description = "Simple and transparent support for compressed files"
 license = "MIT/Apache-2.0"
@@ -34,6 +34,7 @@ gz_rust_backend = ["flate2/rust_backend"]
 
 # xz feature transitivity
 xz_tokio = ["xz2/tokio"]
+
 
 [dependencies]
 cfg-if = "1.0"
