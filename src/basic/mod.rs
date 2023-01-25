@@ -302,6 +302,46 @@ mod test {
             assert_eq!(LOREM_IPSUM, buffer.as_slice());
         }
 
+        #[cfg(feature = "bz2")]
+        #[test]
+        fn bzip_multidecoder() {
+            let mut buf: Vec<u8> = vec![];
+
+            {
+                let mut writer =
+                    get_writer(Box::new(&mut buf), compression::Format::Bzip, Level::Six).unwrap();
+                writer
+                    .write_all(LOREM_IPSUM)
+                    .expect("Error during write of data");
+            }
+
+            let ofile = NamedTempFile::new().expect("Can't create tmpfile");
+            {
+                use std::io::Write;
+                let mut wfile = ofile.reopen().expect("Can't create tmpfile");
+                wfile
+                    .write_all(buf.as_slice())
+                    .expect("Error during write of data");
+                wfile
+                    .write_all(buf.as_slice())
+                    .expect("Error during write of data");
+            }
+
+            let rfile = ofile.reopen().expect("Can't create tmpfile");
+            let (mut reader, compression) =
+                get_reader(Box::new(rfile)).expect("Error reading from tmpfile");
+
+            assert_eq!(compression, compression::Format::Bzip);
+
+            let mut buffer = Vec::new();
+            reader
+                .read_to_end(&mut buffer)
+                .expect("Error during reading");
+            let mut result: Vec<u8> = LOREM_IPSUM.into();
+            result.extend(LOREM_IPSUM);
+            assert_eq!(result, buffer.as_slice());
+        }
+
         #[test]
         #[cfg(not(feature = "lzma"))]
         fn no_lzma_feature() {
