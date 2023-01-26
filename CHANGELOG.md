@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-
 ### Changed
 
+- Support for multistream bzip2 files by default (#62)
 
 ### Fixed
 
