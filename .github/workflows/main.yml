@@ -57,7 +57,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --no-fail-fast
+          args: --no-fail-fast --locked
 
   test_all_feature_combinations:
     runs-on: ubuntu-latest
@@ -76,7 +76,7 @@ jobs:
           use-tool-cache: true
 
       - name: Run tests for all feature combinations
-        run: cargo test-all-features --no-fail-fast --all
+        run: cargo test-all-features --no-fail-fast --all --locked
 
   coverage:
     runs-on: ubuntu-latest
@@ -96,10 +96,12 @@ jobs:
           use-tool-cache: true
 
       - name: Run cargo-tarpaulin
-        run: cargo tarpaulin --all-features --timeout 600 --out Xml -- --test-threads 1
+        run: cargo tarpaulin --all-features --locked --timeout 600 --out Xml -- --test-threads 1
 
       - name: Upload coverage to codecov
-        uses: codecov/codecov-action@v1.0.3
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   lints:
     name: Lints
@@ -155,17 +157,17 @@ jobs:
 
       - uses: actions-rs/toolchain@v1
         with:
-          toolchain: 1.57.0
+          toolchain: 1.65.0
           override: true
 
       - name: check if README matches MSRV defined here
-        run: grep '1.57.0' README.md
+        run: grep '1.65.0' README.md
 
       - name: Run tests
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --all-features --no-fail-fast
+          args: --all-features --no-fail-fast --locked
 
   wasm:
     runs-on: ubuntu-latest

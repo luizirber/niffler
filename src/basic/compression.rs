@@ -97,14 +97,14 @@ cfg_if! {
 cfg_if! {
     if #[cfg(feature = "lzma")] {
     pub(crate) fn new_lzma_encoder<'a>(out: Box<dyn io::Write  + 'a>, level: Level) -> Result<Box<dyn io::Write  + 'a>, Error> {
-            Ok(Box::new(xz2::write::XzEncoder::new(out, level.into())))
+            Ok(Box::new(liblzma::write::XzEncoder::new(out, level.into())))
     }
 
     pub(crate) fn new_lzma_decoder<'a>(
             inp: Box<dyn io::Read  + 'a>,
     ) -> Result<(Box<dyn io::Read  + 'a>, Format), Error> {
             Ok((
-        Box::new(xz2::read::XzDecoder::new(inp)),
+        Box::new(liblzma::read::XzDecoder::new(inp)),
         Format::Lzma,
             ))
     }
