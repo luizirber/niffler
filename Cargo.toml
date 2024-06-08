@@ -71,19 +71,24 @@ required-features = ["xz2"]
 
 [package.metadata.cargo-all-features]
 denylist = [
-# bzip2 feature transitivity
-"bz2_tokio",
-"bz2_static",
+  # bzip2 feature transitivity
+  "bz2_tokio",
+  "bz2_static",
 
-# lzma feature transitivity
-"lzma_tokio",
+  # lzma feature transitivity
+  "lzma_tokio",
 
-# flate2 feature transitivity
-"gz_zlib",
-"gz_zlib-ng-compat",
-"gz_cloudflare_zlib",
-"gz_rust_backend",
+  # flate2 feature transitivity
+  "gz_zlib",
+  "gz_zlib-ng-compat",
+  "gz_cloudflare_zlib",
+  "gz_rust_backend",
 
-# xz feature transitivity
-"xz_tokio"
+  # xz feature transitivity
+  "xz_tokio",
+
+  # xz is an alias to lzma
+  "xz",
 ]
+
+skip_optional_dependencies = true
