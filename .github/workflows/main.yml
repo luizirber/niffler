@@ -163,6 +163,9 @@ jobs:
       - name: check if README matches MSRV defined here
         run: grep '1.65.0' README.md
 
+      - name: check if Cargo.toml matches MSRV defined here
+        run: grep 'rust-version = "1.65.0"' README.md
+
       - name: Run tests
         uses: actions-rs/cargo@v1
         with:
