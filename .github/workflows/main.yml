@@ -99,7 +99,7 @@ jobs:
         run: cargo tarpaulin --all-features --locked --timeout 600 --out Xml -- --test-threads 1
 
       - name: Upload coverage to codecov
-        uses: codecov/codecov-action@v1.0.3
+        uses: codecov/codecov-action@v3
 
   lints:
     name: Lints
