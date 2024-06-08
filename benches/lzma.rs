@@ -14,7 +14,7 @@ fn read_in_ram(c: &mut Criterion) {
         b.iter(|| read_all_stream(niffler::get_reader(Box::new(LZMA_FILE)).unwrap().0))
     });
     g.bench_function("xz2", |b| {
-        b.iter(|| read_all_stream(Box::new(xz2::read::XzDecoder::new(LZMA_FILE))))
+        b.iter(|| read_all_stream(Box::new(liblzma::read::XzDecoder::new(LZMA_FILE))))
     });
 }
 
@@ -40,7 +40,7 @@ fn write_in_ram(c: &mut Criterion) {
     g.bench_function("xz2", |b| {
         b.iter(|| {
             write_all_data(
-                Box::new(xz2::write::XzEncoder::new(&mut out, 1)),
+                Box::new(liblzma::write::XzEncoder::new(&mut out, 1)),
                 BASIC_FILE,
             )
         })
@@ -85,7 +85,7 @@ fn read_on_disk(c: &mut Criterion) {
         b.iter(|| {
             compress_file.seek(std::io::SeekFrom::Start(0)).unwrap();
 
-            read_all_stream(Box::new(xz2::read::XzDecoder::new(compress_file.as_file())));
+            read_all_stream(Box::new(liblzma::read::XzDecoder::new(compress_file.as_file())));
         })
     });
 }
@@ -114,7 +114,7 @@ fn write_on_disk(c: &mut Criterion) {
     g.bench_function("xz2", |b| {
         b.iter(|| {
             let wfile = compress_file.reopen().unwrap();
-            let mut writer = xz2::write::XzEncoder::new(wfile, 1);
+            let mut writer = liblzma::write::XzEncoder::new(wfile, 1);
 
             for _ in 0..(8 * 1024) {
                 writer.write(&[42]).unwrap();
