@@ -150,6 +150,9 @@ jobs:
           command: publish
           args: --dry-run
 
+      - name: Check semver
+        uses: obi1kenobi/cargo-semver-checks-action@v2
+
   minimum_rust_version:
     runs-on: ubuntu-latest
     steps:
