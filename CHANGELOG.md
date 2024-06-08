@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Update bzip to 0.4.4
+- Update bgzip to 0.3
+- Update zstd 0.13
 
 ## [2.5.0] - 2023-01-12
 
