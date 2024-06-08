@@ -17,7 +17,7 @@ bz2 = ["bzip2"]
 lzma = ["liblzma"]
 gz = ["flate2"]
 bgz = ["bgzip"]
-xz = ["liblzma"]
+xz = ["lzma"]
 
 # bzip2 feature transitivity
 bz2_tokio = ["bzip2/tokio"]
