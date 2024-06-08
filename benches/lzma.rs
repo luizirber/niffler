@@ -85,7 +85,9 @@ fn read_on_disk(c: &mut Criterion) {
         b.iter(|| {
             compress_file.seek(std::io::SeekFrom::Start(0)).unwrap();
 
-            read_all_stream(Box::new(liblzma::read::XzDecoder::new(compress_file.as_file())));
+            read_all_stream(Box::new(liblzma::read::XzDecoder::new(
+                compress_file.as_file(),
+            )));
         })
     });
 }
