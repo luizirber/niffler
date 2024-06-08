@@ -94,7 +94,7 @@ cfg_if! {
 }
 
 cfg_if! {
-    if #[cfg(any(feature = "lzma", feature = "xz"))] {
+    if #[cfg(feature = "lzma")] {
     pub(crate) fn new_lzma_encoder<'a>(out: Box<dyn io::Write + Send + 'a>, level: Level) -> Result<Box<dyn io::Write + Send + 'a>, Error> {
             Ok(Box::new(liblzma::write::XzEncoder::new(out, level.into())))
     }
