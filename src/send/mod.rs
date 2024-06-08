@@ -186,7 +186,7 @@ mod test {
         }
 
         #[test]
-        #[cfg(not(feature = "lzma"))]
+        #[cfg(all(not(feature = "xz"), not(feature = "lzma")))]
         fn no_lzma_feature() {
             assert!(
                 get_writer(Box::new(vec![]), compression::Format::Lzma, Level::Six).is_err(),
@@ -240,7 +240,7 @@ mod test {
             );
         }
 
-        #[cfg(feature = "xz")]
+        #[cfg(any(feature = "xz", feature = "lzma"))]
         #[test]
         fn xz() {
             let ofile = NamedTempFile::new().expect("Can't create tmpfile");
