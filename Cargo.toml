@@ -9,7 +9,7 @@ homepage = "https://github.com/luizirber/niffler"
 readme = "README.md"
 documentation = "https://docs.rs/niffler"
 edition = "2021"
-rust-version = "1.65.0"
+rust-version = "1.65"
 
 [features]
 default = ["bz2", "lzma", "xz", "gz", "bgz", "zstd"]
