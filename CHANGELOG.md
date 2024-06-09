@@ -11,9 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+### Fixed
+
+## 2.6.0 - 2024-06-08
+
+### Added
+
+### Changed
+
+- Replace xz2 to liblzma
+- Bump MRSV to 1.65
 - Support for multistream bzip2 files by default (#62)
 
 ### Fixed
+
+- Update bzip to 0.4.4
+- Update bgzip to 0.3
+- Update zstd 0.13
 
 ## [2.5.0] - 2023-01-12
 

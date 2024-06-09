@@ -1,6 +1,6 @@
 [package]
 name = "niffler"
-version = "2.5.0"
+version = "2.6.0"
 authors = ["Pierre Marijon <pierre@marijon.fr>", "Luiz Irber <luiz.irber@gmail.com>"]
 description = "Simple and transparent support for compressed files"
 license = "MIT/Apache-2.0"
@@ -9,7 +9,7 @@ homepage = "https://github.com/luizirber/niffler"
 readme = "README.md"
 documentation = "https://docs.rs/niffler"
 edition = "2021"
-rust-version = "1.57"
+rust-version = "1.65"
 
 [features]
 default = ["bz2", "lzma", "xz", "gz", "bgz", "zstd"]
@@ -39,11 +39,11 @@ xz_tokio = ["liblzma/tokio"]
 [dependencies]
 cfg-if = "1.0"
 thiserror = "1.0"
-bzip2 = { version = "0.4.4", optional = true }
+bzip2 = { version = "0.4.4", optional = true}
 flate2 = { version = "1.0", optional = true }
-liblzma = { version = "0.3.1", optional = true }
-bgzip = { version = "0.2.2", optional = true }
-zstd = { version = "0.12.2", optional = true }
+liblzma = { version = "0.3", optional = true }
+bgzip = { version = "0.3", optional = true, default-features = false, features = ["rust_backend"] }
+zstd = { version = "0.13", optional = true }
 
 [dev-dependencies]
 tempfile = "3"
