@@ -150,6 +150,9 @@ jobs:
           command: publish
           args: --dry-run
 
+      - name: Check semver
+        uses: obi1kenobi/cargo-semver-checks-action@v2
+
   minimum_rust_version:
     runs-on: ubuntu-latest
     steps:
@@ -162,6 +165,9 @@ jobs:
 
       - name: check if README matches MSRV defined here
         run: grep '1.65.0' README.md
+
+      - name: check if Cargo.toml matches MSRV defined here
+        run: grep 'rust-version = "1.65"' Cargo.toml
 
       - name: Run tests
         uses: actions-rs/cargo@v1
