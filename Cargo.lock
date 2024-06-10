@@ -421,7 +421,6 @@ version = "2.6.0"
 dependencies = [
  "bgzip",
  "bzip2",
- "cfg-if",
  "criterion",
  "flate2",
  "liblzma",

@@ -83,10 +83,10 @@ pub fn get_reader<'a>(
 
     // return readable and compression status
     match compression {
-        compression::Format::Gzip => compression::new_gz_decoder(in_stream),
-        compression::Format::Bzip => compression::new_bz2_decoder(in_stream),
-        compression::Format::Lzma => compression::new_lzma_decoder(in_stream),
-        compression::Format::Zstd => compression::new_zstd_decoder(in_stream),
+        compression::Format::Gzip => compression::gz::decoder(in_stream),
+        compression::Format::Bzip => compression::bz2::decoder(in_stream),
+        compression::Format::Lzma => compression::lzma::decoder(in_stream),
+        compression::Format::Zstd => compression::zstd::decoder(in_stream),
         compression::Format::No => Ok((in_stream, compression::Format::No)),
     }
 }
@@ -124,10 +124,10 @@ pub fn get_writer<'a>(
     level: Level,
 ) -> Result<Box<dyn io::Write + 'a>, Error> {
     match format {
-        compression::Format::Gzip => compression::new_gz_encoder(out_stream, level),
-        compression::Format::Bzip => compression::new_bz2_encoder(out_stream, level),
-        compression::Format::Lzma => compression::new_lzma_encoder(out_stream, level),
-        compression::Format::Zstd => compression::new_zstd_encoder(out_stream, level),
+        compression::Format::Gzip => compression::gz::encoder(out_stream, level),
+        compression::Format::Bzip => compression::bz2::encoder(out_stream, level),
+        compression::Format::Lzma => compression::lzma::encoder(out_stream, level),
+        compression::Format::Zstd => compression::zstd::encoder(out_stream, level),
         compression::Format::No => Ok(Box::new(out_stream)),
     }
 }

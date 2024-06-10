@@ -68,13 +68,14 @@
 //! - xz_tokio -> xz2 tokio
 
 /* declare mod */
+#[macro_use]
+pub(crate) mod utils;
 pub mod basic;
 pub mod error;
 pub mod level;
 pub mod seek;
 pub mod seeksend;
 pub mod send;
-pub(crate) mod utils;
 
 /* reexport for convinent usage of niffler */
 pub use crate::basic::compression::Format;
