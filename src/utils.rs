@@ -1,7 +1,6 @@
 /* standard use */
 use std::io;
 
-/* project use */
 use crate::error::Error;
 use crate::seek::compression::ReadSeek;
 
@@ -29,4 +28,33 @@ where
         }
         Err(_) => Err(Error::FileTooShort),
     }
+}
+
+macro_rules! impl_format {
+  ($mod:ident, $feature:literal, $format:path, $encoder:path, $decoder:path, $($rbound:path)|+, $($wbound:path)|+, $all_formats:path) => {
+
+    pub mod $mod {
+
+        #[cfg(feature = $feature)]
+        pub(crate) fn encoder<'a>(out: Box<dyn $($wbound + )* 'a>, level: $crate::level::Level) -> Result<Box<dyn $($wbound + )* 'a>, $crate::Error> {
+            Ok(Box::new($encoder(out, level.into())))
+        }
+
+        #[cfg(feature = $feature)]
+        pub(crate) fn decoder<'a>(inp: Box<dyn $($rbound + )* 'a>) -> Result<(Box<dyn $($rbound + )* 'a>, $all_formats), $crate::Error> {
+            Ok(( Box::new($decoder(inp)), $format))
+        }
+
+        #[cfg(not(feature = $feature))]
+        pub(crate) fn encoder<'a>(_: Box<dyn $($wbound +)* 'a>, _: $crate::level::Level) -> Result<Box<dyn $($wbound + )* 'a>, $crate::Error> {
+            Err($crate::Error::FeatureDisabled)
+        }
+
+        #[cfg(not(feature = $feature))]
+        pub(crate) fn decoder<'a>(_: Box<dyn $($rbound +)* 'a>) -> Result<(Box<dyn $($rbound +)* 'a>, $all_formats), $crate::Error> {
+            Err($crate::Error::FeatureDisabled)
+        }
+
+    }
+  }
 }
