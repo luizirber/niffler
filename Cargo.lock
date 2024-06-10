@@ -497,7 +497,6 @@ version = "2.7.0"
 dependencies = [
  "bgzip",
  "bzip2",
- "cfg-if",
  "codspeed-criterion-compat",
  "flate2",
  "liblzma",
