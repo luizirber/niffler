@@ -5,7 +5,7 @@
 /// For bzip2:
 ///  - `One` is convert in `bzip2::Compression::Fastest`,
 ///  - `Nine` in `bzip2::Compression::Best`
-/// and other value is convert in `bzip2::Compression::Default.
+///     and other value is convert in `bzip2::Compression::Default.
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum Level {
     Zero,
