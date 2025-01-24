@@ -38,6 +38,7 @@ xz_tokio = ["liblzma/tokio"]
 
 
 [dependencies]
+cfg-if = "1.0"
 thiserror = "2.0"
 bzip2 = { version = "0.4.4", optional = true }
 flate2 = { version = "1.0", optional = true }
@@ -49,7 +50,7 @@ zstd = { version = "0.13", optional = true }
 
 [dev-dependencies]
 tempfile = "3"
-﻿criterion = "0.5"
+criterion = "0.5"
 
 [[bench]]
 name = "detect_format"
