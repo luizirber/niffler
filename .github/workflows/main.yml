@@ -162,14 +162,14 @@ jobs:
 
       - uses: actions-rs/toolchain@v1
         with:
-          toolchain: 1.65.0
+          toolchain: 1.74.0
           override: true
 
       - name: check if README matches MSRV defined here
-        run: grep '1.65.0' README.md
+        run: grep '1.74.0' README.md
 
       - name: check if Cargo.toml matches MSRV defined here
-        run: grep 'rust-version = "1.65"' Cargo.toml
+        run: grep 'rust-version = "1.74"' Cargo.toml
 
       - name: Run tests
         uses: actions-rs/cargo@v1
