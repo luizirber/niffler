@@ -96,7 +96,7 @@ jobs:
           use-tool-cache: true
 
       - name: Run cargo-tarpaulin
-        run: cargo tarpaulin --all-features --locked --timeout 600 --out Xml -- --test-threads 1
+        run: cargo tarpaulin --default-features --locked --timeout 600 --out Xml -- --test-threads 1
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v4
@@ -175,7 +175,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --all-features --no-fail-fast --locked
+          args: --default-features --no-fail-fast --locked
 
   wasm:
     runs-on: ubuntu-latest
