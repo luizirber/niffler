@@ -152,6 +152,8 @@ jobs:
 
       - name: Check semver
         uses: obi1kenobi/cargo-semver-checks-action@v2
+        with:
+          feature-group: default-features
 
   minimum_rust_version:
     runs-on: ubuntu-latest
