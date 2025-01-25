@@ -55,6 +55,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/make-4.4.1-hb9d3cd8_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/ncurses-6.5-h2d0b736_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/openssl-3.4.0-h7b32b05_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/pkg-config-0.29.2-h4bc722e_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rhash-1.4.5-hb9d3cd8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rust-1.84.0-h1a8d7c4_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-x86_64-unknown-linux-gnu-1.84.0-h2c6d0dc_0.conda
@@ -96,11 +97,14 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libedit-3.1.20240808-pl5321h976ea20_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libev-4.33-h31becfc_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libexpat-2.6.4-h5ad3122_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libffi-3.4.2-h3557bc0_5.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgcc-14.2.0-he277a41_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/libgcc-devel_linux-aarch64-12.4.0-h7b3af7c_101.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgcc-ng-14.2.0-he9431aa_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgfortran5-14.2.0-hb6113d0_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libglib-2.82.2-hc486b8e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgomp-14.2.0-he277a41_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libiconv-1.17-h31becfc_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/liblzma-5.6.3-h86ecc28_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/liblzma-devel-5.6.3-h86ecc28_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libnghttp2-1.64.0-hc8609a4_0.conda
@@ -114,6 +118,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/make-4.4.1-h2a6d0cb_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/ncurses-6.5-ha32ae93_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/openssl-3.4.0-hd08dc88_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pcre2-10.44-h070dd5b_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pkg-config-0.29.2-hce167ba_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/rhash-1.4.5-h86ecc28_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/rust-1.84.0-h21fc29f_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-aarch64-unknown-linux-gnu-1.84.0-hbe8e118_0.conda
@@ -179,6 +185,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/mpfr-4.2.1-haed47dc_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/ncurses-6.5-h0622a9a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/openssl-3.4.0-hc426f3f_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/pkg-config-0.29.2-hf7e621a_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rhash-1.4.5-ha44c9a9_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rust-1.84.0-h34a2095_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-x86_64-apple-darwin-1.84.0-h38e4360_0.conda
@@ -227,10 +234,13 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libedit-3.1.20240808-pl5321hafb1f1b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libev-4.33-h93a5062_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libexpat-2.6.4-h286801f_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libffi-3.4.2-h3422bc3_5.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libgfortran-5.0.0-13_2_0_hd922786_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/libgfortran-devel_osx-arm64-12.3.0-hc62be1c_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libgfortran5-13.2.0-hf226fd6_3.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libglib-2.82.2-hdff4504_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libiconv-1.17-h0d3ecfb_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libintl-0.22.5-h8414b35_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libllvm16-16.0.6-haab561b_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/liblzma-5.6.3-h39f12f2_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/liblzma-devel-5.6.3-h39f12f2_1.conda
@@ -246,6 +256,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/mpfr-4.2.1-hb693164_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/ncurses-6.5-h5e97a16_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/openssl-3.4.0-h81ee809_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pcre2-10.44-h297a79d_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pkg-config-0.29.2-hde07d2e_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/rhash-1.4.5-h7ab814d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/rust-1.84.0-h4ff7c5d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-aarch64-apple-darwin-1.84.0-hf6ec828_0.conda
@@ -273,9 +285,13 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/krb5-1.21.3-hdf4eb48_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libcurl-8.11.1-h88aaa65_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libexpat-2.6.4-he0c23c2_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libffi-3.4.2-h8ffe710_5.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/libflang-5.0.0-h6538335_20180525.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/libgcc-14.2.0-h1383e82_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libglib-2.82.2-h7025463_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libgomp-14.2.0-h1383e82_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libiconv-1.17-hcfcfb64_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libintl-0.22.5-h5728263_3.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/liblzma-5.6.3-h2466b09_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/liblzma-devel-5.6.3-h2466b09_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libssh2-1.11.1-he619c9f_0.conda
@@ -286,6 +302,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/make-4.4.1-h0e40799_2.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/openmp-5.0.0-vc14_1.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/openssl-3.4.0-ha4e3fda_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/pcre2-10.44-h3d7b363_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/pkg-config-0.29.2-h88c491f_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/rust-1.84.0-hf8d6059_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-x86_64-pc-windows-msvc-1.84.0-h17fc481_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/ucrt-10.0.22621.0-h57928b3_1.conda
@@ -352,6 +370,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/make-4.4.1-hb9d3cd8_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/ncurses-6.5-h2d0b736_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/openssl-3.4.0-h7b32b05_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/pkg-config-0.29.2-h4bc722e_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rhash-1.4.5-hb9d3cd8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rust-1.84.0-h1a8d7c4_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-x86_64-unknown-linux-gnu-1.84.0-h2c6d0dc_0.conda
@@ -393,11 +412,14 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libedit-3.1.20240808-pl5321h976ea20_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libev-4.33-h31becfc_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libexpat-2.6.4-h5ad3122_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libffi-3.4.2-h3557bc0_5.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgcc-14.2.0-he277a41_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/libgcc-devel_linux-aarch64-12.4.0-h7b3af7c_101.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgcc-ng-14.2.0-he9431aa_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgfortran5-14.2.0-hb6113d0_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libglib-2.82.2-hc486b8e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgomp-14.2.0-he277a41_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libiconv-1.17-h31becfc_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/liblzma-5.6.3-h86ecc28_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/liblzma-devel-5.6.3-h86ecc28_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libnghttp2-1.64.0-hc8609a4_0.conda
@@ -411,6 +433,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/make-4.4.1-h2a6d0cb_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/ncurses-6.5-ha32ae93_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/openssl-3.4.0-hd08dc88_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pcre2-10.44-h070dd5b_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pkg-config-0.29.2-hce167ba_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/rhash-1.4.5-h86ecc28_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/rust-1.84.0-h21fc29f_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-aarch64-unknown-linux-gnu-1.84.0-hbe8e118_0.conda
@@ -476,6 +500,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/mpfr-4.2.1-haed47dc_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/ncurses-6.5-h0622a9a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/openssl-3.4.0-hc426f3f_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/pkg-config-0.29.2-hf7e621a_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rhash-1.4.5-ha44c9a9_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rust-1.84.0-h34a2095_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-x86_64-apple-darwin-1.84.0-h38e4360_0.conda
@@ -524,10 +549,13 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libedit-3.1.20240808-pl5321hafb1f1b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libev-4.33-h93a5062_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libexpat-2.6.4-h286801f_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libffi-3.4.2-h3422bc3_5.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libgfortran-5.0.0-13_2_0_hd922786_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/libgfortran-devel_osx-arm64-12.3.0-hc62be1c_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libgfortran5-13.2.0-hf226fd6_3.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libglib-2.82.2-hdff4504_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libiconv-1.17-h0d3ecfb_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libintl-0.22.5-h8414b35_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libllvm16-16.0.6-haab561b_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/liblzma-5.6.3-h39f12f2_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/liblzma-devel-5.6.3-h39f12f2_1.conda
@@ -543,6 +571,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/mpfr-4.2.1-hb693164_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/ncurses-6.5-h5e97a16_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/openssl-3.4.0-h81ee809_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pcre2-10.44-h297a79d_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pkg-config-0.29.2-hde07d2e_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/rhash-1.4.5-h7ab814d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/rust-1.84.0-h4ff7c5d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-aarch64-apple-darwin-1.84.0-hf6ec828_0.conda
@@ -570,9 +600,13 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/krb5-1.21.3-hdf4eb48_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libcurl-8.11.1-h88aaa65_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libexpat-2.6.4-he0c23c2_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libffi-3.4.2-h8ffe710_5.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/libflang-5.0.0-h6538335_20180525.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/libgcc-14.2.0-h1383e82_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libglib-2.82.2-h7025463_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libgomp-14.2.0-h1383e82_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libiconv-1.17-hcfcfb64_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libintl-0.22.5-h5728263_3.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/liblzma-5.6.3-h2466b09_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/liblzma-devel-5.6.3-h2466b09_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libssh2-1.11.1-he619c9f_0.conda
@@ -583,6 +617,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/make-4.4.1-h0e40799_2.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/openmp-5.0.0-vc14_1.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/openssl-3.4.0-ha4e3fda_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/pcre2-10.44-h3d7b363_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/pkg-config-0.29.2-h88c491f_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/rust-1.84.0-hf8d6059_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-x86_64-pc-windows-msvc-1.84.0-h17fc481_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/ucrt-10.0.22621.0-h57928b3_1.conda
@@ -647,6 +683,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/make-4.4.1-hb9d3cd8_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/ncurses-6.5-h2d0b736_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/openssl-3.4.0-h7b32b05_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/pkg-config-0.29.2-h4bc722e_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rhash-1.4.5-hb9d3cd8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rust-1.74.1-h70c747d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-x86_64-unknown-linux-gnu-1.74.1-h2c6d0dc_0.conda
@@ -686,11 +723,14 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libedit-3.1.20240808-pl5321h976ea20_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libev-4.33-h31becfc_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libexpat-2.6.4-h5ad3122_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libffi-3.4.2-h3557bc0_5.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgcc-14.2.0-he277a41_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/libgcc-devel_linux-aarch64-12.4.0-h7b3af7c_101.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgcc-ng-14.2.0-he9431aa_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgfortran5-14.2.0-hb6113d0_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libglib-2.82.2-hc486b8e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgomp-14.2.0-he277a41_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libiconv-1.17-h31becfc_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/liblzma-5.6.3-h86ecc28_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/liblzma-devel-5.6.3-h86ecc28_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libnghttp2-1.64.0-hc8609a4_0.conda
@@ -704,6 +744,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/make-4.4.1-h2a6d0cb_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/ncurses-6.5-ha32ae93_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/openssl-3.4.0-hd08dc88_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pcre2-10.44-h070dd5b_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pkg-config-0.29.2-hce167ba_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/rhash-1.4.5-h86ecc28_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/rust-1.74.1-h9d3d833_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-aarch64-unknown-linux-gnu-1.74.1-hbe8e118_0.conda
@@ -767,6 +809,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/mpfr-4.2.1-haed47dc_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/ncurses-6.5-h0622a9a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/openssl-3.4.0-hc426f3f_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/pkg-config-0.29.2-hf7e621a_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rhash-1.4.5-ha44c9a9_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rust-1.74.1-h7e1429e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-x86_64-apple-darwin-1.74.1-h38e4360_0.conda
@@ -813,10 +856,13 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libedit-3.1.20240808-pl5321hafb1f1b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libev-4.33-h93a5062_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libexpat-2.6.4-h286801f_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libffi-3.4.2-h3422bc3_5.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libgfortran-5.0.0-13_2_0_hd922786_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/libgfortran-devel_osx-arm64-12.3.0-hc62be1c_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libgfortran5-13.2.0-hf226fd6_3.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libglib-2.82.2-hdff4504_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libiconv-1.17-h0d3ecfb_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libintl-0.22.5-h8414b35_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libllvm16-16.0.6-haab561b_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/liblzma-5.6.3-h39f12f2_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/liblzma-devel-5.6.3-h39f12f2_1.conda
@@ -832,6 +878,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/mpfr-4.2.1-hb693164_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/ncurses-6.5-h5e97a16_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/openssl-3.4.0-h81ee809_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pcre2-10.44-h297a79d_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pkg-config-0.29.2-hde07d2e_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/rhash-1.4.5-h7ab814d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/rust-1.74.1-h4ff7c5d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-aarch64-apple-darwin-1.74.1-hf6ec828_0.conda
@@ -857,9 +905,13 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/krb5-1.21.3-hdf4eb48_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libcurl-8.11.1-h88aaa65_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libexpat-2.6.4-he0c23c2_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libffi-3.4.2-h8ffe710_5.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/libflang-5.0.0-h6538335_20180525.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/libgcc-14.2.0-h1383e82_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libglib-2.82.2-h7025463_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libgomp-14.2.0-h1383e82_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libiconv-1.17-hcfcfb64_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/libintl-0.22.5-h5728263_3.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/liblzma-5.6.3-h2466b09_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/liblzma-devel-5.6.3-h2466b09_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libssh2-1.11.1-he619c9f_0.conda
@@ -870,6 +922,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/make-4.4.1-h0e40799_2.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/openmp-5.0.0-vc14_1.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/openssl-3.4.0-ha4e3fda_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/pcre2-10.44-h3d7b363_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/pkg-config-0.29.2-h88c491f_1009.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/rust-1.74.1-hf8d6059_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rust-std-x86_64-pc-windows-msvc-1.74.1-h17fc481_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/ucrt-10.0.22621.0-h57928b3_1.conda
@@ -885,8 +939,6 @@ packages:
 - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
   sha256: fe51de6107f9edc7aa4f786a70f4a883943bc9d39b3bb7307c04c41410990726
   md5: d7c89558ba9fa0495403155b64376d81
-  arch: x86_64
-  platform: linux
   license: None
   size: 2562
   timestamp: 1578324546067
@@ -899,8 +951,6 @@ packages:
   - libgomp >=7.5.0
   constrains:
   - openmp_impl 9999
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 23621
@@ -913,8 +963,6 @@ packages:
   - libgomp >=7.5.0
   constrains:
   - openmp_impl 9999
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 23712
@@ -929,8 +977,6 @@ packages:
   constrains:
   - openmp_impl 9999
   - msys2-conda-epoch <0.0a0
-  arch: x86_64
-  platform: win
   license: BSD-3-Clause
   license_family: BSD
   size: 49468
@@ -940,8 +986,6 @@ packages:
   md5: 348619f90eee04901f4a70615efff35b
   depends:
   - binutils_impl_linux-64 >=2.43,<2.44.0a0
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only
   license_family: GPL
   size: 33876
@@ -951,8 +995,6 @@ packages:
   md5: 4afcab775fe2288fce420514cd92ae37
   depends:
   - binutils_impl_linux-aarch64 >=2.43,<2.44.0a0
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only
   license_family: GPL
   size: 33870
@@ -963,8 +1005,6 @@ packages:
   depends:
   - ld_impl_linux-64 2.43 h712a8e2_2
   - sysroot_linux-64
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only
   license_family: GPL
   size: 5682777
@@ -975,8 +1015,6 @@ packages:
   depends:
   - ld_impl_linux-aarch64 2.43 h80caac9_2
   - sysroot_linux-aarch64
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only
   license_family: GPL
   size: 6722685
@@ -986,8 +1024,6 @@ packages:
   md5: 18aba879ddf1f8f28145ca6fcb873d8c
   depends:
   - binutils_impl_linux-64 2.43 h4bf12b8_2
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only
   license_family: GPL
   size: 34945
@@ -997,8 +1033,6 @@ packages:
   md5: 5c308468fe391f32dc3bb57a4b4622aa
   depends:
   - binutils_impl_linux-aarch64 2.43 h4c662bb_2
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only
   license_family: GPL
   size: 34879
@@ -1009,8 +1043,6 @@ packages:
   depends:
   - __glibc >=2.17,<3.0.a0
   - libgcc-ng >=12
-  arch: x86_64
-  platform: linux
   license: bzip2-1.0.6
   license_family: BSD
   size: 252783
@@ -1020,8 +1052,6 @@ packages:
   md5: 56398c28220513b9ea13d7b450acfb20
   depends:
   - libgcc-ng >=12
-  arch: aarch64
-  platform: linux
   license: bzip2-1.0.6
   license_family: BSD
   size: 189884
@@ -1031,8 +1061,6 @@ packages:
   md5: 7ed4301d437b59045be7e051a0308211
   depends:
   - __osx >=10.13
-  arch: x86_64
-  platform: osx
   license: bzip2-1.0.6
   license_family: BSD
   size: 134188
@@ -1042,8 +1070,6 @@ packages:
   md5: fc6948412dbbbe9a4c9ddbbcfe0a79ab
   depends:
   - __osx >=11.0
-  arch: arm64
-  platform: osx
   license: bzip2-1.0.6
   license_family: BSD
   size: 122909
@@ -1055,8 +1081,6 @@ packages:
   - ucrt >=10.0.20348.0
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
-  arch: x86_64
-  platform: win
   license: bzip2-1.0.6
   license_family: BSD
   size: 54927
@@ -1067,8 +1091,6 @@ packages:
   depends:
   - __glibc >=2.17,<3.0.a0
   - libgcc >=13
-  arch: x86_64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 206085
@@ -1078,8 +1100,6 @@ packages:
   md5: 356da36f35d36dcba16e43f1589d4e39
   depends:
   - libgcc >=13
-  arch: aarch64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 215979
@@ -1089,8 +1109,6 @@ packages:
   md5: 133255af67aaf1e0c0468cc753fd800b
   depends:
   - __osx >=10.13
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 184455
@@ -1100,8 +1118,6 @@ packages:
   md5: c1c999a38a4303b29d75c636eaa13cf9
   depends:
   - __osx >=11.0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 179496
@@ -1113,8 +1129,6 @@ packages:
   - binutils
   - gcc
   - gcc_linux-64 12.*
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 6324
@@ -1126,8 +1140,6 @@ packages:
   - binutils
   - gcc
   - gcc_linux-aarch64 12.*
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 6329
@@ -1140,8 +1152,6 @@ packages:
   - clang_osx-64 16.*
   - ld64 >=530
   - llvm-openmp
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 6396
@@ -1154,8 +1164,6 @@ packages:
   - clang_osx-arm64 16.*
   - ld64 >=530
   - llvm-openmp
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 6411
@@ -1165,8 +1173,6 @@ packages:
   md5: 2db079f3543f49ecbaf70c2aadad54c5
   depends:
   - vs2019_win-64
-  arch: x86_64
-  platform: win
   license: BSD-3-Clause
   license_family: BSD
   size: 6505
@@ -1174,40 +1180,30 @@ packages:
 - conda: https://conda.anaconda.org/conda-forge/linux-64/ca-certificates-2024.12.14-hbcca054_0.conda
   sha256: 1afd7274cbc9a334d6d0bc62fa760acc7afdaceb0b91a8df370ec01fd75dc7dd
   md5: 720523eb0d6a9b0f6120c16b2aa4e7de
-  arch: x86_64
-  platform: linux
   license: ISC
   size: 157088
   timestamp: 1734208393264
 - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/ca-certificates-2024.12.14-hcefe29a_0.conda
   sha256: ad7b43211051332a5a4e788bb4619a2d0ecb5be73e0f76be17f733a87d7effd1
   md5: 83b4ad1e6dc14df5891f3fcfdeb44351
-  arch: aarch64
-  platform: linux
   license: ISC
   size: 157096
   timestamp: 1734209301744
 - conda: https://conda.anaconda.org/conda-forge/osx-64/ca-certificates-2024.12.14-h8857fd0_0.conda
   sha256: ddaafdcd1b8ace6ffeea22b6824ca9db8a64cf0a2652a11d7554ece54935fa06
   md5: b7b887091c99ed2e74845e75e9128410
-  arch: x86_64
-  platform: osx
   license: ISC
   size: 156925
   timestamp: 1734208413176
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/ca-certificates-2024.12.14-hf0a4a13_0.conda
   sha256: 256be633fd0882ccc1a7a32bc278547e1703f85082c0789a87a603ee3ab8fb82
   md5: 7cb381a6783d91902638e4ed1ebd478e
-  arch: arm64
-  platform: osx
   license: ISC
   size: 157091
   timestamp: 1734208344343
 - conda: https://conda.anaconda.org/conda-forge/win-64/ca-certificates-2024.12.14-h56e8100_0.conda
   sha256: 424d82db36cd26234bc4772426170efd60e888c2aed0099a257a95e131683a5e
   md5: cb2eaeb88549ddb27af533eccf9a45c1
-  arch: x86_64
-  platform: win
   license: ISC
   size: 157422
   timestamp: 1734208404685
@@ -1219,8 +1215,6 @@ packages:
   - libgcc >=13
   constrains:
   - __glibc >=2.17
-  arch: x86_64
-  platform: linux
   license: Apache-2.0
   license_family: Apache
   size: 1274453
@@ -1232,8 +1226,6 @@ packages:
   - libgcc >=13
   constrains:
   - __glibc >=2.17
-  arch: aarch64
-  platform: linux
   license: Apache-2.0
   license_family: Apache
   size: 1159506
@@ -1245,8 +1237,6 @@ packages:
   - __osx >=10.13
   constrains:
   - __osx >=10.13
-  arch: x86_64
-  platform: osx
   license: Apache-2.0
   license_family: Apache
   size: 1183483
@@ -1258,8 +1248,6 @@ packages:
   - __osx >=11.0
   constrains:
   - __osx >=11.0
-  arch: arm64
-  platform: osx
   license: Apache-2.0
   license_family: Apache
   size: 1200661
@@ -1271,8 +1259,6 @@ packages:
   - ucrt >=10.0.20348.0
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
-  arch: x86_64
-  platform: win
   license: Apache-2.0
   license_family: Apache
   size: 1231360
@@ -1285,8 +1271,6 @@ packages:
   - __glibc >=2.17,<3.0.a0
   constrains:
   - __glibc >=2.17
-  arch: x86_64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 4765005
@@ -1298,8 +1282,6 @@ packages:
   - libgcc >=13
   constrains:
   - __glibc >=2.17
-  arch: aarch64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 4652155
@@ -1311,8 +1293,6 @@ packages:
   - __osx >=10.13
   constrains:
   - __osx >=10.13
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 4717530
@@ -1324,8 +1304,6 @@ packages:
   - __osx >=11.0
   constrains:
   - __osx >=11.0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 4384820
@@ -1340,8 +1318,6 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   - ucrt >=10.0.20348.0
-  arch: x86_64
-  platform: win
   license: MIT
   license_family: MIT
   size: 4538985
@@ -1353,8 +1329,6 @@ packages:
   - cctools_osx-64 1010.6 heaa7f0c_1
   - ld64 951.9 ha02d983_1
   - libllvm16 >=16.0.6,<16.1.0a0
-  arch: x86_64
-  platform: osx
   license: APSL-2.0
   license_family: Other
   size: 21588
@@ -1366,8 +1340,6 @@ packages:
   - cctools_osx-arm64 1010.6 h4f2c9d0_1
   - ld64 951.9 h634c8be_1
   - libllvm16 >=16.0.6,<16.1.0a0
-  arch: arm64
-  platform: osx
   license: APSL-2.0
   license_family: Other
   size: 21621
@@ -1387,8 +1359,6 @@ packages:
   - ld64 951.9.*
   - cctools 1010.6.*
   - clang 16.0.*
-  arch: x86_64
-  platform: osx
   license: APSL-2.0
   license_family: Other
   size: 1099432
@@ -1408,8 +1378,6 @@ packages:
   - ld64 951.9.*
   - cctools 1010.6.*
   - clang 16.0.*
-  arch: arm64
-  platform: osx
   license: APSL-2.0
   license_family: Other
   size: 1091944
@@ -1424,8 +1392,6 @@ packages:
   - llvm 16.0.6.*
   - llvm-tools 16.0.6.*
   - llvmdev 16.0.6.*
-  arch: x86_64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 85084
@@ -1440,8 +1406,6 @@ packages:
   - llvm 16.0.6.*
   - llvm-tools 16.0.6.*
   - llvmdev 16.0.6.*
-  arch: arm64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 85224
@@ -1459,8 +1423,6 @@ packages:
   - llvm-tools 16.0.6
   - clangdev 16.0.6
   - clang-tools 16.0.6
-  arch: x86_64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 758625
@@ -1478,8 +1440,6 @@ packages:
   - clangdev 16.0.6
   - clang-tools 16.0.6
   - llvm-tools 16.0.6
-  arch: arm64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 758497
@@ -1493,8 +1453,6 @@ packages:
   - compiler-rt 16.0.6.*
   - ld64_osx-64
   - llvm-tools 16.0.6.*
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 17589
@@ -1508,8 +1466,6 @@ packages:
   - compiler-rt 16.0.6.*
   - ld64_osx-arm64
   - llvm-tools 16.0.6.*
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 17659
@@ -1519,8 +1475,6 @@ packages:
   md5: 760ecbc6f4b6cecbe440b0080626286f
   depends:
   - clang_impl_osx-64 16.0.6 h8787910_19
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 20580
@@ -1530,8 +1484,6 @@ packages:
   md5: 1a9ab8ce6143c14e425059e61a4fb737
   depends:
   - clang_impl_osx-arm64 16.0.6 hc421ffc_19
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 20589
@@ -1553,8 +1505,6 @@ packages:
   - libcxx-devel 16.0.6.*
   constrains:
   - libcxx-devel 16.0.6
-  arch: x86_64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 85265
@@ -1567,8 +1517,6 @@ packages:
   - libcxx-devel 16.0.6.*
   constrains:
   - libcxx-devel 16.0.6
-  arch: arm64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 85293
@@ -1581,8 +1529,6 @@ packages:
   - clangxx 16.0.6.*
   - libcxx >=16
   - libllvm16 >=16.0.6,<16.1.0a0
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 17642
@@ -1595,8 +1541,6 @@ packages:
   - clangxx 16.0.6.*
   - libcxx >=16
   - libllvm16 >=16.0.6,<16.1.0a0
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 17740
@@ -1607,8 +1551,6 @@ packages:
   depends:
   - clang_osx-64 16.0.6 hb91bd55_19
   - clangxx_impl_osx-64 16.0.6 h6d92fbe_19
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 19289
@@ -1619,8 +1561,6 @@ packages:
   depends:
   - clang_osx-arm64 16.0.6 h54d7cd3_19
   - clangxx_impl_osx-arm64 16.0.6 hcd7bac0_19
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 19366
@@ -1640,8 +1580,6 @@ packages:
   - rhash >=1.4.4,<2.0a0
   - xz >=5.2.6,<6.0a0
   - zstd >=1.5.6,<1.6.0a0
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 19042008
@@ -1661,8 +1599,6 @@ packages:
   - rhash >=1.4.4,<2.0a0
   - xz >=5.2.6,<6.0a0
   - zstd >=1.5.6,<1.6.0a0
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 18297625
@@ -1682,8 +1618,6 @@ packages:
   - rhash >=1.4.4,<2.0a0
   - xz >=5.2.6,<6.0a0
   - zstd >=1.5.6,<1.6.0a0
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 17463876
@@ -1703,8 +1637,6 @@ packages:
   - rhash >=1.4.4,<2.0a0
   - xz >=5.2.6,<6.0a0
   - zstd >=1.5.6,<1.6.0a0
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 16210666
@@ -1722,8 +1654,6 @@ packages:
   - vc14_runtime >=14.29.30139
   - xz >=5.2.6,<6.0a0
   - zstd >=1.5.6,<1.6.0a0
-  arch: x86_64
-  platform: win
   license: BSD-3-Clause
   license_family: BSD
   size: 14073665
@@ -1735,8 +1665,6 @@ packages:
   - clang 16.0.6.*
   - clangxx 16.0.6.*
   - compiler-rt_osx-64 16.0.6.*
-  arch: x86_64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: APACHE
   size: 94198
@@ -1748,8 +1676,6 @@ packages:
   - clang 16.0.6.*
   - clangxx 16.0.6.*
   - compiler-rt_osx-arm64 16.0.6.*
-  arch: arm64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: APACHE
   size: 93724
@@ -1785,8 +1711,6 @@ packages:
   - c-compiler 1.7.0 hd590300_1
   - cxx-compiler 1.7.0 h00ab1b0_1
   - fortran-compiler 1.7.0 heb67821_1
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 7129
@@ -1798,8 +1722,6 @@ packages:
   - c-compiler 1.7.0 h31becfc_1
   - cxx-compiler 1.7.0 h2a328a1_1
   - fortran-compiler 1.7.0 h7048d53_1
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 7131
@@ -1811,8 +1733,6 @@ packages:
   - c-compiler 1.7.0 h282daa2_1
   - cxx-compiler 1.7.0 h7728843_1
   - fortran-compiler 1.7.0 h6c2ab21_1
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 7237
@@ -1824,8 +1744,6 @@ packages:
   - c-compiler 1.7.0 h6aa9301_1
   - cxx-compiler 1.7.0 h2ffa867_1
   - fortran-compiler 1.7.0 hafb19e3_1
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 7261
@@ -1837,8 +1755,6 @@ packages:
   - c-compiler 1.7.0 hcfcfb64_1
   - cxx-compiler 1.7.0 h91493d7_1
   - fortran-compiler 1.7.0 h9655429_1
-  arch: x86_64
-  platform: win
   license: BSD-3-Clause
   license_family: BSD
   size: 7498
@@ -1850,8 +1766,6 @@ packages:
   - c-compiler 1.7.0 hd590300_1
   - gxx
   - gxx_linux-64 12.*
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 6283
@@ -1863,8 +1777,6 @@ packages:
   - c-compiler 1.7.0 h31becfc_1
   - gxx
   - gxx_linux-aarch64 12.*
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 6290
@@ -1875,8 +1787,6 @@ packages:
   depends:
   - c-compiler 1.7.0 h282daa2_1
   - clangxx_osx-64 16.*
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 6394
@@ -1887,8 +1797,6 @@ packages:
   depends:
   - c-compiler 1.7.0 h6aa9301_1
   - clangxx_osx-arm64 16.*
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 6442
@@ -1898,8 +1806,6 @@ packages:
   md5: 3ad688e50a39f7697a17783a1f42ffdd
   depends:
   - vs2019_win-64
-  arch: x86_64
-  platform: win
   license: BSD-3-Clause
   license_family: BSD
   size: 6554
@@ -1923,8 +1829,6 @@ packages:
   md5: 311b7fe1652dab00ff1086865e965764
   depends:
   - flang 5.0.0.*
-  arch: x86_64
-  platform: win
   track_features:
   - flang
   license: Apache 2.0
@@ -1938,8 +1842,6 @@ packages:
   - c-compiler 1.7.0 hd590300_1
   - gfortran
   - gfortran_linux-64 12.*
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 6300
@@ -1952,8 +1854,6 @@ packages:
   - c-compiler 1.7.0 h31becfc_1
   - gfortran
   - gfortran_linux-aarch64 12.*
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 6331
@@ -1967,8 +1867,6 @@ packages:
   - gfortran_osx-64 12.*
   - ld64 >=530
   - llvm-openmp
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 6405
@@ -1982,8 +1880,6 @@ packages:
   - gfortran_osx-arm64 12.*
   - ld64 >=530
   - llvm-openmp
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 6480
@@ -1993,8 +1889,6 @@ packages:
   md5: 3d20729a07ced1515aceea83233e7509
   depends:
   - flang_win-64 5.*
-  arch: x86_64
-  platform: win
   license: BSD-3-Clause
   license_family: BSD
   size: 6573
@@ -2004,8 +1898,6 @@ packages:
   md5: b7f73ce286b834487d6cb2dc424ed684
   depends:
   - gcc_impl_linux-64 12.4.0.*
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 53770
@@ -2015,8 +1907,6 @@ packages:
   md5: 8880f34d2774758e783f5f5c390854c3
   depends:
   - gcc_impl_linux-aarch64 12.4.0.*
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 53781
@@ -2032,8 +1922,6 @@ packages:
   - libsanitizer 12.4.0 h46f95d5_1
   - libstdcxx >=12.4.0
   - sysroot_linux-64
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 62030150
@@ -2049,8 +1937,6 @@ packages:
   - libsanitizer 12.4.0 h469570c_1
   - libstdcxx >=12.4.0
   - sysroot_linux-aarch64
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 57707204
@@ -2062,8 +1948,6 @@ packages:
   - binutils_linux-64
   - gcc_impl_linux-64 12.4.0.*
   - sysroot_linux-64
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 32033
@@ -2075,8 +1959,6 @@ packages:
   - binutils_linux-aarch64
   - gcc_impl_linux-aarch64 12.4.0.*
   - sysroot_linux-aarch64
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 32158
@@ -2088,8 +1970,6 @@ packages:
   - gcc 12.4.0.*
   - gcc_impl_linux-64 12.4.0.*
   - gfortran_impl_linux-64 12.4.0.*
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 53201
@@ -2101,8 +1981,6 @@ packages:
   - gcc 12.4.0.*
   - gcc_impl_linux-aarch64 12.4.0.*
   - gfortran_impl_linux-aarch64 12.4.0.*
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 53267
@@ -2114,8 +1992,6 @@ packages:
   - cctools
   - gfortran_osx-64 12.3.0
   - ld64
-  arch: x86_64
-  platform: osx
   license: GPL-3.0-or-later WITH GCC-exception-3.1
   license_family: GPL
   size: 31910
@@ -2127,8 +2003,6 @@ packages:
   - cctools
   - gfortran_osx-arm64 12.3.0
   - ld64
-  arch: arm64
-  platform: osx
   license: GPL-3.0-or-later WITH GCC-exception-3.1
   license_family: GPL
   size: 31942
@@ -2142,8 +2016,6 @@ packages:
   - libgfortran5 >=12.4.0
   - libstdcxx >=12.4.0
   - sysroot_linux-64
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 15424743
@@ -2157,8 +2029,6 @@ packages:
   - libgfortran5 >=12.4.0
   - libstdcxx >=12.4.0
   - sysroot_linux-aarch64
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 12348674
@@ -2177,8 +2047,6 @@ packages:
   - mpc >=1.3.1,<2.0a0
   - mpfr >=4.2.1,<5.0a0
   - zlib
-  arch: x86_64
-  platform: osx
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 20186788
@@ -2197,8 +2065,6 @@ packages:
   - mpc >=1.3.1,<2.0a0
   - mpfr >=4.2.1,<5.0a0
   - zlib
-  arch: arm64
-  platform: osx
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 17385653
@@ -2211,8 +2077,6 @@ packages:
   - gcc_linux-64 12.4.0 h6b7512a_7
   - gfortran_impl_linux-64 12.4.0.*
   - sysroot_linux-64
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 30393
@@ -2225,8 +2089,6 @@ packages:
   - gcc_linux-aarch64 12.4.0 heb3b579_7
   - gfortran_impl_linux-aarch64 12.4.0.*
   - sysroot_linux-aarch64
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 30490
@@ -2243,8 +2105,6 @@ packages:
   - libgfortran 5.*
   - libgfortran-devel_osx-64 12.3.0
   - libgfortran5 >=12.3.0
-  arch: x86_64
-  platform: osx
   license: GPL-3.0-or-later WITH GCC-exception-3.1
   license_family: GPL
   size: 34958
@@ -2261,8 +2121,6 @@ packages:
   - libgfortran 5.*
   - libgfortran-devel_osx-arm64 12.3.0
   - libgfortran5 >=12.3.0
-  arch: arm64
-  platform: osx
   license: GPL-3.0-or-later WITH GCC-exception-3.1
   license_family: GPL
   size: 35073
@@ -2273,8 +2131,6 @@ packages:
   depends:
   - __osx >=10.13
   - libcxx >=16
-  arch: x86_64
-  platform: osx
   license: GPL-2.0-or-later OR LGPL-3.0-or-later
   size: 428919
   timestamp: 1718981041839
@@ -2284,8 +2140,6 @@ packages:
   depends:
   - __osx >=11.0
   - libcxx >=16
-  arch: arm64
-  platform: osx
   license: GPL-2.0-or-later OR LGPL-3.0-or-later
   size: 365188
   timestamp: 1718981343258
@@ -2295,8 +2149,6 @@ packages:
   depends:
   - gcc 12.4.0.*
   - gxx_impl_linux-64 12.4.0.*
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 53219
@@ -2307,8 +2159,6 @@ packages:
   depends:
   - gcc 12.4.0.*
   - gxx_impl_linux-aarch64 12.4.0.*
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 53254
@@ -2321,8 +2171,6 @@ packages:
   - libstdcxx-devel_linux-64 12.4.0 ha4f9413_101
   - sysroot_linux-64
   - tzdata
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 12711904
@@ -2335,8 +2183,6 @@ packages:
   - libstdcxx-devel_linux-aarch64 12.4.0 h7b3af7c_101
   - sysroot_linux-aarch64
   - tzdata
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 11571845
@@ -2349,8 +2195,6 @@ packages:
   - gcc_linux-64 12.4.0 h6b7512a_7
   - gxx_impl_linux-64 12.4.0.*
   - sysroot_linux-64
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 30384
@@ -2363,8 +2207,6 @@ packages:
   - gcc_linux-aarch64 12.4.0 heb3b579_7
   - gxx_impl_linux-aarch64 12.4.0.*
   - sysroot_linux-aarch64
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 30488
@@ -2374,8 +2216,6 @@ packages:
   md5: 5eb22c1d7b3fc4abb50d92d621583137
   depends:
   - __osx >=11.0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 11857802
@@ -2385,8 +2225,6 @@ packages:
   md5: d06222822a9144918333346f145b68c6
   depends:
   - libcxx >=14.0.6
-  arch: x86_64
-  platform: osx
   track_features:
   - isl_imath-32
   license: MIT
@@ -2398,8 +2236,6 @@ packages:
   md5: e80e44a3f4862b1da870dc0557f8cf3b
   depends:
   - libcxx >=14.0.6
-  arch: arm64
-  platform: osx
   track_features:
   - isl_imath-32
   license: MIT
@@ -2429,8 +2265,6 @@ packages:
   md5: 30186d27e2c9fa62b45fb1476b7200e3
   depends:
   - libgcc-ng >=10.3.0
-  arch: x86_64
-  platform: linux
   license: LGPL-2.1-or-later
   size: 117831
   timestamp: 1646151697040
@@ -2439,8 +2273,6 @@ packages:
   md5: 1f24853e59c68892452ef94ddd8afd4b
   depends:
   - libgcc-ng >=10.3.0
-  arch: aarch64
-  platform: linux
   license: LGPL-2.1-or-later
   size: 112327
   timestamp: 1646166857935
@@ -2454,8 +2286,6 @@ packages:
   - libgcc-ng >=12
   - libstdcxx-ng >=12
   - openssl >=3.3.1,<4.0a0
-  arch: x86_64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 1370023
@@ -2470,8 +2300,6 @@ packages:
   - libgcc-ng >=12
   - libstdcxx-ng >=12
   - openssl >=3.3.1,<4.0a0
-  arch: aarch64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 1474620
@@ -2485,8 +2313,6 @@ packages:
   - libedit >=3.1.20191231,<3.2.0a0
   - libedit >=3.1.20191231,<4.0a0
   - openssl >=3.3.1,<4.0a0
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 1185323
@@ -2500,8 +2326,6 @@ packages:
   - libedit >=3.1.20191231,<3.2.0a0
   - libedit >=3.1.20191231,<4.0a0
   - openssl >=3.3.1,<4.0a0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 1155530
@@ -2514,8 +2338,6 @@ packages:
   - ucrt >=10.0.20348.0
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
-  arch: x86_64
-  platform: win
   license: MIT
   license_family: MIT
   size: 712034
@@ -2529,8 +2351,6 @@ packages:
   constrains:
   - cctools 1010.6.*
   - cctools_osx-64 1010.6.*
-  arch: x86_64
-  platform: osx
   license: APSL-2.0
   license_family: Other
   size: 18850
@@ -2544,8 +2364,6 @@ packages:
   constrains:
   - cctools_osx-arm64 1010.6.*
   - cctools 1010.6.*
-  arch: arm64
-  platform: osx
   license: APSL-2.0
   license_family: Other
   size: 18928
@@ -2564,8 +2382,6 @@ packages:
   - cctools 1010.6.*
   - cctools_osx-64 1010.6.*
   - ld 951.9.*
-  arch: x86_64
-  platform: osx
   license: APSL-2.0
   license_family: Other
   size: 1088101
@@ -2584,8 +2400,6 @@ packages:
   - cctools_osx-arm64 1010.6.*
   - ld 951.9.*
   - cctools 1010.6.*
-  arch: arm64
-  platform: osx
   license: APSL-2.0
   license_family: Other
   size: 1006497
@@ -2597,8 +2411,6 @@ packages:
   - __glibc >=2.17,<3.0.a0
   constrains:
   - binutils_impl_linux-64 2.43
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only
   license_family: GPL
   size: 669211
@@ -2608,8 +2420,6 @@ packages:
   md5: fcbde5ea19d55468953bf588770c0501
   constrains:
   - binutils_impl_linux-aarch64 2.43
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only
   license_family: GPL
   size: 698245
@@ -2621,8 +2431,6 @@ packages:
   - __osx >=10.13
   - libcxx >=16.0.6
   - libllvm16 >=16.0.6,<16.1.0a0
-  arch: x86_64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 12823030
@@ -2634,8 +2442,6 @@ packages:
   - __osx >=11.0
   - libcxx >=16.0.6
   - libllvm16 >=16.0.6,<16.1.0a0
-  arch: arm64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 11873230
@@ -2652,8 +2458,6 @@ packages:
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.4.0,<4.0a0
   - zstd >=1.5.6,<1.6.0a0
-  arch: x86_64
-  platform: linux
   license: curl
   license_family: MIT
   size: 423011
@@ -2669,8 +2473,6 @@ packages:
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.4.0,<4.0a0
   - zstd >=1.5.6,<1.6.0a0
-  arch: aarch64
-  platform: linux
   license: curl
   license_family: MIT
   size: 440737
@@ -2686,8 +2488,6 @@ packages:
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.4.0,<4.0a0
   - zstd >=1.5.6,<1.6.0a0
-  arch: x86_64
-  platform: osx
   license: curl
   license_family: MIT
   size: 406590
@@ -2703,8 +2503,6 @@ packages:
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.4.0,<4.0a0
   - zstd >=1.5.6,<1.6.0a0
-  arch: arm64
-  platform: osx
   license: curl
   license_family: MIT
   size: 385098
@@ -2719,8 +2517,6 @@ packages:
   - ucrt >=10.0.20348.0
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
-  arch: x86_64
-  platform: win
   license: curl
   license_family: MIT
   size: 349553
@@ -2730,8 +2526,6 @@ packages:
   md5: 4b8f8dc448d814169dbc58fc7286057d
   depends:
   - __osx >=10.13
-  arch: x86_64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 527924
@@ -2741,8 +2535,6 @@ packages:
   md5: 5b3e1610ff8bd5443476b91d618f5b77
   depends:
   - __osx >=11.0
-  arch: arm64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 523505
@@ -2752,8 +2544,6 @@ packages:
   md5: 677580dee2d1412311d9dd9bf6bfa6b7
   depends:
   - libcxx >=16.0.6
-  arch: x86_64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 716532
@@ -2763,8 +2553,6 @@ packages:
   md5: f81c638415433ea5bb5024b49cda17ea
   depends:
   - libcxx >=16.0.6
-  arch: arm64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 717680
@@ -2777,8 +2565,6 @@ packages:
   - __glibc >=2.17,<3.0.a0
   - libgcc >=13
   - ncurses >=6.5,<7.0a0
-  arch: x86_64
-  platform: linux
   license: BSD-2-Clause
   license_family: BSD
   size: 134657
@@ -2790,8 +2576,6 @@ packages:
   - ncurses
   - libgcc >=13
   - ncurses >=6.5,<7.0a0
-  arch: aarch64
-  platform: linux
   license: BSD-2-Clause
   license_family: BSD
   size: 148120
@@ -2803,8 +2587,6 @@ packages:
   - ncurses
   - __osx >=10.13
   - ncurses >=6.5,<7.0a0
-  arch: x86_64
-  platform: osx
   license: BSD-2-Clause
   license_family: BSD
   size: 115518
@@ -2816,8 +2598,6 @@ packages:
   - ncurses
   - __osx >=11.0
   - ncurses >=6.5,<7.0a0
-  arch: arm64
-  platform: osx
   license: BSD-2-Clause
   license_family: BSD
   size: 107634
@@ -2827,8 +2607,6 @@ packages:
   md5: 172bf1cd1ff8629f2b1179945ed45055
   depends:
   - libgcc-ng >=12
-  arch: x86_64
-  platform: linux
   license: BSD-2-Clause
   license_family: BSD
   size: 112766
@@ -2838,8 +2616,6 @@ packages:
   md5: a9a13cb143bbaa477b1ebaefbe47a302
   depends:
   - libgcc-ng >=12
-  arch: aarch64
-  platform: linux
   license: BSD-2-Clause
   license_family: BSD
   size: 115123
@@ -2847,8 +2623,6 @@ packages:
 - conda: https://conda.anaconda.org/conda-forge/osx-64/libev-4.33-h10d778d_2.conda
   sha256: 0d238488564a7992942aa165ff994eca540f687753b4f0998b29b4e4d030ff43
   md5: 899db79329439820b7e8f8de41bca902
-  arch: x86_64
-  platform: osx
   license: BSD-2-Clause
   license_family: BSD
   size: 106663
@@ -2856,8 +2630,6 @@ packages:
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libev-4.33-h93a5062_2.conda
   sha256: 95cecb3902fbe0399c3a7e67a5bed1db813e5ab0e22f4023a5e0f722f2cc214f
   md5: 36d33e440c31857372a72137f78bacf5
-  arch: arm64
-  platform: osx
   license: BSD-2-Clause
   license_family: BSD
   size: 107458
@@ -2870,8 +2642,6 @@ packages:
   - libgcc >=13
   constrains:
   - expat 2.6.4.*
-  arch: x86_64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 73304
@@ -2883,8 +2653,6 @@ packages:
   - libgcc >=13
   constrains:
   - expat 2.6.4.*
-  arch: aarch64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 72345
@@ -2896,8 +2664,6 @@ packages:
   - __osx >=10.13
   constrains:
   - expat 2.6.4.*
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 70758
@@ -2909,8 +2675,6 @@ packages:
   - __osx >=11.0
   constrains:
   - expat 2.6.4.*
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 64693
@@ -2924,12 +2688,42 @@ packages:
   - vc14_runtime >=14.29.30139
   constrains:
   - expat 2.6.4.*
-  arch: x86_64
-  platform: win
   license: MIT
   license_family: MIT
   size: 139068
   timestamp: 1730967442102
+- conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libffi-3.4.2-h3557bc0_5.tar.bz2
+  sha256: 7e9258a102480757fe3faeb225a3ca04dffd10fecd2a958c65cdb4cdf75f2c3c
+  md5: dddd85f4d52121fab0a8b099c5e06501
+  depends:
+  - libgcc-ng >=9.4.0
+  arch: aarch64
+  platform: linux
+  license: MIT
+  license_family: MIT
+  size: 59450
+  timestamp: 1636488255090
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/libffi-3.4.2-h3422bc3_5.tar.bz2
+  sha256: 41b3d13efb775e340e4dba549ab5c029611ea6918703096b2eaa9c015c0750ca
+  md5: 086914b672be056eb70fd4285b6783b6
+  arch: arm64
+  platform: osx
+  license: MIT
+  license_family: MIT
+  size: 39020
+  timestamp: 1636488587153
+- conda: https://conda.anaconda.org/conda-forge/win-64/libffi-3.4.2-h8ffe710_5.tar.bz2
+  sha256: 1951ab740f80660e9bc07d2ed3aefb874d78c107264fd810f24a1a6211d4b1a5
+  md5: 2c96d1b6915b408893f9472569dee135
+  depends:
+  - vc >=14.1,<15.0a0
+  - vs2015_runtime >=14.16.27012
+  arch: x86_64
+  platform: win
+  license: MIT
+  license_family: MIT
+  size: 42063
+  timestamp: 1636489106777
 - conda: https://conda.anaconda.org/conda-forge/win-64/libflang-5.0.0-h6538335_20180525.tar.bz2
   sha256: 0b893b511190332320f4a3e3d6424fbd350271ffbca34eb25b5cd8bc451f1a05
   md5: 9f473a344e18668e99a93f7e21a54b69
@@ -2950,8 +2744,6 @@ packages:
   constrains:
   - libgomp 14.2.0 h77fa898_1
   - libgcc-ng ==14.2.0=*_1
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 848745
@@ -2964,8 +2756,6 @@ packages:
   constrains:
   - libgcc-ng ==14.2.0=*_1
   - libgomp 14.2.0 he277a41_1
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 535243
@@ -2980,8 +2770,6 @@ packages:
   - libgcc-ng ==14.2.0=*_1
   - libgomp 14.2.0 h1383e82_1
   - msys2-conda-epoch <0.0a0
-  arch: x86_64
-  platform: win
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 666386
@@ -3009,8 +2797,6 @@ packages:
   md5: e39480b9ca41323497b05492a63bc35b
   depends:
   - libgcc 14.2.0 h77fa898_1
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 54142
@@ -3020,8 +2806,6 @@ packages:
   md5: 0694c249c61469f2c0f7e2990782af21
   depends:
   - libgcc 14.2.0 he277a41_1
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 54104
@@ -3031,8 +2815,6 @@ packages:
   md5: 0b6e23a012ee7a9a5f6b244f5a92c1d5
   depends:
   - libgfortran5 13.2.0 h2873a65_3
-  arch: x86_64
-  platform: osx
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 110106
@@ -3042,8 +2824,6 @@ packages:
   md5: 4a55d9e169114b2b90d3ec4604cd7bbf
   depends:
   - libgfortran5 13.2.0 hf226fd6_3
-  arch: arm64
-  platform: osx
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 110233
@@ -3069,8 +2849,6 @@ packages:
   - libgcc >=14.2.0
   constrains:
   - libgfortran 14.2.0
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 1462645
@@ -3082,8 +2860,6 @@ packages:
   - libgcc >=14.2.0
   constrains:
   - libgfortran 14.2.0
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 1102158
@@ -3095,8 +2871,6 @@ packages:
   - llvm-openmp >=8.0.0
   constrains:
   - libgfortran 5.0.0 13_2_0_*_3
-  arch: x86_64
-  platform: osx
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 1571379
@@ -3108,19 +2882,67 @@ packages:
   - llvm-openmp >=8.0.0
   constrains:
   - libgfortran 5.0.0 13_2_0_*_3
-  arch: arm64
-  platform: osx
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 997381
   timestamp: 1707330687590
+- conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libglib-2.82.2-hc486b8e_1.conda
+  sha256: aed7967aaea90b5649eb7eb0eab2ed2270323245eb0832b228e876fbeaae7f76
+  md5: 6dfc5a88cfd58288999ab5081f57de9c
+  depends:
+  - libffi >=3.4,<4.0a0
+  - libgcc >=13
+  - libiconv >=1.17,<2.0a0
+  - libzlib >=1.3.1,<2.0a0
+  - pcre2 >=10.44,<10.45.0a0
+  constrains:
+  - glib 2.82.2 *_1
+  arch: aarch64
+  platform: linux
+  license: LGPL-2.1-or-later
+  size: 4004134
+  timestamp: 1737037535030
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/libglib-2.82.2-hdff4504_1.conda
+  sha256: d002aeaa51424e331f8504a54b6ba4388a6011a0ebcac29296f3d14282bf733b
+  md5: 849da57c370384ce48bef2e050488882
+  depends:
+  - __osx >=11.0
+  - libffi >=3.4,<4.0a0
+  - libiconv >=1.17,<2.0a0
+  - libintl >=0.22.5,<1.0a0
+  - libzlib >=1.3.1,<2.0a0
+  - pcre2 >=10.44,<10.45.0a0
+  constrains:
+  - glib 2.82.2 *_1
+  arch: arm64
+  platform: osx
+  license: LGPL-2.1-or-later
+  size: 3643364
+  timestamp: 1737037789629
+- conda: https://conda.anaconda.org/conda-forge/win-64/libglib-2.82.2-h7025463_1.conda
+  sha256: 77c4e6af9cc4e966a5100f48378ea3fb4ab7ed913f24af9217cc3a43242d65d5
+  md5: 40596e78a77327f271acea904efdc911
+  depends:
+  - libffi >=3.4,<4.0a0
+  - libiconv >=1.17,<2.0a0
+  - libintl >=0.22.5,<1.0a0
+  - libzlib >=1.3.1,<2.0a0
+  - pcre2 >=10.44,<10.45.0a0
+  - ucrt >=10.0.20348.0
+  - vc >=14.2,<15
+  - vc14_runtime >=14.29.30139
+  constrains:
+  - glib 2.82.2 *_1
+  arch: x86_64
+  platform: win
+  license: LGPL-2.1-or-later
+  size: 3783933
+  timestamp: 1737038122172
 - conda: https://conda.anaconda.org/conda-forge/linux-64/libgomp-14.2.0-h77fa898_1.conda
   sha256: 1911c29975ec99b6b906904040c855772ccb265a1c79d5d75c8ceec4ed89cd63
   md5: cc3573974587f12dda90d96e3e55a702
   depends:
   - _libgcc_mutex 0.1 conda_forge
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 460992
@@ -3128,8 +2950,6 @@ packages:
 - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libgomp-14.2.0-he277a41_1.conda
   sha256: 5aa53874a5e57a00f2e0c2e2910684eb674429cd5fcb803619b226a73e89aedf
   md5: 376f0e73abbda6d23c0cb749adc195ef
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 463521
@@ -3141,28 +2961,65 @@ packages:
   - libwinpthread >=12.0.0.r4.gg4f2fc60ca
   constrains:
   - msys2-conda-epoch <0.0a0
-  arch: x86_64
-  platform: win
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 524249
   timestamp: 1729089441747
+- conda: https://conda.anaconda.org/conda-forge/linux-aarch64/libiconv-1.17-h31becfc_2.conda
+  sha256: a30e09d089cb75a0d5b8e5c354694c1317da98261185ed65aa3793e741060614
+  md5: 9a8eb13f14de7d761555a98712e6df65
+  depends:
+  - libgcc-ng >=12
+  arch: aarch64
+  platform: linux
+  license: LGPL-2.1-only
+  size: 705787
+  timestamp: 1702684557134
 - conda: https://conda.anaconda.org/conda-forge/osx-64/libiconv-1.17-hd75f5a5_2.conda
   sha256: 23d4923baeca359423a7347c2ed7aaf48c68603df0cf8b87cc94a10b0d4e9a23
   md5: 6c3628d047e151efba7cf08c5e54d1ca
-  arch: x86_64
-  platform: osx
   license: LGPL-2.1-only
   size: 666538
   timestamp: 1702682713201
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libiconv-1.17-h0d3ecfb_2.conda
   sha256: bc7de5097b97bcafcf7deaaed505f7ce02f648aac8eccc0d5a47cc599a1d0304
   md5: 69bda57310071cf6d2b86caf11573d2d
-  arch: arm64
-  platform: osx
   license: LGPL-2.1-only
   size: 676469
   timestamp: 1702682458114
+- conda: https://conda.anaconda.org/conda-forge/win-64/libiconv-1.17-hcfcfb64_2.conda
+  sha256: 5f844dd19b046d43174ad80c6ea75b5d504020e3b63cfbc4ace97b8730d35c7b
+  md5: e1eb10b1cca179f2baa3601e4efc8712
+  depends:
+  - ucrt >=10.0.20348.0
+  - vc >=14.2,<15
+  - vc14_runtime >=14.29.30139
+  arch: x86_64
+  platform: win
+  license: LGPL-2.1-only
+  size: 636146
+  timestamp: 1702682547199
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/libintl-0.22.5-h8414b35_3.conda
+  sha256: 7c1d238d4333af385e594c89ebcb520caad7ed83a735c901099ec0970a87a891
+  md5: 3b98ec32e91b3b59ad53dbb9c96dd334
+  depends:
+  - __osx >=11.0
+  - libiconv >=1.17,<2.0a0
+  arch: arm64
+  platform: osx
+  license: LGPL-2.1-or-later
+  size: 81171
+  timestamp: 1723626968270
+- conda: https://conda.anaconda.org/conda-forge/win-64/libintl-0.22.5-h5728263_3.conda
+  sha256: c7e4600f28bcada8ea81456a6530c2329312519efcf0c886030ada38976b0511
+  md5: 2cf0cf76cc15d360dfa2f17fd6cf9772
+  depends:
+  - libiconv >=1.17,<2.0a0
+  arch: x86_64
+  platform: win
+  license: LGPL-2.1-or-later
+  size: 95568
+  timestamp: 1723629479451
 - conda: https://conda.anaconda.org/conda-forge/osx-64/libllvm16-16.0.6-hbedff68_3.conda
   sha256: ad848dc0bb02b1dbe54324ee5700b050a2e5f63c095f5229b2de58249a3e268e
   md5: 8fd56c0adc07a37f93bd44aa61a97c90
@@ -3171,8 +3028,6 @@ packages:
   - libxml2 >=2.12.1,<3.0.0a0
   - libzlib >=1.2.13,<2.0.0a0
   - zstd >=1.5.5,<1.6.0a0
-  arch: x86_64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 25196932
@@ -3185,8 +3040,6 @@ packages:
   - libxml2 >=2.12.1,<3.0.0a0
   - libzlib >=1.2.13,<2.0.0a0
   - zstd >=1.5.5,<1.6.0a0
-  arch: arm64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 23347663
@@ -3199,8 +3052,6 @@ packages:
   - libgcc >=13
   constrains:
   - xz ==5.6.3=*_1
-  arch: x86_64
-  platform: linux
   license: 0BSD
   size: 111132
   timestamp: 1733407410083
@@ -3211,8 +3062,6 @@ packages:
   - libgcc >=13
   constrains:
   - xz ==5.6.3=*_1
-  arch: aarch64
-  platform: linux
   license: 0BSD
   size: 124138
   timestamp: 1733409137214
@@ -3223,8 +3072,6 @@ packages:
   - __osx >=10.13
   constrains:
   - xz ==5.6.3=*_1
-  arch: x86_64
-  platform: osx
   license: 0BSD
   size: 103745
   timestamp: 1733407504892
@@ -3235,8 +3082,6 @@ packages:
   - __osx >=11.0
   constrains:
   - xz ==5.6.3=*_1
-  arch: arm64
-  platform: osx
   license: 0BSD
   size: 99129
   timestamp: 1733407496073
@@ -3249,8 +3094,6 @@ packages:
   - vc14_runtime >=14.29.30139
   constrains:
   - xz ==5.6.3=*_1
-  arch: x86_64
-  platform: win
   license: 0BSD
   size: 104332
   timestamp: 1733407872569
@@ -3261,8 +3104,6 @@ packages:
   - __glibc >=2.17,<3.0.a0
   - libgcc >=13
   - liblzma 5.6.3 hb9d3cd8_1
-  arch: x86_64
-  platform: linux
   license: 0BSD
   size: 376794
   timestamp: 1733407421190
@@ -3272,8 +3113,6 @@ packages:
   depends:
   - libgcc >=13
   - liblzma 5.6.3 h86ecc28_1
-  arch: aarch64
-  platform: linux
   license: 0BSD
   size: 376914
   timestamp: 1733409269260
@@ -3283,8 +3122,6 @@ packages:
   depends:
   - __osx >=10.13
   - liblzma 5.6.3 hd471939_1
-  arch: x86_64
-  platform: osx
   license: 0BSD
   size: 113085
   timestamp: 1733407525591
@@ -3294,8 +3131,6 @@ packages:
   depends:
   - __osx >=11.0
   - liblzma 5.6.3 h39f12f2_1
-  arch: arm64
-  platform: osx
   license: 0BSD
   size: 113099
   timestamp: 1733407511832
@@ -3307,8 +3142,6 @@ packages:
   - ucrt >=10.0.20348.0
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
-  arch: x86_64
-  platform: win
   license: 0BSD
   size: 125790
   timestamp: 1733407900270
@@ -3324,8 +3157,6 @@ packages:
   - libstdcxx >=13
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.3.2,<4.0a0
-  arch: x86_64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 647599
@@ -3341,8 +3172,6 @@ packages:
   - libstdcxx >=13
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.3.2,<4.0a0
-  arch: aarch64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 714610
@@ -3358,8 +3187,6 @@ packages:
   - libev >=4.33,<5.0a0
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.3.2,<4.0a0
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 606663
@@ -3375,8 +3202,6 @@ packages:
   - libev >=4.33,<5.0a0
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.3.2,<4.0a0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 566719
@@ -3387,8 +3212,6 @@ packages:
   depends:
   - libgcc >=12.4.0
   - libstdcxx >=12.4.0
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 3947704
@@ -3399,8 +3222,6 @@ packages:
   depends:
   - libgcc >=12.4.0
   - libstdcxx >=12.4.0
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 3879458
@@ -3413,8 +3234,6 @@ packages:
   - libgcc >=13
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.4.0,<4.0a0
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 304278
@@ -3426,8 +3245,6 @@ packages:
   - libgcc >=13
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.4.0,<4.0a0
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 311577
@@ -3439,8 +3256,6 @@ packages:
   - __osx >=10.13
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.4.0,<4.0a0
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 283874
@@ -3451,8 +3266,6 @@ packages:
   depends:
   - libzlib >=1.3.1,<2.0a0
   - openssl >=3.4.0,<4.0a0
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 279028
@@ -3466,8 +3279,6 @@ packages:
   - ucrt >=10.0.20348.0
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
-  arch: x86_64
-  platform: win
   license: BSD-3-Clause
   license_family: BSD
   size: 291889
@@ -3477,8 +3288,6 @@ packages:
   md5: 234a5554c53625688d51062645337328
   depends:
   - libgcc 14.2.0 h77fa898_1
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 3893695
@@ -3488,8 +3297,6 @@ packages:
   md5: 37f489acd39e22b623d2d1e5ac6d195c
   depends:
   - libgcc 14.2.0 he277a41_1
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 3816794
@@ -3517,8 +3324,6 @@ packages:
   md5: 8371ac6457591af2cf6159439c1fd051
   depends:
   - libstdcxx 14.2.0 hc0a3c3a_1
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 54105
@@ -3528,8 +3333,6 @@ packages:
   md5: 0e75771b8a03afae5a2c6ce71bc733f5
   depends:
   - libstdcxx 14.2.0 h3f4de04_1
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-only WITH GCC-exception-3.1
   license_family: GPL
   size: 54133
@@ -3540,8 +3343,6 @@ packages:
   depends:
   - __glibc >=2.17,<3.0.a0
   - libgcc >=13
-  arch: x86_64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 891272
@@ -3551,8 +3352,6 @@ packages:
   md5: 915db044076cbbdffb425170deb4ce38
   depends:
   - libgcc >=13
-  arch: aarch64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 621056
@@ -3562,8 +3361,6 @@ packages:
   md5: c86c7473f79a3c06de468b923416aa23
   depends:
   - __osx >=11.0
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 420128
@@ -3573,8 +3370,6 @@ packages:
   md5: 20717343fb30798ab7c23c2e92b748c1
   depends:
   - __osx >=11.0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 418890
@@ -3586,8 +3381,6 @@ packages:
   - ucrt >=10.0.20348.0
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
-  arch: x86_64
-  platform: win
   license: MIT
   license_family: MIT
   size: 291944
@@ -3600,8 +3393,6 @@ packages:
   constrains:
   - pthreads-win32 <0.0a0
   - msys2-conda-epoch <0.0a0
-  arch: x86_64
-  platform: win
   license: MIT AND BSD-3-Clause-Clear
   size: 35794
   timestamp: 1737099561703
@@ -3615,8 +3406,6 @@ packages:
   - libzlib >=1.3.1,<2.0a0
   constrains:
   - icu <0.0a0
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 609081
@@ -3630,8 +3419,6 @@ packages:
   - libiconv >=1.17,<2.0a0
   - liblzma >=5.6.3,<6.0a0
   - libzlib >=1.3.1,<2.0a0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 582898
@@ -3644,8 +3431,6 @@ packages:
   - libgcc >=13
   constrains:
   - zlib 1.3.1 *_2
-  arch: x86_64
-  platform: linux
   license: Zlib
   license_family: Other
   size: 60963
@@ -3657,8 +3442,6 @@ packages:
   - libgcc >=13
   constrains:
   - zlib 1.3.1 *_2
-  arch: aarch64
-  platform: linux
   license: Zlib
   license_family: Other
   size: 66657
@@ -3670,8 +3453,6 @@ packages:
   - __osx >=10.13
   constrains:
   - zlib 1.3.1 *_2
-  arch: x86_64
-  platform: osx
   license: Zlib
   license_family: Other
   size: 57133
@@ -3683,8 +3464,6 @@ packages:
   - __osx >=11.0
   constrains:
   - zlib 1.3.1 *_2
-  arch: arm64
-  platform: osx
   license: Zlib
   license_family: Other
   size: 46438
@@ -3698,8 +3477,6 @@ packages:
   - vc14_runtime >=14.29.30139
   constrains:
   - zlib 1.3.1 *_2
-  arch: x86_64
-  platform: win
   license: Zlib
   license_family: Other
   size: 55476
@@ -3717,8 +3494,6 @@ packages:
   - __osx >=10.13
   constrains:
   - openmp 19.1.7|19.1.7.*
-  arch: x86_64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: APACHE
   size: 304885
@@ -3730,8 +3505,6 @@ packages:
   - __osx >=11.0
   constrains:
   - openmp 19.1.7|19.1.7.*
-  arch: arm64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: APACHE
   size: 280830
@@ -3749,8 +3522,6 @@ packages:
   - clang 16.0.6.*
   - clang-tools 16.0.6.*
   - llvm 16.0.6.*
-  arch: x86_64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 22221159
@@ -3768,8 +3539,6 @@ packages:
   - clang 16.0.6.*
   - clang-tools 16.0.6.*
   - llvm 16.0.6.*
-  arch: arm64
-  platform: osx
   license: Apache-2.0 WITH LLVM-exception
   license_family: Apache
   size: 20685770
@@ -3780,8 +3549,6 @@ packages:
   depends:
   - __glibc >=2.17,<3.0.a0
   - libgcc >=13
-  arch: x86_64
-  platform: linux
   license: GPL-3.0-or-later
   license_family: GPL
   size: 513088
@@ -3791,8 +3558,6 @@ packages:
   md5: 5983ffb12d09efc45c4a3b74cd890137
   depends:
   - libgcc >=13
-  arch: aarch64
-  platform: linux
   license: GPL-3.0-or-later
   license_family: GPL
   size: 528318
@@ -3802,8 +3567,6 @@ packages:
   md5: 59b4ad97bbb36ef5315500d5bde4bcfc
   depends:
   - __osx >=10.13
-  arch: x86_64
-  platform: osx
   license: GPL-3.0-or-later
   license_family: GPL
   size: 278910
@@ -3813,8 +3576,6 @@ packages:
   md5: 9f44ef1fea0a25d6a3491c58f3af8460
   depends:
   - __osx >=11.0
-  arch: arm64
-  platform: osx
   license: GPL-3.0-or-later
   license_family: GPL
   size: 274048
@@ -3826,8 +3587,6 @@ packages:
   - libgcc >=13
   - libwinpthread >=12.0.0.r4.gg4f2fc60ca
   - ucrt >=10.0.20348.0
-  arch: x86_64
-  platform: win
   license: GPL-3.0-or-later
   license_family: GPL
   size: 2176937
@@ -3839,8 +3598,6 @@ packages:
   - __osx >=10.13
   - gmp >=6.3.0,<7.0a0
   - mpfr >=4.2.1,<5.0a0
-  arch: x86_64
-  platform: osx
   license: LGPL-3.0-or-later
   license_family: LGPL
   size: 107774
@@ -3852,8 +3609,6 @@ packages:
   - __osx >=11.0
   - gmp >=6.3.0,<7.0a0
   - mpfr >=4.2.1,<5.0a0
-  arch: arm64
-  platform: osx
   license: LGPL-3.0-or-later
   license_family: LGPL
   size: 104766
@@ -3864,8 +3619,6 @@ packages:
   depends:
   - __osx >=10.13
   - gmp >=6.3.0,<7.0a0
-  arch: x86_64
-  platform: osx
   license: LGPL-3.0-only
   license_family: LGPL
   size: 373396
@@ -3876,8 +3629,6 @@ packages:
   depends:
   - __osx >=11.0
   - gmp >=6.3.0,<7.0a0
-  arch: arm64
-  platform: osx
   license: LGPL-3.0-only
   license_family: LGPL
   size: 345517
@@ -3888,8 +3639,6 @@ packages:
   depends:
   - __glibc >=2.17,<3.0.a0
   - libgcc >=13
-  arch: x86_64
-  platform: linux
   license: X11 AND BSD-3-Clause
   size: 894452
   timestamp: 1736683239706
@@ -3898,8 +3647,6 @@ packages:
   md5: 779046fb585c71373e8a051be06c6011
   depends:
   - libgcc >=13
-  arch: aarch64
-  platform: linux
   license: X11 AND BSD-3-Clause
   size: 928402
   timestamp: 1736683192463
@@ -3908,8 +3655,6 @@ packages:
   md5: 7eb0c4be5e4287a3d6bfef015669a545
   depends:
   - __osx >=10.13
-  arch: x86_64
-  platform: osx
   license: X11 AND BSD-3-Clause
   size: 822835
   timestamp: 1736683439206
@@ -3918,8 +3663,6 @@ packages:
   md5: f6f7c5b7d0983be186c46c4f6f8f9af8
   depends:
   - __osx >=11.0
-  arch: arm64
-  platform: osx
   license: X11 AND BSD-3-Clause
   size: 796754
   timestamp: 1736683572099
@@ -3938,8 +3681,6 @@ packages:
   - __glibc >=2.17,<3.0.a0
   - ca-certificates
   - libgcc >=13
-  arch: x86_64
-  platform: linux
   license: Apache-2.0
   license_family: Apache
   size: 2937158
@@ -3950,8 +3691,6 @@ packages:
   depends:
   - ca-certificates
   - libgcc >=13
-  arch: aarch64
-  platform: linux
   license: Apache-2.0
   license_family: Apache
   size: 3469279
@@ -3962,8 +3701,6 @@ packages:
   depends:
   - __osx >=10.13
   - ca-certificates
-  arch: x86_64
-  platform: osx
   license: Apache-2.0
   license_family: Apache
   size: 2590210
@@ -3974,8 +3711,6 @@ packages:
   depends:
   - __osx >=11.0
   - ca-certificates
-  arch: arm64
-  platform: osx
   license: Apache-2.0
   license_family: Apache
   size: 2936415
@@ -3988,20 +3723,120 @@ packages:
   - ucrt >=10.0.20348.0
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
-  arch: x86_64
-  platform: win
   license: Apache-2.0
   license_family: Apache
   size: 8462960
   timestamp: 1736088436984
+- conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pcre2-10.44-h070dd5b_2.conda
+  sha256: e9f4b912e48514771d477f2ee955f59d4ff4ef799c3d4d16e4d0f335ce91df67
+  md5: 94022de9682cb1a0bb18a99cbc3541b3
+  depends:
+  - bzip2 >=1.0.8,<2.0a0
+  - libgcc-ng >=12
+  - libzlib >=1.3.1,<2.0a0
+  arch: aarch64
+  platform: linux
+  license: BSD-3-Clause
+  license_family: BSD
+  size: 884590
+  timestamp: 1723488793100
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/pcre2-10.44-h297a79d_2.conda
+  sha256: 83153c7d8fd99cab33c92ce820aa7bfed0f1c94fc57010cf227b6e3c50cb7796
+  md5: 147c83e5e44780c7492998acbacddf52
+  depends:
+  - __osx >=11.0
+  - bzip2 >=1.0.8,<2.0a0
+  - libzlib >=1.3.1,<2.0a0
+  arch: arm64
+  platform: osx
+  license: BSD-3-Clause
+  license_family: BSD
+  size: 618973
+  timestamp: 1723488853807
+- conda: https://conda.anaconda.org/conda-forge/win-64/pcre2-10.44-h3d7b363_2.conda
+  sha256: f4a12cbf8a7c5bfa2592b9dc92b492c438781898e5b02f397979b0be6e1b5851
+  md5: a3a3baddcfb8c80db84bec3cb7746fb8
+  depends:
+  - bzip2 >=1.0.8,<2.0a0
+  - libzlib >=1.3.1,<2.0a0
+  - ucrt >=10.0.20348.0
+  - vc >=14.2,<15
+  - vc14_runtime >=14.29.30139
+  arch: x86_64
+  platform: win
+  license: BSD-3-Clause
+  license_family: BSD
+  size: 820831
+  timestamp: 1723489427046
+- conda: https://conda.anaconda.org/conda-forge/linux-64/pkg-config-0.29.2-h4bc722e_1009.conda
+  sha256: c9601efb1af5391317e04eca77c6fe4d716bf1ca1ad8da2a05d15cb7c28d7d4e
+  md5: 1bee70681f504ea424fb07cdb090c001
+  depends:
+  - __glibc >=2.17,<3.0.a0
+  - libgcc-ng >=12
+  arch: x86_64
+  platform: linux
+  license: GPL-2.0-or-later
+  license_family: GPL
+  size: 115175
+  timestamp: 1720805894943
+- conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pkg-config-0.29.2-hce167ba_1009.conda
+  sha256: 6468cbfaf1d3140be46dd315ec383d373dbbafd770ce2efe77c3f0cdbc4576c1
+  md5: 05eda637f6465f7e8c5ab7e341341ea9
+  depends:
+  - libgcc-ng >=12
+  - libglib >=2.80.3,<3.0a0
+  arch: aarch64
+  platform: linux
+  license: GPL-2.0-or-later
+  license_family: GPL
+  size: 54834
+  timestamp: 1720806008171
+- conda: https://conda.anaconda.org/conda-forge/osx-64/pkg-config-0.29.2-hf7e621a_1009.conda
+  sha256: 636122606556b651ad4d0ac60c7ab6b379e98f390359a1f0c05ad6ba6fb3837f
+  md5: 0b1b9f9e420e4a0e40879b61f94ae646
+  depends:
+  - __osx >=10.13
+  - libiconv >=1.17,<2.0a0
+  arch: x86_64
+  platform: osx
+  license: GPL-2.0-or-later
+  license_family: GPL
+  size: 239818
+  timestamp: 1720806136579
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/pkg-config-0.29.2-hde07d2e_1009.conda
+  sha256: d82f4655b2d67fe12eefe1a3eea4cd27d33fa41dbc5e9aeab5fd6d3d2c26f18a
+  md5: b4f41e19a8c20184eec3aaf0f0953293
+  depends:
+  - __osx >=11.0
+  - libglib >=2.80.3,<3.0a0
+  - libiconv >=1.17,<2.0a0
+  arch: arm64
+  platform: osx
+  license: GPL-2.0-or-later
+  license_family: GPL
+  size: 49724
+  timestamp: 1720806128118
+- conda: https://conda.anaconda.org/conda-forge/win-64/pkg-config-0.29.2-h88c491f_1009.conda
+  sha256: 86b0c40c8b569dbc164cb1de098ddabf4c240a5e8f38547aab00493891fa67f3
+  md5: 122d6514d415fbe02c9b58aee9f6b53e
+  depends:
+  - libglib >=2.80.3,<3.0a0
+  - ucrt >=10.0.20348.0
+  - vc >=14.2,<15
+  - vc14_runtime >=14.29.30139
+  arch: x86_64
+  platform: win
+  license: GPL-2.0-or-later
+  license_family: GPL
+  size: 36118
+  timestamp: 1720806338740
 - conda: https://conda.anaconda.org/conda-forge/linux-64/rhash-1.4.5-hb9d3cd8_0.conda
   sha256: 04677caac29ec64a5d41d0cca8dbec5f60fa166d5458ff5a4393e4dc08a4799e
   md5: 9af0e7981755f09c81421946c4bcea04
   depends:
   - __glibc >=2.17,<3.0.a0
   - libgcc >=13
-  arch: x86_64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 186921
@@ -4011,8 +3846,6 @@ packages:
   md5: 93bac703d92dafc337db454e6e93a520
   depends:
   - libgcc >=13
-  arch: aarch64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 201958
@@ -4022,8 +3855,6 @@ packages:
   md5: a7a3324229bba7fd1c06bcbbb26a420a
   depends:
   - __osx >=10.13
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 178400
@@ -4033,8 +3864,6 @@ packages:
   md5: 352b210f81798ae1e2f25a98ef4b3b54
   depends:
   - __osx >=11.0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 177240
@@ -4047,8 +3876,6 @@ packages:
   - libgcc-ng >=12
   - libzlib >=1.2.13,<2.0.0a0
   - rust-std-x86_64-unknown-linux-gnu 1.74.1 h2c6d0dc_0
-  arch: x86_64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 187876743
@@ -4063,8 +3890,6 @@ packages:
   - libzlib >=1.3.1,<2.0a0
   - rust-std-x86_64-unknown-linux-gnu 1.84.0 h2c6d0dc_0
   - sysroot_linux-64 >=2.17
-  arch: x86_64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 209737774
@@ -4077,8 +3902,6 @@ packages:
   - libgcc-ng >=12
   - libzlib >=1.2.13,<2.0.0a0
   - rust-std-aarch64-unknown-linux-gnu 1.74.1 hbe8e118_0
-  arch: aarch64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 279691710
@@ -4092,8 +3915,6 @@ packages:
   - libzlib >=1.3.1,<2.0a0
   - rust-std-aarch64-unknown-linux-gnu 1.84.0 hbe8e118_0
   - sysroot_linux-aarch64 >=2.17
-  arch: aarch64
-  platform: linux
   license: MIT
   license_family: MIT
   size: 310131075
@@ -4103,8 +3924,6 @@ packages:
   md5: 72c3cf00c1971af0e4a788b33913c56c
   depends:
   - rust-std-x86_64-apple-darwin 1.74.1 h38e4360_0
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 193372850
@@ -4114,8 +3933,6 @@ packages:
   md5: aaf1ba71ae6c381f972a357d83a0a518
   depends:
   - rust-std-x86_64-apple-darwin 1.84.0 h38e4360_0
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 213524127
@@ -4125,8 +3942,6 @@ packages:
   md5: c3677339af7c46ee64527c2fdd44b6c2
   depends:
   - rust-std-aarch64-apple-darwin 1.74.1 hf6ec828_0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 146761419
@@ -4136,8 +3951,6 @@ packages:
   md5: c36f037e209638e8713ed6abee2ce3d8
   depends:
   - rust-std-aarch64-apple-darwin 1.84.0 hf6ec828_0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 208393099
@@ -4147,8 +3960,6 @@ packages:
   md5: 5ce2c299d87cccb19d182c3f78820f8d
   depends:
   - rust-std-x86_64-pc-windows-msvc 1.74.1 h17fc481_0
-  arch: x86_64
-  platform: win
   license: MIT
   license_family: MIT
   size: 187469571
@@ -4158,8 +3969,6 @@ packages:
   md5: d754cf07f458fee0af0a5b052aaf23bc
   depends:
   - rust-std-x86_64-pc-windows-msvc 1.84.0 h17fc481_0
-  arch: x86_64
-  platform: win
   license: MIT
   license_family: MIT
   size: 208721230
@@ -4279,8 +4088,6 @@ packages:
   md5: fbfb84b9de9a6939cb165c02c69b1865
   depends:
   - openssl >=3.0.0,<4.0a0
-  arch: x86_64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 213817
@@ -4290,8 +4097,6 @@ packages:
   md5: 4a2cac04f86a4540b8c9b8d8f597848f
   depends:
   - openssl >=3.0.0,<4.0a0
-  arch: arm64
-  platform: osx
   license: MIT
   license_family: MIT
   size: 210264
@@ -4323,8 +4128,6 @@ packages:
   - __osx >=10.13
   - libcxx >=17.0.0.a0
   - ncurses >=6.5,<7.0a0
-  arch: x86_64
-  platform: osx
   license: NCSA
   license_family: MIT
   size: 221236
@@ -4336,8 +4139,6 @@ packages:
   - __osx >=11.0
   - libcxx >=17.0.0.a0
   - ncurses >=6.5,<7.0a0
-  arch: arm64
-  platform: osx
   license: NCSA
   license_family: MIT
   size: 207679
@@ -4353,8 +4154,6 @@ packages:
   md5: 6797b005cd0f439c4c5c9ac565783700
   constrains:
   - vs2015_runtime >=14.29.30037
-  arch: x86_64
-  platform: win
   license: LicenseRef-MicrosoftWindowsSDK10
   size: 559710
   timestamp: 1728377334097
@@ -4363,8 +4162,6 @@ packages:
   md5: 00cf3a61562bd53bd5ea99e6888793d0
   depends:
   - vc14_runtime >=14.40.33810
-  arch: x86_64
-  platform: win
   track_features:
   - vc14
   license: BSD-3-Clause
@@ -4378,8 +4175,6 @@ packages:
   - ucrt >=10.0.20348.0
   constrains:
   - vs2015_runtime 14.42.34433.* *_24
-  arch: x86_64
-  platform: win
   license: LicenseRef-MicrosoftVisualCpp2015-2022Runtime
   license_family: Proprietary
   size: 753531
@@ -4389,8 +4184,6 @@ packages:
   md5: 117fcc5b86c48f3b322b0722258c7259
   depends:
   - vc14_runtime >=14.42.34433
-  arch: x86_64
-  platform: win
   license: BSD-3-Clause
   license_family: BSD
   size: 17669
@@ -4402,8 +4195,6 @@ packages:
   - vswhere
   constrains:
   - vs_win-64 2019.11
-  arch: x86_64
-  platform: win
   track_features:
   - vc14
   license: BSD-3-Clause
@@ -4413,8 +4204,6 @@ packages:
 - conda: https://conda.anaconda.org/conda-forge/win-64/vswhere-3.1.7-h57928b3_0.conda
   sha256: 8caeda9c0898cb8ee2cf4f45640dbbbdf772ddc01345cfb0f7b352c58b4d8025
   md5: ba83df93b48acfc528f5464c9a882baa
-  arch: x86_64
-  platform: win
   license: MIT
   license_family: MIT
   size: 219013
@@ -4429,8 +4218,6 @@ packages:
   - liblzma-devel 5.6.3 hb9d3cd8_1
   - xz-gpl-tools 5.6.3 hbcc6ac9_1
   - xz-tools 5.6.3 hb9d3cd8_1
-  arch: x86_64
-  platform: linux
   license: 0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
   size: 23477
   timestamp: 1733407455801
@@ -4443,8 +4230,6 @@ packages:
   - liblzma-devel 5.6.3 h86ecc28_1
   - xz-gpl-tools 5.6.3 h2dbfc1b_1
   - xz-tools 5.6.3 h86ecc28_1
-  arch: aarch64
-  platform: linux
   license: 0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
   size: 23495
   timestamp: 1733409682598
@@ -4457,8 +4242,6 @@ packages:
   - liblzma-devel 5.6.3 hd471939_1
   - xz-gpl-tools 5.6.3 h357f2ed_1
   - xz-tools 5.6.3 hd471939_1
-  arch: x86_64
-  platform: osx
   license: 0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
   size: 23640
   timestamp: 1733407599563
@@ -4471,8 +4254,6 @@ packages:
   - liblzma-devel 5.6.3 h39f12f2_1
   - xz-gpl-tools 5.6.3 h9a6d368_1
   - xz-tools 5.6.3 h39f12f2_1
-  arch: arm64
-  platform: osx
   license: 0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
   size: 23692
   timestamp: 1733407556613
@@ -4486,8 +4267,6 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   - xz-tools 5.6.3 h2466b09_1
-  arch: x86_64
-  platform: win
   license: 0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
   size: 23925
   timestamp: 1733407963901
@@ -4498,8 +4277,6 @@ packages:
   - __glibc >=2.17,<3.0.a0
   - libgcc >=13
   - liblzma 5.6.3 hb9d3cd8_1
-  arch: x86_64
-  platform: linux
   license: 0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
   size: 33354
   timestamp: 1733407444641
@@ -4509,8 +4286,6 @@ packages:
   depends:
   - libgcc >=13
   - liblzma 5.6.3 h86ecc28_1
-  arch: aarch64
-  platform: linux
   license: 0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
   size: 33218
   timestamp: 1733409548701
@@ -4520,8 +4295,6 @@ packages:
   depends:
   - __osx >=10.13
   - liblzma 5.6.3 hd471939_1
-  arch: x86_64
-  platform: osx
   license: 0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
   size: 33298
   timestamp: 1733407576656
@@ -4531,8 +4304,6 @@ packages:
   depends:
   - __osx >=11.0
   - liblzma 5.6.3 h39f12f2_1
-  arch: arm64
-  platform: osx
   license: 0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
   size: 33402
   timestamp: 1733407540403
@@ -4543,8 +4314,6 @@ packages:
   - __glibc >=2.17,<3.0.a0
   - libgcc >=13
   - liblzma 5.6.3 hb9d3cd8_1
-  arch: x86_64
-  platform: linux
   license: 0BSD AND LGPL-2.1-or-later
   size: 90354
   timestamp: 1733407433418
@@ -4554,8 +4323,6 @@ packages:
   depends:
   - libgcc >=13
   - liblzma 5.6.3 h86ecc28_1
-  arch: aarch64
-  platform: linux
   license: 0BSD AND LGPL-2.1-or-later
   size: 95924
   timestamp: 1733409414633
@@ -4565,8 +4332,6 @@ packages:
   depends:
   - __osx >=10.13
   - liblzma 5.6.3 hd471939_1
-  arch: x86_64
-  platform: osx
   license: 0BSD AND LGPL-2.1-or-later
   size: 80968
   timestamp: 1733407552376
@@ -4576,8 +4341,6 @@ packages:
   depends:
   - __osx >=11.0
   - liblzma 5.6.3 h39f12f2_1
-  arch: arm64
-  platform: osx
   license: 0BSD AND LGPL-2.1-or-later
   size: 81028
   timestamp: 1733407527563
@@ -4589,8 +4352,6 @@ packages:
   - ucrt >=10.0.20348.0
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
-  arch: x86_64
-  platform: win
   license: 0BSD AND LGPL-2.1-or-later
   size: 63898
   timestamp: 1733407936888
@@ -4600,8 +4361,6 @@ packages:
   depends:
   - __osx >=10.13
   - libzlib 1.3.1 hd23fc13_2
-  arch: x86_64
-  platform: osx
   license: Zlib
   license_family: Other
   size: 88544
@@ -4612,8 +4371,6 @@ packages:
   depends:
   - __osx >=11.0
   - libzlib 1.3.1 h8359307_2
-  arch: arm64
-  platform: osx
   license: Zlib
   license_family: Other
   size: 77606
@@ -4625,8 +4382,6 @@ packages:
   - libgcc-ng >=12
   - libstdcxx-ng >=12
   - libzlib >=1.2.13,<2.0.0a0
-  arch: x86_64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 554846
@@ -4638,8 +4393,6 @@ packages:
   - libgcc-ng >=12
   - libstdcxx-ng >=12
   - libzlib >=1.2.13,<2.0.0a0
-  arch: aarch64
-  platform: linux
   license: BSD-3-Clause
   license_family: BSD
   size: 539937
@@ -4650,8 +4403,6 @@ packages:
   depends:
   - __osx >=10.9
   - libzlib >=1.2.13,<2.0.0a0
-  arch: x86_64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 498900
@@ -4662,8 +4413,6 @@ packages:
   depends:
   - __osx >=11.0
   - libzlib >=1.2.13,<2.0.0a0
-  arch: arm64
-  platform: osx
   license: BSD-3-Clause
   license_family: BSD
   size: 405089
@@ -4676,8 +4425,6 @@ packages:
   - ucrt >=10.0.20348.0
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
-  arch: x86_64
-  platform: win
   license: BSD-3-Clause
   license_family: BSD
   size: 349143

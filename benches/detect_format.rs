@@ -4,7 +4,7 @@ use share::{BASIC_FILE, BGZIP_FILE, BZIP_FILE, GZIP_FILE, LZMA_FILE};
 
 use niffler;
 
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use codspeed_criterion_compat::{black_box, criterion_group, criterion_main, Criterion};
 
 fn detect_format(c: &mut Criterion) {
     let mut g = c.benchmark_group("Format detection");

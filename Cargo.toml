@@ -51,7 +51,7 @@ zstd = { version = "0.13", optional = true }
 
 [dev-dependencies]
 tempfile = "3"
-criterion = "0.5"
+codspeed-criterion-compat = "2.7.2"
 
 [[bench]]
 name = "detect_format"
@@ -70,7 +70,7 @@ required-features = ["bz2"]
 [[bench]]
 name = "lzma"
 harness = false
-required-features = ["xz2"]
+required-features = ["xz"]
 
 [package.metadata.cargo-feature-combinations]
 denylist = [

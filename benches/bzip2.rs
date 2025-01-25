@@ -5,7 +5,7 @@ mod share;
 
 use share::{read_all_stream, write_all_data, BASIC_FILE, BZIP_FILE};
 
-use criterion::{criterion_group, criterion_main, Criterion};
+use codspeed_criterion_compat::{criterion_group, criterion_main, Criterion};
 
 fn read_in_ram(c: &mut Criterion) {
     let mut g = c.benchmark_group("Bzip reads");
