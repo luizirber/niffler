@@ -11,32 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
-      - name: Install stable toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
 
       - name: Make sure we can publish the niffler crate
-        uses: actions-rs/cargo@v1
-        with:
-          command: publish
-          args: --dry-run --manifest-path ./Cargo.toml
+        run: |
+          cargo publish --dry-run --manifest-path ./Cargo.toml
 
       # Login to crates.io on tags
       - name: login to crates.io
-        uses: actions-rs/cargo@v1
-        with:
-          command: login
-          args: ${{ secrets.CRATES_IO_TOKEN }}
+        run: |
+          cargo login ${{ secrets.CRATES_IO_TOKEN }}
 
       # Publish to crates.io on tags
       - name: Publish to crates.io
-        uses: actions-rs/cargo@v1
-        with:
-          command: publish
-          args: --manifest-path ./Cargo.toml
-          
+        run: |
+          cargo publish --manifest-path ./Cargo.toml

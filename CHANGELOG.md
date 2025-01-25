@@ -9,15 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- CI: use cargo-semver-checks to verify breaking changes (#66)
-
 ### Changed
 
 ### Fixed
 
-## 2.6.0 - 2024-06-08
+## [2.7.0] - 2025-01-24
 
 ### Added
+
+- allow gz_lib-ng (without compat) (#69)
+- CI: use cargo-semver-checks to verify breaking changes (#66)
+
+## [2.6.0] - 2024-06-08
 
 ### Changed
 
@@ -130,7 +133,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename crate from `ocf` to `niffler`
 - Import codebase from sourmash repo (which copied it from the yacrd repo)
 
-[unreleased]: https://github.com/luizirber/niffler/compare/v2.4.0...HEAD
+[unreleased]: https://github.com/luizirber/niffler/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/luizirber/niffler/compare/v2.6.0..v2.7.0
+[2.6.0]: https://github.com/luizirber/niffler/compare/v2.5.0..v2.6.0
+[2.5.0]: https://github.com/luizirber/niffler/compare/v2.4.0..v2.5.0
 [2.4.0]: https://github.com/luizirber/niffler/compare/v2.3.2..v2.4.0
 [2.3.2]: https://github.com/luizirber/niffler/compare/v2.3.1..v2.3.2
 [2.3.1]: https://github.com/luizirber/niffler/compare/v2.3.0..v2.3.1
