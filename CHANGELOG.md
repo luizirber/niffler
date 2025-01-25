@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - allow gz_lib-ng (without compat) (#69)
 - CI: use cargo-semver-checks to verify breaking changes (#66)
 
+### Changed
+
+- Bump MRSV to 1.74
+
 ## [2.6.0] - 2024-06-08
 
 ### Changed

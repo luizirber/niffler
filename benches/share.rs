@@ -43,11 +43,11 @@ pub const BGZIP_FILE: &'static [u8] = &[
 #[allow(dead_code)]
 pub fn read_all_stream<'a>(stream: Box<dyn std::io::Read + 'a>) {
     for b in stream.bytes() {
-        criterion::black_box(b).unwrap();
+        codspeed_criterion_compat::black_box(b).unwrap();
     }
 }
 
 #[allow(dead_code)]
 pub fn write_all_data<'a>(mut stream: Box<dyn std::io::Write + 'a>, data: &[u8]) {
-    criterion::black_box(stream.write(data)).unwrap();
+    codspeed_criterion_compat::black_box(stream.write(data)).unwrap();
 }

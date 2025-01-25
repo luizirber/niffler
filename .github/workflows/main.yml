@@ -64,12 +64,14 @@ jobs:
 
       - uses: Swatinem/rust-cache@v2
 
+      - uses: taiki-e/install-action@nextest
+
       - uses: taiki-e/install-action@v2
         with:
-          tool: cargo-all-features
+          tool: cargo-feature-combinations
 
       - name: Run tests for all feature combinations
-        run: cargo test-all-features --no-fail-fast --all --locked
+        run: cargo fc nextest run
 
   coverage:
     runs-on: ubuntu-latest
