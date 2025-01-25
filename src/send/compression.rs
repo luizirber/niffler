@@ -1,6 +1,5 @@
 #![allow(clippy::unnecessary_wraps)]
 
-/* Format detection enum */
 pub use crate::basic::compression::Format;
 
 pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
@@ -16,34 +15,34 @@ pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
 impl_format!(
     gz,
     "gz",
-    crate::send::compression::Format::Gzip,
+    crate::basic::compression::Format::Gzip,
     flate2::write::GzEncoder::new,
     flate2::read::MultiGzDecoder::new,
     std::io::Read | Send,
     std::io::Write | Send,
-    crate::send::compression::Format
+    crate::basic::compression::Format
 );
 
 impl_format!(
     bz2,
     "bz2",
-    crate::send::compression::Format::Bzip,
+    crate::basic::compression::Format::Bzip,
     bzip2::write::BzEncoder::new,
     bzip2::read::MultiBzDecoder::new,
     std::io::Read | Send,
     std::io::Write | Send,
-    crate::send::compression::Format
+    crate::basic::compression::Format
 );
 
 impl_format!(
     lzma,
     "lzma",
-    crate::send::compression::Format::Lzma,
+    crate::basic::compression::Format::Lzma,
     liblzma::write::XzEncoder::new,
     liblzma::read::XzDecoder::new,
     std::io::Read | Send,
     std::io::Write | Send,
-    crate::send::compression::Format
+    crate::basic::compression::Format
 );
 
 pub mod zstd {

@@ -1,9 +1,4 @@
-/// `Format` represent a compression format of a file. Currently BGzip are supported.
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
-pub enum Format {
-    BGzip,
-    No,
-}
+pub use crate::seek::compression::Format;
 
 pub(crate) fn bytes2type(bytes: [u8; 17]) -> Format {
     match bytes {
