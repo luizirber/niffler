@@ -171,4 +171,4 @@ jobs:
 
       - name: Build on wasm
         run: |
-          cargo build --target wasm32-unknown-unknown --no-default-features --features gz
+          cargo build --target wasm32-unknown-unknown --no-default-features --features wasm
