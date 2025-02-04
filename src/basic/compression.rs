@@ -40,7 +40,7 @@ pub(crate) fn bytes2type(bytes: [u8; 5]) -> Format {
 
 cfg_if! {
     if #[cfg(feature = "gz")] {
-        pub(crate) fn new_gz_encoder<'a>(out: Box<dyn io::Write  + 'a>, level: Level) -> Result<Box<dyn io::Write  + 'a>, Error> {
+        pub(crate) fn new_gz_encoder<'a>(out: Box<dyn io::Write  + 'a>, level: Level) -> Result<Box<dyn io::Write + 'a>, Error> {
             Ok(Box::new(flate2::write::GzEncoder::new(
         out,
         level.into(),
