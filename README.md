@@ -77,7 +77,21 @@ Check [Cargo.toml](Cargo.toml) for specific versions when adding to your project
 | `lzma` | [liblzma](https://lib.rs/crates/liblzma) | [Check on docs.rs](https://docs.rs/crate/liblzma/latest/features) |
 | `zstd` | [zstd](https://lib.rs/crates/zstd) | [Check on docs.rs](https://docs.rs/crate/zstd/latest/features) |
 
-This is especially useful if you need to link with an external C/C++ project that
+You can also run `cargo tree` to verify what features are enabled by default,
+and better guide you when choosing the features you want.
+```bash
+❯ cargo tree -f '{p} {f}' -e no-dev --depth 1
+niffler v3.0.0 bgz,bz2,default,gz,lzma,zstd
+├── bgzip v0.3.1 default,flate2,log,rayon,rust_backend
+├── bzip2 v0.5.0 default
+├── cfg-if v1.0.0
+├── flate2 v1.0.35 any_impl,default,miniz_oxide,rust_backend
+├── liblzma v0.3.5 bindgen,default
+├── thiserror v2.0.11 default,std
+└── zstd v0.13.2 arrays,default,legacy,zdict_builder
+```
+
+This level of control is especially useful if you need to link with an external C/C++ project that
 has specific requirements,
 or if you want to harmonize features with other crates you have in your projects.
 
