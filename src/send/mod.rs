@@ -77,7 +77,6 @@ pub fn to_path<'a, P: AsRef<Path>>(
 
 #[cfg(test)]
 mod test {
-
     use super::*;
     use tempfile::NamedTempFile;
 
