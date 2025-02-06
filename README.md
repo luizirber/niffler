@@ -19,22 +19,71 @@ bioinformatics workflows.
 [build-status]: https://github.com/luizirber/niffler/workflows/CI/badge.svg
 [github-actions]: https://github.com/luizirber/niffler/actions?query=workflow%3ACI
 
+
+# Example
+
+```rust
+use niffler::{Error, compression};
+# fn main() -> Result<(), Error> {
+# #[cfg(feature = "gz")] {
+let mut buffer = Vec::new();
+
+{
+  let mut writer = niffler::get_writer(Box::new(&mut buffer), compression::Format::Gzip, niffler::Level::Nine)?;
+  writer.write_all(b"hello")?;
+}
+
+# assert_eq!(&buffer, &[0x1f, 0x8b, 8, 0, 0, 0, 0, 0, 2, 255, 203, 72, 205, 201, 201, 7, 0, 134, 166, 16, 54, 5, 0, 0, 0]);
+
+let (mut reader, compression) = niffler::get_reader(Box::new(&buffer[..]))?;
+
+let mut contents = String::new();
+reader.read_to_string(&mut contents)?;
+
+assert_eq!(compression, niffler::compression::Format::Gzip);
+assert_eq!(contents, "hello");
+# }
+# Ok(())
+# }
+```
+
 ## Selecting compression formats
 
-By default all supported compression formats are enabled.
-If you're working on systems that don't support them you can disable default
-features and select the ones you want.
+By default all supported compression formats are enabled,
+using their default features or with an optimized subset of features.
+
+The crates used for decompression provide a number of features that can have
+a significant impact on performance.
+For advanced uses,
+like selecting specific features for any of the compression crates,
+or if you are working on systems that do not support some of the compression formats,
+you can disable default features and select the compression formats you want in niffler,
+and then you must select the appropriate features for the specific compression crate
+implementing that format.
 For example,
-currently only `gz` is supported in Webassembly environments
-(because `niffler` depends on crates that have system dependencies for `bz2` and `lzma` compression),
-so you can use this in your `Cargo.toml` to select only the `gz` support:
+you can use this in your `Cargo.toml` to select only the `gz` support,
+and choose your preferred gzip implementation:
+```toml
+niffler = { version = "3.0.0", default-features = false, features = ["gz"] }
+flate2 = { version = "1.0.35", default-features = false, features = ["zlib-ng"] }
 ```
-niffler = { version = "2.2.0", default-features = false, features = ["gz"] }
-```
+These are the niffler features, and the compression crate used.
+Check [Cargo.toml](Cargo.toml) for specific versions when adding to your project.
+| niffler feature | Crate | Crate features |
+| --- | --- | --- |
+| `bgz` | [bgzip](https://lib.rs/crates/bgzip) | [Check on docs.rs](https://docs.rs/crate/bgzip/latest/features) |
+| `bz2` | [bzip2](https://lib.rs/crates/bzip2) | [Check on docs.rs](https://docs.rs/crate/bzip2/latest/features) |
+| `gz` | [flate2](https://lib.rs/crates/flate2) | [Check on docs.rs](https://docs.rs/crate/flate2/latest/features) |
+| `lzma` | [liblzma](https://lib.rs/crates/liblzma) | [Check on docs.rs](https://docs.rs/crate/liblzma/latest/features) |
+| `zstd` | [zstd](https://lib.rs/crates/zstd) | [Check on docs.rs](https://docs.rs/crate/zstd/latest/features) |
+
+This is especially useful if you need to link with an external C/C++ project that
+has specific requirements,
+or if you want to harmonize features with other crates you have in your projects.
 
 You can still use `niffler::sniff()` to find what is the compression format,
 even if any feature is disabled.
-But if you try to use `niffler::get_reader` for a disabled feature,
+But if you try to use `niffler::get_reader` or `niffler::get_writer` for a feature that was not enabled,
 it will throw a runtime error.
 
 ## Minimum supported Rust version
@@ -56,24 +105,24 @@ niffler development is open, and [pull requests](https://github.com/luizirber/ni
 
 Before creating your pull request, please try to write a test and benchmark (if possible).
 Some commands we suggest running to help with these tasks:
-```
+```bash
 cargo fmt
 cargo test
 cargo clippy
 ```
 
 To run tests use:
-```
+```bash
 cargo test --all-features
 ```
 
 To test benchmark run:
-```
+```bash
 cargo test --benches --all-features
 ```
 
 To run all benchmark use:
-```
+```bash
 cargo bench --all-features
 ```
 
@@ -84,8 +133,8 @@ which will execute all these commands.
 
 Licensed under either of these:
 
- * Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or https://www.apache.org/licenses/LICENSE-2.0)
- * MIT License ([LICENSE-MIT](LICENSE-MIT) or https://opensource.org/licenses/MIT)
+ * Apache License, Version 2.0 ([LICENSE-APACHE](./LICENSE-APACHE) or <https://www.apache.org/licenses/LICENSE-2.0> )
+ * MIT License ([LICENSE-MIT](./LICENSE-MIT) or <https://opensource.org/licenses/MIT> )
 
 ### Contributing
 
