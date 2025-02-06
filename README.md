@@ -6,7 +6,7 @@ Simple and transparent support for compressed files.
 
 This library provides two main features:
 - sniffs out compression formats from input files and returns a
-Read trait object ready for consumption.
+  Read trait object ready for consumption.
 - Create a Writer initialized with compression ready for writing.
 
 The goal is to lower the barrier to open and use a file, especially in
