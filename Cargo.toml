@@ -19,6 +19,7 @@ gz = ["flate2"]
 bgz = ["bgzip"]
 xz = ["lzma"]
 zstd = ["dep:zstd"]
+wasm = ["zstd", "lzma", "gz", "bgz"]
 
 # bzip2 feature transitivity
 bz2_tokio = ["bzip2/tokio"]
@@ -36,7 +37,6 @@ gz_rust_backend = ["flate2/rust_backend"]
 
 # xz feature transitivity
 xz_tokio = ["liblzma/tokio"]
-
 
 [dependencies]
 cfg-if = "1.0"

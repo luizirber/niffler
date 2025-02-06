@@ -11,10 +11,17 @@ platforms = ["linux-64", "linux-aarch64", "osx-64", "osx-arm64", "win-64"]
 [environments]
 default = { features = ["dev", "build"], solve-group="default" }
 dev = { features = ["dev", "build"], solve-group = "default" }
+wasm = { features = ["dev", "build", "wasm"], solve-group = "default" }
 msrv = { features = ["msrv", "build"], solve-group = "msrv" }
 
 [feature.msrv.dependencies]
 rust = "~=1.74.0"
+
+[feature.wasm.dependencies]
+rust-std-wasm32-unknown-unknown = "*"
+
+[feature.wasm.tasks]
+build-wasm = "cargo build --target wasm32-unknown-unknown --no-default-features --features wasm"
 
 [feature.msrv.tasks]
 check_msrv = "cargo build"
