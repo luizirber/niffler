@@ -14,18 +14,24 @@ rust-version = "1.74"
 [features]
 default = [
     "bgz", "bgzip/default",
-    "bz2", "bzip2/default", #for 0.5.0
+    "bz2", "bzip2/default",
     "gz", "flate2/default",
-    "lzma", "xz", "liblzma/default",
+    "lzma", "liblzma/default",
     "zstd", "zstd/default"
 ]
 bz2 = ["dep:bzip2"]
 lzma = ["dep:liblzma"]
 gz = ["dep:flate2"]
 bgz = ["dep:bgzip"]
-xz = ["lzma"]
 zstd = ["dep:zstd"]
-wasm = ["zstd", "lzma", "gz", "bgz"]
+
+wasm = [
+    "zstd",
+    "lzma", "liblzma/default",
+    "gz", "flate2/rust_backend",
+    "bgz", "bgzip/rust_backend",
+    "bz2", "bzip2/libbz2-rs-sys",
+]
 
 [dependencies]
 cfg-if = "1.0"
@@ -57,36 +63,11 @@ required-features = ["bz2"]
 [[bench]]
 name = "lzma"
 harness = false
-required-features = ["xz"]
+required-features = ["lzma"]
 
 [package.metadata.cargo-feature-combinations]
 denylist = [
-  # bzip2 feature transitivity
-  "bz2_libbz2-rs-sys",
-  "bz2_static",
-
-  # lzma feature transitivity
-  "lzma_tokio",
-
-  # flate2 feature transitivity
-  "gz_zlib",
-  "gz_zlib-ng",
-  "gz_zlib-ng-compat",
-  "gz_cloudflare_zlib",
-  "gz_rust_backend",
-
-  # xz feature transitivity
-  "xz_tokio",
-
-  # xz is an alias to lzma
-  "xz",
-
-  # optional dependencies
-  "bzip2",
-  "flate2",
-  "liblzma",
-  "bgzip",
-
-  # skip default
+  # skip default and wasm
   "default",
+  "wasm",
 ]
