@@ -102,7 +102,7 @@ it will throw a runtime error.
 
 ## Minimum supported Rust version
 
-Currently the minimum supported Rust version is 1.74.0.
+Currently the minimum supported Rust version is 1.82.0.
 
 ## Similar project
 
