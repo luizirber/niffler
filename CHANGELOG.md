@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+### Chore
+
+- Update version of bzip2 and liblzma, remove `bzip2/libbz2-rs-sys` in wasm feature.
+
 ## [3.0.0] - 2025-02-12
 
 ### Changed
