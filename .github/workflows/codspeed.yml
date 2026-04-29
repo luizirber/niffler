@@ -28,7 +28,7 @@ jobs:
         run: cargo codspeed build --bench detect_format --bench gzip --bench bzip2 --bench lzma
 
       - name: Run the benchmarks
-        uses: CodSpeedHQ/action@v3
+        uses: CodSpeedHQ/action@v4
         with:
           run: "cargo codspeed run"
           token: ${{ secrets.CODSPEED_TOKEN }}
