@@ -1,4 +1,4 @@
-[project]
+[workspace]
 name = "niffler"
 version = "3.0.0"
 description = "Simple and transparent support for compressed files."
@@ -15,7 +15,7 @@ wasm = { features = ["dev", "build", "wasm"], solve-group = "default" }
 msrv = { features = ["msrv", "build"], solve-group = "msrv" }
 
 [feature.msrv.dependencies]
-rust = "~=1.74.0"
+rust = "~=1.82.0"
 
 [feature.wasm.dependencies]
 rust-std-wasm32-unknown-unknown = "*"
@@ -27,7 +27,7 @@ build-wasm = "cargo build --target wasm32-unknown-unknown --no-default-features 
 check_msrv = "cargo build"
 
 [feature.dev.dependencies]
-rust = "~=1.84.0"
+rust = "~=1.93.1"
 cargo-nextest = ">=0.9.78,<0.10"
 cargo-llvm-cov = ">=0.6.15,<0.7"
 

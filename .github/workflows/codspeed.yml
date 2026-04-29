@@ -25,7 +25,7 @@ jobs:
           bins: cargo-codspeed
 
       - name: Build the benchmark target(s)
-        run: cargo codspeed build
+        run: cargo codspeed build --bench detect_format --bench gzip --bench bzip2 --bench lzma
 
       - name: Run the benchmarks
         uses: CodSpeedHQ/action@v3
