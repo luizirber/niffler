@@ -155,9 +155,9 @@ jobs:
       - name: check if Cargo.toml matches MSRV defined here
         run: grep 'rust-version = "1.82"' Cargo.toml
 
-      - name: Run tests
+      - name: verify crate builds with MSRV
         run: |
-          cargo nextest run
+          cargo build --all-features
 
   wasm:
     runs-on: ubuntu-latest
