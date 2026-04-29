@@ -64,3 +64,7 @@ required-features = ["bz2"]
 name = "lzma"
 harness = false
 required-features = ["lzma"]
+
+[[bench]]
+name = "share"
+harness = false
