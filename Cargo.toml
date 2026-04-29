@@ -1,6 +1,6 @@
 [package]
 name = "niffler"
-version = "3.0.0"
+version = "3.0.1"
 authors = ["Pierre Marijon <pierre@marijon.fr>", "Luiz Irber <luiz.irber@gmail.com>"]
 description = "Simple and transparent support for compressed files"
 license = "MIT/Apache-2.0"
@@ -30,7 +30,7 @@ wasm = [
     "lzma", "liblzma/default",
     "gz", "flate2/rust_backend",
     "bgz", "bgzip/rust_backend",
-    "bz2",
+    "bz2", "bzip2/default"
 ]
 
 [dependencies]
