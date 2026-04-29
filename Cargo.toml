@@ -44,7 +44,7 @@ zstd = { version = "0.13", optional = true, default-features = false }
 
 [dev-dependencies]
 tempfile = "3"
-codspeed-criterion-compat = "2.7.2"
+codspeed-criterion-compat = "4.6.0"
 
 [[bench]]
 name = "detect_format"
