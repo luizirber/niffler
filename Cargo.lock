@@ -533,7 +533,7 @@ dependencies = [
 
 [[package]]
 name = "niffler"
-version = "3.0.1"
+version = "3.0.2"
 dependencies = [
  "bgzip",
  "bzip2",
