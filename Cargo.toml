@@ -1,6 +1,6 @@
 [package]
 name = "niffler"
-version = "3.0.1"
+version = "3.0.2"
 authors = ["Pierre Marijon <pierre@marijon.fr>", "Luiz Irber <luiz.irber@gmail.com>"]
 description = "Simple and transparent support for compressed files"
 license = "MIT/Apache-2.0"
@@ -44,7 +44,7 @@ zstd = { version = "0.14", optional = true, default-features = false }
 
 [dev-dependencies]
 tempfile = "3"
-codspeed-criterion-compat = "5.0.1"
+codspeed-criterion-compat = "6.0.0"
 
 [[bench]]
 name = "detect_format"

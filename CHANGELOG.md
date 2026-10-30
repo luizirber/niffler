@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chore
 
+## [3.0.2] - 2026-10-30
+
+### Chore
+
+- Update dependencies for cargo and pixi (#90) (#93)
+
 ## [3.0.1] - 2026-04-29
 
 ### Changed
@@ -171,7 +177,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename crate from `ocf` to `niffler`
 - Import codebase from sourmash repo (which copied it from the yacrd repo)
 
-[unreleased]: https://github.com/luizirber/niffler/compare/v3.0.1...HEAD
+[unreleased]: https://github.com/luizirber/niffler/compare/v3.0.2..HEAD
+[3.0.2]: https://github.com/luizirber/niffler/compare/v3.0.1..v3.0.2
 [3.0.1]: https://github.com/luizirber/niffler/compare/v3.0.0..v3.0.1
 [3.0.0]: https://github.com/luizirber/niffler/compare/v2.7.0..v3.0.0
 [2.7.0]: https://github.com/luizirber/niffler/compare/v2.6.0..v2.7.0
